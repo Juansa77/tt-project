@@ -1,0 +1,8 @@
+.places {
+    display: flex;
+    margin-top: 10vh;
+    flex-direction: column;
+    align-items: center;
+    color: beige;
+  }
+  
