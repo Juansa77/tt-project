@@ -37,22 +37,9 @@ const SearchButton = styled.button`
   font-weight: bold;
 `;
 
-const SearchBar = ({ placeholder, onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+const SearchBar = ({ placeholder, searchTerm, handleChange, handleSearch }) => {
+  
 
-  const handleSearch = () => {
-    onSearch(searchTerm);
-  };
-
-  const handleChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
-  };
 
   return (
     <SearchBarContainer>
@@ -61,7 +48,6 @@ const SearchBar = ({ placeholder, onSearch }) => {
         placeholder={placeholder}
         value={searchTerm}
         onChange={handleChange}
-        onKeyPress={handleKeyPress}
       />
       <SearchButton onClick={handleSearch}>Buscar</SearchButton>
     </SearchBarContainer>

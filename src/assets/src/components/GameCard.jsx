@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const CardContainer = styled.div`
   width: 25vw;
-  height: 25vh;
+  height: 35vh;
   background-color: #141414;
   color: #fff;
   border-radius: 8px;
