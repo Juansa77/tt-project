@@ -20,8 +20,8 @@ const NavBar = () => {
         <li><NavLink to="/games">GAME SEARCH</NavLink></li>
         <li><NavLink to="/search-friends">SEARCH FRIENDS</NavLink></li>
         <li><NavLink to="/places">PLACES TO PLAY</NavLink></li>
-        <li>USER</li>
-        <li>LOG OUT</li>
+        <li><NavLink to="/register">REGISTER</NavLink></li>
+        <li><NavLink to="/login">LOGIN</NavLink></li>
       </ul>
       <div  onClick={toogleHamburger}>
         <Hamburger isOpen={hamburgerOpen} />

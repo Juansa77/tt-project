@@ -1,8 +1,10 @@
+import SearchBar from "../../components/SearchBar"
 import "./GameSearch.css"
+
 
 const GameSearch = () => {
   return (
-    <div className="gameSearch">GameSearch</div>
+    <div className="gameSearch"><SearchBar placeholder="Type a name..."/></div>
   )
 }
 

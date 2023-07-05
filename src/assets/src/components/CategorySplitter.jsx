@@ -7,23 +7,26 @@ const CategoryTextContainer = styled.div`
   left: 0;
   min-width: 110%;
   overflow:hidden;
-  height:3.7vh;
+  height:6.7vh;
  color:beige;
   display:flex;
   margin-top:6vh;
   margin-bottom:5vh;
-  background: beige;
   justify-content:center;
+
   
   
 
 `;
 
 const CategoryText = styled.h2`
-  font-size: 2.5vh;
-  margin: 0;
+  font-size: 3.2vh;
+  min-width:100%;
   margin-bottom:2vh;
-  color:#FF4500;
+  color:beige;
+  text-align:left;
+  margin-left:32vw;
+  height:7vh;
 
 `;
 
