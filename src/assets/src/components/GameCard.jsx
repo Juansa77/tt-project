@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import styled from 'styled-components';
+import { FaPlus, FaMinus } from 'react-icons/fa';
 
 const CardContainer = styled.div`
-  width: 25vw;
-  height: 35vh;
+  width: 14vw;
+  height: 33vh;
   background-color: #141414;
   color: #fff;
   border-radius: 8px;
@@ -53,7 +54,7 @@ const TitleContainer = styled.div`
 `;
 
 const Title = styled.h2`
-  font-size: 3vh;
+  font-size: 2.3vh;
   text-align: left;
   margin: 0;
   margin-bottom:2vh;
@@ -61,9 +62,40 @@ const Title = styled.h2`
 
 `;
 
-const GameCard=({image, title}) => {
+
+const AddButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+`;
+
+const RemoveButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 40px;
+  z-index: 2;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+`;
+
+
+
+const GameCard=({image, title, onClickAdd, onClickRemove}) => {
   return (
     <CardContainer>
+    <AddButton onClick={onClickAdd}>
+        <FaPlus />
+      </AddButton>
+      <RemoveButton onClick={onClickRemove}>
+        <FaMinus />
+      </RemoveButton>
       <Image src={image} alt="Imagen" />
       <TitleContainer>
         <Title>{title}</Title>

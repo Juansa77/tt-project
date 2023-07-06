@@ -13,6 +13,8 @@ const useLoginError = (res, setLoginOk, userLogin, setRes) => {
       _id: res.data.user._id,
       image: res.data.user.image,
       check: res.data.user.check,
+      games:res.data.user.games,
+      friends:res.data.user.friends
     };
 
 

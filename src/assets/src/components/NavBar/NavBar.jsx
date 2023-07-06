@@ -2,10 +2,13 @@
 
 import Hamburger from "./Hamburger";
 import { useState } from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
+import { useAuth } from "../../contexts/authContext";
 
 const NavBar = () => {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
+  const { user, logOut } = useAuth();
+  console.log(user);
 
   const toogleHamburger = () => {
     setHamburgerOpen(!hamburgerOpen);
@@ -14,16 +17,40 @@ const NavBar = () => {
   return (
     <div className="navigation">
       <ul>
-      
-        <li><NavLink to="/">HOME</NavLink></li>
-        
-        <li><NavLink to="/games">GAME SEARCH</NavLink></li>
-        <li><NavLink to="/search-friends">SEARCH FRIENDS</NavLink></li>
-        <li><NavLink to="/places">PLACES TO PLAY</NavLink></li>
-        <li><NavLink to="/register">REGISTER</NavLink></li>
-        <li><NavLink to="/login">LOGIN</NavLink></li>
+        <li>
+          <NavLink to="/">HOME</NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/games">GAME SEARCH</NavLink>
+        </li>
+        <li>
+          <NavLink to="/search-friends">SEARCH FRIENDS</NavLink>
+        </li>
+        <li>
+          <NavLink to="/places">PLACES TO PLAY</NavLink>
+        </li>
+        <li>
+          <NavLink to="/register">REGISTER</NavLink>
+        </li>
+        {user !== null ? (
+          <li>
+            <NavLink to="/profile">PROFILE</NavLink>
+          </li>
+        ) : (
+          <li>
+            <NavLink to="/login">LOGIN</NavLink>
+          </li>
+        )}
+        {user !== null && (
+          <li>
+            <h3 className="iconNav iconLogout" onClick={() => logOut()}>
+              Log out
+            </h3>
+          </li>
+        )}
       </ul>
-      <div  onClick={toogleHamburger}>
+      <div onClick={toogleHamburger}>
         <Hamburger isOpen={hamburgerOpen} />
       </div>
 
@@ -67,7 +94,7 @@ const NavBar = () => {
           text-decoration: underline;
               }
 
-     
+     h3{cursor:pointer;}
 
         @media (max-width: 767px) {
           .hamburger {

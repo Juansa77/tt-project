@@ -18,6 +18,7 @@ const Login = () => {
   //* 1) ------------------ FUNCION QUE GESTIONA EL FORMULARIO----------
   const formSubmit = async (formData) => {
     setSend(true);
+    console.log(formData)
     setRes(await loginUser(formData));
     setSend(false);
   };
@@ -35,7 +36,7 @@ const Login = () => {
     if (res.data.user.check == false) {
       return <Navigate to="/verifyCode" />;
     } else {
-      return <Navigate to="/dashboard" />;
+      return <Navigate to="/profile" />;
     }
   }
   return (

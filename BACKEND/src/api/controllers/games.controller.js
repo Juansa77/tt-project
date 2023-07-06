@@ -18,10 +18,10 @@ const title = async (req, res, next) => {
   const titleToSearch = firstToUpperCase(title);
 
   try {
-    const game = await Game.find({ title: titleToSearch });
-    console.log(game.length);
-    if (game.length > 0) {
-      return res.status(200).json(game);
+    const games = await Game.find({ title: { $regex: titleToSearch, $options: 'i' } });
+    console.log(games.length);
+    if (games.length > 0) {
+      return res.status(200).json(games);
     } else {
       return res.status(404).json('Game not found');
     }

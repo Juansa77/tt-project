@@ -1,10 +1,17 @@
 import { useState } from "react";
 import SearchBar from "../../components/SearchBar";
 import "./GameSearch.css";
-import { gameByName } from "../../services/API_USER/game.service";
+import {
+  addGameToUser,
+  gameByName,
+  removeGameInUser,
+} from "../../services/API_USER/game.service";
 import GameCard from "../../components/GameCard";
+import { useAuth } from "../../contexts/authContext";
+
 
 const GameSearch = () => {
+  const { user } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
   const [response, setResponse] = useState([]);
 
@@ -14,11 +21,31 @@ const GameSearch = () => {
 
   const handleSearch = async () => {
     try {
-      console.log(searchTerm);
       const title = searchTerm;
       const responseData = await gameByName(title);
       setResponse(responseData);
-      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleAddGame = async (gameId) => {
+    try {
+      const userID = user?._id;
+      const token = user?.token;
+      const responseData = await addGameToUser(userID, gameId, token);
+      setResponse(responseData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleRemoveGame = async (gameId) => {
+    try {
+      const userID = user?._id;
+      const token = user?.token;
+      const responseData = await removeGameInUser(userID, gameId, token);
+      setResponse(responseData);
     } catch (error) {
       console.log(error);
     }
@@ -34,13 +61,21 @@ const GameSearch = () => {
           handleSearch={handleSearch}
         />
       </div>
-      {response?.response?.data == "Game not found"&& (<h1>Game not found</h1>)}
-      {response?.data?.length > 0 && (
-        <GameCard
-          title={response.data[0].title}
-          image={response.data[0].image}
-        />
-      )}
+      <div className="gameSearch-container">
+        {response?.response?.data == "Game not found" && (
+          <h1>Game not found</h1>
+        )}
+        {response?.data?.length > 0 &&
+          response?.data?.map((game, index) => (
+            <GameCard
+              key={index}
+              title={game.title}
+              image={game.image}
+              onClickAdd={() => handleAddGame(game._id)}
+              onClickRemove={() => handleRemoveGame(game._id)}
+            />
+          ))}
+      </div>
     </>
   );
 };

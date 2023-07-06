@@ -4,4 +4,17 @@
   flex-direction: column;
   align-items: center;
   color: beige;
+  width: 100vw;
+}
+
+
+.gameSearch-container{
+  display: grid;
+  width: 100vw;
+  margin-top: 10vh;
+  grid-template-columns: repeat(5, 3vw);
+  justify-content: center;
+  justify-items: center;
+  column-gap: 12vw;
+  row-gap: 3vh;
 }

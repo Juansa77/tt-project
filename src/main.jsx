@@ -12,28 +12,26 @@ import { AuthContextProvider } from "./assets/src/contexts/authContext.jsx";
 import Register from "./assets/src/pages/RegisterPage/Register.jsx";
 import Login from "./assets/src/pages/Login/Login.jsx";
 import CheckCode from "./assets/src/pages/CheckCode/CheckCode.jsx";
-
-
-
-
+import Profile from "./assets/src/pages/ProfilePage/Profile.jsx";
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <NavBar />
       <AuthContextProvider>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<Home />} />
-        </Route>
-        <Route path="/games" element={<GameSearch />} />
-        <Route path="/search-friends" element={<FriendSearchPage />} />
-        <Route path="/places" element={<PlacesPage />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/verifyCode" element={<CheckCode />} />
-      </Routes>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route index element={<Home />} />
+          </Route>
+          <Route path="/games" element={<GameSearch />} />
+          <Route path="/search-friends" element={<FriendSearchPage />} />
+          <Route path="/places" element={<PlacesPage />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/verifyCode" element={<CheckCode />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
       </AuthContextProvider>
     </BrowserRouter>
   </React.StrictMode>
