@@ -68,7 +68,7 @@ const CheckCode = () => {
 
   if (okCheck) {
     if(!localStorage.getItem("user")){
-      console.log(allUser)
+
       setOkCheck(()=>false)
       useAutoLogin(allUser, userLogin, setOkCheck, dataLogin)
     }

@@ -24,11 +24,13 @@ const Login = () => {
   };
 
   //* 2) ------------------ LOS USEEFFECT QUE GESTIONAN LA RESPUESTA: ERRORES Y 200
-
+//*La primera vez que renderiza, setea el user a null, por si las moscas
+  useEffect(() => {
+    setUser(() => null);
+  }, []);
   useEffect(() => {
     console.log(res);
-    setUser(() => null);
-    useLoginError(res, setLoginOk, userLogin);
+    useLoginError(res, setLoginOk, userLogin, setRes);
   }, [res]);
   //* 3) ------------------ ESTADOS DE NAVEGACION O ESTADOS DE FUNCIONALIDADES OK
 

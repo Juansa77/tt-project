@@ -10,7 +10,7 @@ const useLoginError = (res, setLoginOk, userLogin, setRes) => {
       token: res.data.token,
       user: res.data.user.name,
       email: res.data.user.email,
-      _id: res.data.user._id,
+      id: res.data.user._id,
       image: res.data.user.image,
       check: res.data.user.check,
       games:res.data.user.games,
@@ -29,6 +29,7 @@ const useLoginError = (res, setLoginOk, userLogin, setRes) => {
       showConfirmButton: false,
       timer: 1500,
     });
+ 
   }
 
   //* ------------------- 404: 'password dont match'

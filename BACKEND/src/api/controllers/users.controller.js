@@ -186,10 +186,12 @@ const login = async (req, res, next) => {
   try {
     //traemos email y pass del req.body
     const { email, password } = req.body;
+    console.log("req.body", req.body)
     //buscamos el usuario
     const user = await User.findOne({ email });
-    console.log(req.body);
+console.log("user pass", user.password)
     //si no hay user, devolvemos un 404
+    console.log(bcrypt.compareSync(password, user.password))
     if (!user) {
       return res.status(404).json('User not found');
     } else {

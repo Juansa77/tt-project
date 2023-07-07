@@ -9,12 +9,13 @@ import {
 import GameCard from "../../components/GameCard";
 import { useAuth } from "../../contexts/authContext";
 
-
 const GameSearch = () => {
-  const { user } = useAuth();
+  const { user, userLogin } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
   const [response, setResponse] = useState([]);
+  const userID = user?.id;
 
+  console.log(userID);
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -28,13 +29,22 @@ const GameSearch = () => {
       console.log(error);
     }
   };
-
+console.log(user.id)
   const handleAddGame = async (gameId) => {
     try {
-      const userID = user?._id;
+      console.log("esto es user", user);
+
       const token = user?.token;
       const responseData = await addGameToUser(userID, gameId, token);
       setResponse(responseData);
+
+      const updatedUser = {
+        ...user,
+        games: [...user.games, gameId], // Agrega el nuevo juego al array de juegos
+      };
+      const dataString = JSON.stringify(updatedUser);
+      // Actualiza la variable userLogin en el contexto
+      userLogin(dataString);
     } catch (error) {
       console.log(error);
     }

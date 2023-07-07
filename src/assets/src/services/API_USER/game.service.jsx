@@ -27,21 +27,16 @@ export const gameByName = async (title) => {
   
 export const addGameToUser = async (userID, gameID, token) => {
 
-    //*Creamos un objeto de configuración con los headers de la solicitud
-    const config = {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: `Bearer ${token}`, // Añade el token de autenticación en los encabezados
-      },
-    };
-  
-    //*Creamos unos params para modificar los parámetros de la url
-    const params = new URLSearchParams();
-  //* Por cada clave y valor en formdata, los metemos en los params de la URL. Convertimos sus propiedades en parámetros
-    Object.entries(userID).forEach(([key, value]) => {
-      params.append(key, value);
-    });
-  return APIuser.post(`http://localhost:8095/api/v1/games/${userID}/add-game/${gameID}`, params, config)
+  const config = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const url = `http://localhost:8095/api/v1/games/${userID}/add-game/${gameID}`;
+
+  return APIuser.post(url, null, config)
     .then((res) => res)
     .catch((error) => error);
 };

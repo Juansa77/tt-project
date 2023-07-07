@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
-const Game = require('../models/game.model');
-const dotenv = require('dotenv');
-const User = require('../models/user.model');
-const cityValidation = require('../../utils/cityValidation');
-const firstToUpperCase = require('../../utils/firstToUpperCase');
-const { deleteImgCloudinary } = require('../../middlewares/files.middleware');
-const setError = require('../../helpers/handleError');
+const Game = require("../models/game.model");
+const dotenv = require("dotenv");
+const User = require("../models/user.model");
+const cityValidation = require("../../utils/cityValidation");
+const firstToUpperCase = require("../../utils/firstToUpperCase");
+const { deleteImgCloudinary } = require("../../middlewares/files.middleware");
+const setError = require("../../helpers/handleError");
 
 dotenv.config();
 
@@ -18,12 +18,14 @@ const title = async (req, res, next) => {
   const titleToSearch = firstToUpperCase(title);
 
   try {
-    const games = await Game.find({ title: { $regex: titleToSearch, $options: 'i' } });
+    const games = await Game.find({
+      title: { $regex: titleToSearch, $options: "i" },
+    });
     console.log(games.length);
     if (games.length > 0) {
       return res.status(200).json(games);
     } else {
-      return res.status(404).json('Game not found');
+      return res.status(404).json("Game not found");
     }
   } catch (error) {
     return res.status(500).json(error);
@@ -43,7 +45,7 @@ const gameByID = async (req, res, next) => {
     if (gameID > 0) {
       return res.status(200).json(gameID);
     } else {
-      return res.status(404).json('Game not found');
+      return res.status(404).json("Game not found");
     }
   } catch (error) {
     res.status(500).json(error);
@@ -64,35 +66,39 @@ const addGameToUser = async (req, res, next) => {
     const game = await Game.findById(gameId);
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     if (!game) {
-      return res.status(404).json({ message: 'Game not found' });
+      return res.status(404).json({ message: "Game not found" });
     }
 
     if (user.games.includes(gameId)) {
-      return res.status(400).json({ message: 'Game already added to user' });
+      return res.status(400).json({ message: "Game already added to user" });
     } else {
       user.games.push(gameId);
       game.owners.push(userId);
 
-      await user.save();
+      //*tomamos todas las variables del objeto user exceptuando la contraseña y después actualizamos, así no modificamos la contraseña
+      const { password, ...updatedUser } = user.toObject();
+
+      await User.findByIdAndUpdate(userId, updatedUser);
+
       await game.save();
 
       // Utilizamos la función populate para obtener la información completa del usuario y el juego
-      const populatedUser = await user.populate('games');
-      const populatedGame = await game.populate('owners');
+      const populatedUser = await user.populate("games");
+      const populatedGame = await game.populate("owners");
 
       return res.status(200).json({
-        message: 'Game added to user',
+        message: "Game added to user",
         user: populatedUser,
         game: populatedGame,
       });
     }
   } catch (error) {
-    console.log('Error adding game to user', error);
-    return res.status(500).json({ message: 'Internal server error' });
+    console.log("Error adding game to user", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -107,22 +113,25 @@ const deleteGameInUser = async (req, res, next) => {
   try {
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({ message: 'user not found' });
+      return res.status(404).json({ message: "user not found" });
     }
     //Hacemos un includes para no meter juegos repetidos
     if (!user.games.includes(gameId)) {
-      return res.status(400).json({ message: 'Game not found in user' });
+      return res.status(400).json({ message: "Game not found in user" });
     } else {
       // Eliminamos el juego del array games del usuario y en el array del juego eliminamos el propietario
       user.games.splice(user.games.indexOf(gameId), 1);
       game.owners.splice(game.owners.indexOf(userId), 1);
-      await user.save();
+      //*tomamos todas las variables del objeto user exceptuando la contraseña y después actualizamos, así no modificamos la contraseña
+      const { password, ...updatedUser } = user.toObject();
+
+      await User.findByIdAndUpdate(userId, updatedUser);
       await game.save();
-      return res.status(200).json({ message: 'Game erased in user' });
+      return res.status(200).json({ message: "Game erased in user" });
     }
   } catch (error) {
-    console.log('Error erasing game in user', error);
-    return res.status(500).json({ message: 'Internal server error' });
+    console.log("Error erasing game in user", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -136,15 +145,14 @@ const gameByRating = async (req, res, next) => {
   try {
     //PARA ENCONTRAR ELEMENTOS IGUALES O SUPERIORES A LA PUNTUACIÓN ELEGIDA, PONEMOS EL OPERADOR DE MONGO $gte
     const games = await Game.find({ rating: { $gte: rating } });
- 
+
     if (games.length > 0) {
-      
       return res.status(200).json(games);
     } else {
-      return res.status(404).json('Games with rating not found');
+      return res.status(404).json("Games with rating not found");
     }
   } catch (error) {
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -160,10 +168,10 @@ const gameByOwners = async (req, res, next) => {
       const owners = games.map((game) => game.owners);
       return res.status(200).json(owners);
     } else {
-      return res.status(404).json({ message: 'Game not found' });
+      return res.status(404).json({ message: "Game not found" });
     }
   } catch (error) {
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -177,7 +185,7 @@ const gamesByCities = async (req, res, next) => {
 
   const titleToSearch = firstToUpperCase(title);
   if (cityIsValid === false) {
-    return res.status(404).json('City is not valid');
+    return res.status(404).json("City is not valid");
   }
   try {
     //Obtenemos el juego
@@ -205,14 +213,14 @@ const gamesByCities = async (req, res, next) => {
       //Ternario para manejar si hay propietarios del título y manejar la respuesta
 
       return flattenedOwners.length === 0
-        ? res.status(404).json({ message: 'Game not found in city' })
+        ? res.status(404).json({ message: "Game not found in city" })
         : res.status(200).json(flattenedOwners);
     } else {
       // La consulta del título no se realizó correctamente
-      return res.status(400).json({ message: 'Title not found in DB' });
+      return res.status(400).json({ message: "Title not found in DB" });
     }
   } catch (error) {
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -226,12 +234,13 @@ const byPlayingTime = async (req, res, next) => {
   try {
     //PARA ENCONTRAR ELEMENTOS IGUALES O SUPERIORES A LA PUNTUACIÓN ELEGIDA, PONEMOS EL OPERADOR DE MONGO $gte
     const games = await Game.find({ playTime: playingTime });
-    if (games.length>0) {
+    if (games.length > 0) {
       return res.status(200).json(games);
+    } else {
+      return res.status(404).json("Games not found");
     }
-    else{ return res.status(404).json('Games not found')}
   } catch (error) {
-    return res.status(500).json({ message: 'Internal server error' })
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -243,7 +252,7 @@ const byType = async (req, res, next) => {
   const { type } = req.query;
 
   try {
-    let typesArray = type.split(','); // Obtener un array de strings separados por comas
+    let typesArray = type.split(","); // Obtener un array de strings separados por comas
     //mapeamos para tener un array con la primera letra en mayúscula
     typesArray = typesArray.map((type) => {
       //
@@ -255,10 +264,10 @@ const byType = async (req, res, next) => {
     if (games.length > 0) {
       return res.status(200).json(games);
     } else {
-      return res.status(404).json({ message: 'Games not found' });
+      return res.status(404).json({ message: "Games not found" });
     }
   } catch (error) {
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -273,7 +282,7 @@ const updateGame = async (req, res, next) => {
     // Verificar si la ID del juego es válida
     const game = await Game.findById(id);
     if (!game) {
-      return res.status(400).json({ message: 'Invalid game ID' });
+      return res.status(400).json({ message: "Invalid game ID" });
     }
 
     // Actualizar el juego con los datos proporcionados en req.body
@@ -283,7 +292,7 @@ const updateGame = async (req, res, next) => {
 
     // Verificar si se actualizó correctamente
     if (!updatedGame) {
-      return res.status(404).json({ message: 'Game not found' });
+      return res.status(404).json({ message: "Game not found" });
     }
 
     return res.status(200).json(updatedGame);
@@ -303,7 +312,7 @@ const deleteGameByID = async (req, res, next) => {
     const game = await Game.findById(id);
 
     if (!game) {
-      return res.status(404).json({ message: 'Game not found' });
+      return res.status(404).json({ message: "Game not found" });
     }
 
     // Eliminamos el juego de los usuarios antes de eliminarlo de la base de datos
@@ -315,12 +324,12 @@ const deleteGameByID = async (req, res, next) => {
     const deletedGame = await Game.findByIdAndDelete(id);
 
     if (deletedGame) {
-      return res.status(200).json({ message: 'Game removed from the DB' });
+      return res.status(200).json({ message: "Game removed from the DB" });
     } else {
-      return res.status(404).json({ message: 'Game not found' });
+      return res.status(404).json({ message: "Game not found" });
     }
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -339,14 +348,14 @@ const addGameToDb = async (req, res, next) => {
     if (req.file) {
       newGame.image = req.file.path;
     } else {
-      newGame.image = 'Imagen genérica';
+      newGame.image = "Imagen genérica";
     }
     const gameExits = await Game.findOne({
       title: newGame.title,
     });
 
     if (gameExits) {
-      return next(setError(409, 'Game already in DB'));
+      return next(setError(409, "Game already in DB"));
     } else {
       const createGame = await newGame.save();
 
@@ -359,7 +368,7 @@ const addGameToDb = async (req, res, next) => {
   } catch (error) {
     deleteImgCloudinary(catchImg);
     return next(
-      setError(error.code || 500, error.message || 'Error creating game')
+      setError(error.code || 500, error.message || "Error creating game")
     );
   }
 };
@@ -375,7 +384,7 @@ const multIFilter = async (req, res, next) => {
   console.log(req.query);
 
   try {
-    let typesArray = type.split(','); // Obtener un array de strings separados por comas
+    let typesArray = type.split(","); // Obtener un array de strings separados por comas
     //mapeamos para tener un array con la primera letra en mayúscula
     typesArray = typesArray.map((type) => {
       //
@@ -392,10 +401,10 @@ const multIFilter = async (req, res, next) => {
     if (games.length > 0) {
       return res.status(200).json(games);
     } else {
-      return res.status(404).json({ message: 'Games not found' });
+      return res.status(404).json({ message: "Games not found" });
     }
   } catch (error) {
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
