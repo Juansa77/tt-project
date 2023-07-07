@@ -1,4 +1,7 @@
+import GameCard from "../../components/GameCard"
 import { useAuth } from "../../contexts/authContext"
+import { gameByID } from "../../services/API_USER/game.service"
+
 
 
 

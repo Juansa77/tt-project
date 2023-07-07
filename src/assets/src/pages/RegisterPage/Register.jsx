@@ -71,6 +71,7 @@ const Register = () => {
   }
   return (
     <>
+    <div className="register-container">
       <div className="form-wrap">
         <h1>Sign Up</h1>
         <p>It’s free and only takes a minute.</p>
@@ -163,6 +164,7 @@ const Register = () => {
         <p>
           Already have an account? <a href="#">Login Here</a>
         </p>
+      </div>
       </div>
     </>
   );

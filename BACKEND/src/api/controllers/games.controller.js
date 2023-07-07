@@ -38,15 +38,14 @@ const title = async (req, res, next) => {
 
 const gameByID = async (req, res, next) => {
   const { id } = req.params;
+  console.log(req.params);
 
   try {
     const gameID = await Game.findById(id);
 
-    if (gameID > 0) {
-      return res.status(200).json(gameID);
-    } else {
-      return res.status(404).json("Game not found");
-    }
+    gameID
+      ? res.status(200).json(gameID)
+      : res.status(404).json("Game not found");
   } catch (error) {
     res.status(500).json(error);
   }
