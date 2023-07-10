@@ -38,6 +38,25 @@ export const checkCodeConfirmationUser = async (formData) => {
 
 
 
+
+//?------------------------------------------------------
+//*-----------------CODE RESEND-------------------------
+//?------------------------------------------------------
+
+
+export const resendCode = async(formData) =>{
+  const config = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  };
+  console.log(formData)
+  return APIuser.post("/users/resend", formData, config)
+    .then((res) => res)
+    .catch((error) => error);
+
+}
+
 //?------------------------------------------------------
 //*-----------------LOGIN-------------------------
 //?------------------------------------------------------

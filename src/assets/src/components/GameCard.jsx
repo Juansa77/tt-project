@@ -4,7 +4,7 @@ import { FaPlus, FaMinus } from 'react-icons/fa';
 
 const CardContainer = styled.div`
   width: 14vw;
-  height: 33vh;
+  height: 32vh;
   background-color: #141414;
   color: #fff;
   border-radius: 8px;

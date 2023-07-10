@@ -4,9 +4,12 @@ import "./CheckCode.css";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import useCheckCodeError from "../../hooks/useCheckCodeError";
-import { checkCodeConfirmationUser } from "../../services/API_USER/user.service";
+import { checkCodeConfirmationUser, resendCode } from "../../services/API_USER/user.service";
 import useAutoLogin from "../../hooks/useAutoLogin";
 import { useAuth } from "../../contexts/authContext";
+import ButtonResendCode from "../../components/ButtonResendCode";
+
+
 
 const CheckCode = () => {
   const [res, setRes] = useState({});
@@ -50,7 +53,6 @@ const CheckCode = () => {
     }
   };
 
-  const handleResend = (formData) => {};
 
   //*-----2--USE EFFECT PARA GESTIONAR ERRORES Y 200 CON CUSTOM HOOK Y SWAL---------
 
@@ -94,6 +96,7 @@ const CheckCode = () => {
 
   return (
     <>
+    <div className="checkcode-container">
       <div className="form-wrap">
         <h1>Verify your code 👌</h1>
         <p>Write the code sent to your email</p>
@@ -124,16 +127,8 @@ const CheckCode = () => {
             </button>
           </div>
           <div className="btn_container">
-            <button
-              id="btnResend"
-              className="btn"
-              disabled={send}
-              style={{ background: send ? "#49c1a388" : "#49c1a2" }}
-              onClick={() => handleResend()}
-            >
-              Resend Code
-            </button>
-          </div>
+          <ButtonResendCode setReloadPageError={setReloadPageError} />
+        </div>
 
           <p className="bottom-text">
             <small>
@@ -142,6 +137,7 @@ const CheckCode = () => {
             </small>
           </p>
         </form>
+      </div>
       </div>
     </>
   );
