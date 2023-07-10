@@ -13,7 +13,7 @@ import Register from "./assets/src/pages/RegisterPage/Register.jsx";
 import Login from "./assets/src/pages/Login/Login.jsx";
 import CheckCode from "./assets/src/pages/CheckCode/CheckCode.jsx";
 import Profile from "./assets/src/pages/ProfilePage/Profile.jsx";
-
+import ForgotPassword from "./assets/src/pages/ForgotPassword/ForgotPassword.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -31,6 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/login" element={<Login />} />
           <Route path="/verifyCode" element={<CheckCode />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
         </Routes>
       </AuthContextProvider>
     </BrowserRouter>

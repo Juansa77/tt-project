@@ -250,10 +250,12 @@ const autoLogin = async (req, res, next) => {
 const forgotPassword = async (req, res, next) => {
   try {
     //recibimos el email por el req.body
-    const { email } = req.body;
 
+    const { email } = req.body;
+    console.log(req.body)
     //comprobamos si existe el usuario
     const userDb = await User.findOne({ email });
+    console.log(userDb)
     if (userDb) {
       //si el usuario existe, redirect al controlador que se encarga del envío y actualización
       return res.redirect(

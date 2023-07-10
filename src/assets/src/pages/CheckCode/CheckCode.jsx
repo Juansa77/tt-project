@@ -66,6 +66,8 @@ const CheckCode = () => {
     );
   }, [res]);
 
+
+   //*-----2--ESTADOS DE NAVEGACIÓN---------
   if (okCheck) {
     if(!localStorage.getItem("user")){
 

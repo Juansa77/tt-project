@@ -2,7 +2,7 @@
 import "./Register.css";
 
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import Uploadfile from "../../components/UploadFile/UploadFile";
 import { registerUser } from "../../services/API_USER/user.service";
 import Spinner from "../../components/Spinner/Spinner";
@@ -156,6 +156,14 @@ const Register = () => {
               By clicking the Sign Up button, you agree to our{" "}
               <a href="#">Terms & Conditions</a> and{" "}
               <a href="#">Privacy Policy</a>.
+            </small>
+          </p>
+          <p className="bottom-text">
+            <small>
+              Have you forgotten the password?
+              <Link to="/forgotpassword" className="anchorCustom">
+                Change password
+              </Link>
             </small>
           </p>
         </form>

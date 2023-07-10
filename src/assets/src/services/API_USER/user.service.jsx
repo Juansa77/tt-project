@@ -99,7 +99,14 @@ export const autoLoginUser = async (formData) => {
 //?------------------------------------------------------
 
 export const forgotPassword = async (formData) => {
-  return APIuser.patch("/users/forgotpassword", formData)
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  };
+  console.log(formData)
+  return APIuser.post("/users/forgotpassword", formData, config)
     .then((res) => res)
     .catch((error) => error);
 };
