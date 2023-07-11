@@ -14,6 +14,8 @@ import Login from "./assets/src/pages/Login/Login.jsx";
 import CheckCode from "./assets/src/pages/CheckCode/CheckCode.jsx";
 import Profile from "./assets/src/pages/ProfilePage/Profile.jsx";
 import ForgotPassword from "./assets/src/pages/ForgotPassword/ForgotPassword.jsx";
+import ChangePassword from "./assets/src/pages/ChangePassword/ChangePassword.jsx";
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -32,6 +34,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/verifyCode" element={<CheckCode />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/passwordchange" element={<ChangePassword />} />
         </Routes>
       </AuthContextProvider>
     </BrowserRouter>

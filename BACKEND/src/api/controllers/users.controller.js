@@ -333,9 +333,9 @@ const modifyPassword = async (req, res, next) => {
   try {
     // Nos traeemos los datos del body y el token
     const { password, newPassword } = req.body;
+    console.log("req.body",req.body)
     const { _id } = req.user;
-    console.log(req.user.password);
-    console.log(password);
+
 
     // Verificamos que password y newPassword sean strings
     if (typeof password !== 'string' || typeof newPassword !== 'string') {
