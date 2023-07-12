@@ -43,6 +43,7 @@ const ForgotPassword = () => {
 
   return (
     <>
+    <div className="forgotPass-container">
       <div className="form-wrap">
         <h1>Change your password 💱</h1>
 
@@ -76,6 +77,7 @@ const ForgotPassword = () => {
             <small>Enter your email to send you the new password 💌</small>
           </p>
         </form>
+      </div>
       </div>
     </>
   );

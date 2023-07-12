@@ -29,7 +29,7 @@ const GameSearch = () => {
       console.log(error);
     }
   };
-console.log(user.id)
+console.log(user?.id)
   const handleAddGame = async (gameId) => {
     try {
       console.log("esto es user", user);

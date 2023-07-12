@@ -7,6 +7,8 @@ import { changePasswordUser } from "../../services/API_USER/user.service";
 import { useAuth } from "../../contexts/authContext";
 import "./ChangePassword.css"
 import { Navigate } from "react-router-dom";
+import ChangeUserName from "../../components/changeUserName/ChangeUserName";
+
 
 
 
@@ -121,6 +123,7 @@ const token = user?.token;
         </form>
       </div>
       </div>
+      <ChangeUserName/>
     </>
   );
 };

@@ -3,7 +3,7 @@ import { updateToken } from "../../utils/updateToken";
 
 const APIHeaders={
     Accept: "application/json",
-  "Content-Type": "multipart/form-data",
+  "Content-Type": "application/json",
   "Access-Control-Allow-Origin": "*",
   Authorization: `Bearer ${updateToken()}`}
     

@@ -73,6 +73,7 @@ const useRegisterError = (res, setOkRegister, setRes, setAllUser) => {
   //* ----ERROR 500: INTERNAL SERVER ERROR------------
 
   if (res?.response?.status == 500) {
+    console.log("res de error 500", res)
     Swal.fire({
       icon: "error",
       title: "Oops...",

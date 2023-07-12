@@ -18,7 +18,7 @@ connect();
 const cors = require('cors');
 
 app.use(cors());
-/*
+
 app.use((req, res, next) => {
   //Ponemos asterisco para deshabiliar el control origin
   res.header('Access-Control-Allow-Origin', '*');
@@ -33,7 +33,7 @@ app.use((req, res, next) => {
   );
   res.header('Allow', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
   next();
-});*/
+});
 
 //!-----------------------------------------
 //?-----------SERVER CONFIG--------------

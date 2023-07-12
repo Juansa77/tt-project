@@ -1,25 +1,22 @@
 import { APIuser } from "./serviceApiUser.config";
+import axios from "axios";
 import { updateToken } from "../../utils/updateToken";
 
 export const registerUser = async (formData) => {
-  const updatedToken = updateToken();
+
   const headers = {
-    Accept: "application/json",
-    "Content-Type": "multipart/form-data",
     "Access-Control-Allow-Origin": "*",
-    Authorization: `Bearer ${updatedToken}`,
+    "Content-Type": "multipart/form-data",
   };
 
-  console.log(formData);
+
+  console.log("formData de register", formData);
 
   return APIuser.post("http://localhost:8095/api/v1/users/register", formData, {
-    headers,
-  })
+    headers: headers}) // Incluir los encabezados directamente en el objeto de configuración
     .then((res) => res)
-    .then(console.log(formData))
     .catch((error) => error);
 };
-
 //?------------------------------------------------------
 //*-----------------CHECKCODE-------------------------
 //?------------------------------------------------------
@@ -151,7 +148,8 @@ export const changePasswordUser = async (formData, token) => {
 //?------------------------------------------------------
 
 export const updateUser = async (formData) => {
-  return APIuser.patch("/users/update", formData)
+  console.log(formData)
+  return APIuser.patch("/users/update/update", formData)
     .then((res) => res)
     .catch((error) => error);
 };

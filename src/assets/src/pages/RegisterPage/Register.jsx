@@ -32,11 +32,12 @@ const Register = () => {
 
       const custonFormData = {
         ...formData,
-        image: inputFile[0],
+        file: inputFile[0],
       };
 
       setSend(true);
       setRes(await registerUser(custonFormData));
+
       setSend(false);
     } else {
       const custonFormData = {
@@ -58,7 +59,7 @@ const Register = () => {
   //? 2) funcion que se encarga del formulario- de la data del formulario
   //! ------------------------------------------------------------------------------
   useEffect(() => {
-    console.log("res.status",res.status);
+
     useRegisterError(res, setOkRegister, setRes, setAllUser, setDatalogin);
     if (res?.status == 201) bridgeData("ALLUSER");
   }, [res]);
@@ -73,8 +74,8 @@ const Register = () => {
     <>
     <div className="register-container">
       <div className="form-wrap">
-        <h1>Sign Up</h1>
-        <p>It’s free and only takes a minute.</p>
+        <h1>Create your account</h1>
+        <p>It’s free</p>
         <form onSubmit={handleSubmit(formSubmit)}>
           <div className="user_container form-group">
             <input

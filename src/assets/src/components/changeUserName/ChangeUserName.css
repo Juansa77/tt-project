@@ -1,9 +1,13 @@
-.forgotPass-container{
+.changeName-container{
     display:flex;
-    width: 100vw;;
+    width: 100vw;
     justify-content: center;
     align-items: center;
     padding-top: 10vh;
     flex-direction: column;
   }
   
+  .form-wrap.formProfile{
+    height: 25vh;
+    margin-top: -9vh;
+  }

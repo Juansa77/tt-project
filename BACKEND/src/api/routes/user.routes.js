@@ -20,7 +20,7 @@ const { isAuth } = require('../../middlewares/auth.midddleware');
 const UserRoutes = express.Router();
 
 //?------Ruta REGISTER USER--------
-UserRoutes.post('/register', upload.single('image'), register);
+UserRoutes.post('/register', upload.single('file'), register);
 
 //?-----Ruta CHECK CONFIRMATION--------
 UserRoutes.post('/check', checkNewUser);

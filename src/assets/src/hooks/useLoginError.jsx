@@ -6,12 +6,13 @@ const useLoginError = (res, setLoginOk, userLogin, setRes) => {
   //* ------------------ 200 : todo ok
 
   if (res?.status == 200) {
+    console.log("res de useloginerror",res)
     const dataCustom = {
       token: res.data.token,
       user: res.data.user.name,
       email: res.data.user.email,
       id: res.data.user._id,
-      image: res.data.user.image,
+      image: res.data.user.file,
       check: res.data.user.check,
       games:res.data.user.games,
       friends:res.data.user.friends

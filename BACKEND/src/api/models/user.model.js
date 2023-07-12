@@ -36,7 +36,7 @@ const UserSchema = new Schema(
       ],
       required: true,
     },
-    image: { type: String },
+    file: { type: String },
     confirmationCode: { type: Number, required: true },
     check: { type: Boolean, required: true, default: false },
     games: [{ type: mongoose.Types.ObjectId, ref: 'Game' }],

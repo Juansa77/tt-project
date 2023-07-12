@@ -1,11 +1,11 @@
+/* eslint-disable no-undef */
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const dotenv = require('dotenv');
 dotenv.config();
 
-/** CREAMOS EL ALMACÉN PARA GUARDAR LAS IMÁGENES EN CLOUDINARY */
-
+//Creamos el almacen
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
@@ -14,34 +14,40 @@ const storage = new CloudinaryStorage({
   },
 });
 
-//Creamos la función para subir las imágenes
-
+//Creamos la función de subir imagenes
 const upload = multer({ storage });
 
-//Función para borrar las imágenes
-
-const deleteImgCloudinary = (imageUrl) => {
-  if (!imageUrl) {
-    console.log('Image URL is undefined');
-    return;
-  }
-
-  const imgSplited = imageUrl.split('/');
+//Función de borrado de imagenes
+const deleteImgCloudinary = (imgUrl) => {
+  const imgSplited = imgUrl.split('/');
   const nameSplited = imgSplited[imgSplited.length - 1].split('.');
   const folderSplited = imgSplited[imgSplited.length - 2];
   const public_id = `${folderSplited}/${nameSplited[0]}`;
 
   cloudinary.uploader.destroy(public_id, () => {
-    console.log('Image deleted in Cloudinary');
+    console.log('Image delete in cloudinary');
   });
 };
 
+
+
+
 const configCloudinary = () => {
-  cloudinary.config({
+  console.log(process.env.CLOUDINARY_CLOUD_NAME);
+console.log(process.env.CLOUDINARY_API_SECRET);
+console.log(process.env.CLOUDINARY_API_KEY);
+
+  try {
+    
+    cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_secret: process.env.CLOUDINARY_API_SECRET,
     api_key: process.env.CLOUDINARY_API_KEY,
   });
+  } catch (error) {
+    console.log(error.message)
+  }
+  
 };
 
 module.exports = { upload, deleteImgCloudinary, configCloudinary };

@@ -14,7 +14,7 @@ const Profile = () => {
  
 
   const { user, setUser } = useAuth();
-  console.log(user);
+  console.log("user",user);
   return (
     <div className="profile-main">
       <div className="profile-container">

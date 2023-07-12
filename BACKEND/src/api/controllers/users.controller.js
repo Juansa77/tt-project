@@ -15,10 +15,13 @@ dotenv.config();
 //!---------------------------------------
 
 const register = async (req, res, next) => {
+  console.log("inicio de register")
   let catchImg = req.file?.path;
+  console.log("req", req.body); 
   try {
     //Lo primero es actualizar los indexs
     await User.syncIndexes();
+    console.log('Indexes updated');
     const email = process.env.EMAIL;
     const password = process.env.PASSWORD;
 
@@ -30,7 +33,7 @@ const register = async (req, res, next) => {
         pass: password,
       },
     });
-
+console.log("lo que sea")
     //Creamos el código que enviará nodemail
 
     const confirmationCode = Math.floor(
@@ -39,10 +42,10 @@ const register = async (req, res, next) => {
 
     //Hacer una nueva estancia de usuario
     const newUser = new User({ ...req.body, confirmationCode });
-    if (req.file) {
-      newUser.image = req.file.path;
+    if (req.file && req.file.path) {
+      newUser.file = req.file.path;
     } else {
-      newUser.image = 'Imagen genérica';
+      newUser.file = 'Imagen genérica';
     }
     const userExits = await User.findOne({
       email: newUser.email,
