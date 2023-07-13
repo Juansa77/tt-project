@@ -19,7 +19,9 @@ const upload = multer({ storage });
 
 //Función de borrado de imagenes
 const deleteImgCloudinary = (imgUrl) => {
+  console.log("entra en delete image")
   const imgSplited = imgUrl.split('/');
+  console.log("primer split")
   const nameSplited = imgSplited[imgSplited.length - 1].split('.');
   const folderSplited = imgSplited[imgSplited.length - 2];
   const public_id = `${folderSplited}/${nameSplited[0]}`;

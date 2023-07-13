@@ -77,7 +77,7 @@ const Uploadfile = ({ registerForm }) => {
       <input
         id="file-upload"
         type="file"
-        name="image"
+        name="file"
         accept="image/*"
         {...registerForm}
       />

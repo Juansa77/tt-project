@@ -401,14 +401,19 @@ const getUserByID = async (req, res, next) => {
 //!---------------------------------------
 
 const updateUser = async (req, res, next) => {
+  let catchImg = req.file?.path;
+  console.log("chatchimage", catchImg)
+  console.log("entra en update")
   try {
     // actualizamos los indexes de los elementos unicos por si han modificado
     await User.syncIndexes();
     // Creamos un nuvo modelo de usar, en el que añadiremos los cambios y después sobreescribimos el user existente con este
     const patchUser = new User(req.body);
     // si tenemos la req.file le metemos el path de cloudinary
+    console.log("req.file",req.file)
     if (req.file) {
-      patchUser.image = req.file.path;
+      console.log("entra en req.file")
+      patchUser.file = req.file.path;
     }
     //Para cambiar el email, si se solicita
     if (req.body.email) {
@@ -474,7 +479,7 @@ const updateUser = async (req, res, next) => {
       await User.findByIdAndUpdate(req.user._id, patchUser);
       // borrramos en cloudinary la imagen antigua
       if (req.file) {
-        deleteImgCloudinary(req.user.image);
+        deleteImgCloudinary(req.user.file);
       }
 
       //! ----------------TEST RUNTIME
@@ -501,7 +506,7 @@ const updateUser = async (req, res, next) => {
       });
 
       if (req.file) {
-        updateUser.image == req.file.path
+        updateUser.file == req.file.path
           ? testUpdate.push({
               file: true,
             })

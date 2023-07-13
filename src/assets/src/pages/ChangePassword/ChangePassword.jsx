@@ -8,6 +8,8 @@ import { useAuth } from "../../contexts/authContext";
 import "./ChangePassword.css"
 import { Navigate } from "react-router-dom";
 import ChangeUserName from "../../components/changeUserName/ChangeUserName";
+import ChangeProfilePic from "../../components/ChangeProfilePic/ChangeProfilePic";
+
 
 
 
@@ -124,6 +126,7 @@ const token = user?.token;
       </div>
       </div>
       <ChangeUserName/>
+      <ChangeProfilePic/>
     </>
   );
 };

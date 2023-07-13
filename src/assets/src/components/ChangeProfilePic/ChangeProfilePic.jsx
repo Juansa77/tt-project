@@ -2,15 +2,16 @@
 import "./ChangeProfilePic.css";
 
 import { useForm } from "react-hook-form";
-import { FigureUser } from "./FigureUser";
+
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2/dist/sweetalert2.all.js";
-import { useUpdateError } from "../hooks";
+
 import Uploadfile from "../UploadFile/UploadFile";
 import { updateUser } from "../../services/API_USER/user.service";
 import { useAuth } from "../../contexts/authContext";
+import useUpdateError from "../../hooks/useUpdateError";
 
-export const FormProfile = () => {
+const ChangeProfilePic = () => {
   const { user, setUser, logOut } = useAuth();
   const { register, handleSubmit } = useForm();
   const [res, setRes] = useState({});
@@ -24,19 +25,22 @@ export const FormProfile = () => {
   const formSubmit = (formData) => {
     console.log("entro");
     Swal.fire({
-      title: "Are you sure you want to change your data profile?",
+      title: "Are you sure you want to change your profile pic?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "rgb(73, 193, 162)",
       cancelButtonColor: "#d33",
       confirmButtonText: "YES",
     }).then(async (result) => {
-      if (result.isConfirmed) {
+      console.log(result);
+      if (result.isConfirmed == true) {
         const inputfile = document.getElementById("file-upload").files;
+        console.log(inputfile);
         let customFormData;
 
         if (inputfile.length !== 0) {
-          customFormData = { ...formData, image: inputfile[0] };
+          console.log("entra en el input file");
+          customFormData = { ...formData, file: inputfile[0] };
           setSend(true);
           setRes(await updateUser(customFormData));
           setSend(false);
@@ -48,21 +52,19 @@ export const FormProfile = () => {
   //! -------------- 2 ) useEffect que gestiona la parte de la respuesta ------- customHook
 
   useEffect(() => {
-    console.log(res);
+    console.log("res de profile pic", res);
     useUpdateError(res, setRes, setUser, logOut);
   }, [res]);
 
   return (
     <>
-      <div className="containerProfile">
-        <div className="containerDataNoChange">
-          <FigureUser user={user} />
-        </div>
-        <div className="form-wrap formProfile">
+      <div className="changePic-container">
+        <div className="containerDataNoChange"></div>
+        <div className="form-wrap formProfile-pic">
           <h1>Change your data profile ♻</h1>
           <p>Please, enter your new data profile</p>
           <form onSubmit={handleSubmit(formSubmit)}>
-            <Uploadfile />
+          <Uploadfile registerForm={register} />
             <div className="btn_container">
               <button
                 className="btn"
@@ -79,3 +81,5 @@ export const FormProfile = () => {
     </>
   );
 };
+
+export default ChangeProfilePic;

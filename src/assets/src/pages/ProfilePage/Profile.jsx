@@ -44,8 +44,8 @@ const Profile = () => {
               <p className="bottom-text">
             <small>
             
-              <Link to="/passwordchange" className="anchorCustom">
-                Change password
+              <Link to="/passwordchange" className="anchorCustom-profileLink">
+                Manage your account
               </Link>
             </small>
           </p>

@@ -3,17 +3,16 @@ import axios from "axios";
 import { updateToken } from "../../utils/updateToken";
 
 export const registerUser = async (formData) => {
-
   const headers = {
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "multipart/form-data",
   };
 
-
   console.log("formData de register", formData);
 
   return APIuser.post("http://localhost:8095/api/v1/users/register", formData, {
-    headers: headers}) // Incluir los encabezados directamente en el objeto de configuración
+    headers: headers,
+  }) // Incluir los encabezados directamente en el objeto de configuración
     .then((res) => res)
     .catch((error) => error);
 };
@@ -148,8 +147,13 @@ export const changePasswordUser = async (formData, token) => {
 //?------------------------------------------------------
 
 export const updateUser = async (formData) => {
-  console.log(formData)
-  return APIuser.patch("/users/update/update", formData)
+  console.log(formData);
+  return APIuser.patch("/users/update/update", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${updateToken()}`,
+    },
+  })
     .then((res) => res)
     .catch((error) => error);
 };

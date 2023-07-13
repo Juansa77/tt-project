@@ -5,9 +5,10 @@
     align-items: center;
     padding-top: 10vh;
     flex-direction: column;
+    min-height: 25vh;
   }
   
   .form-wrap.formProfile{
     height: 25vh;
-    margin-top: -9vh;
+    margin-top: -12vh;
   }

@@ -48,7 +48,7 @@ UserRoutes.patch('/changepassword', [isAuth], modifyPassword);
 UserRoutes.patch(
   '/update/update',
   [isAuth],
-  upload.single('image'),
+  upload.single('file'),
   updateUser
 );
 
