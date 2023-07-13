@@ -20,7 +20,7 @@ const CheckCode = () => {
   const [deleteUser, setDeleteUser] = useState(false);
   const { register, handleSubmit } = useForm();
   const { allUser, userLogin, setUser, user, dataLogin } = useAuth();
-
+console.log(dataLogin)
 
   //*-----1. FUNCIONES QUE GESTIONAN LAS PETICIONES---------
 

@@ -531,29 +531,32 @@ const updateUser = async (req, res, next) => {
 //!---------------------------------------
 
 const deleteUser = async (req, res, next) => {
+  console.log("entra en delete", req.params)
   try {
-    const { _id } = req.user;
+    const { id } = req.params;
+    console.log(id)
     //primero vamos a eliminar el usuario de los amigos
-    const user = await User.findById(_id);
+    const user = await User.findById(id);
+    console.log(user)
     const userFriends = user.friends;
     //Después vamos a eliminar el usuario de la lista de poseedores de un juevgo
     const userGames = user.games;
     //Usamos el método updatemany para que nos quite las ID del usuario en los amigos
     await User.updateMany(
       { _id: { $in: userFriends } },
-      { $pull: { friends: _id } }
+      { $pull: { friends: id } }
     );
 //Quitamos la Id del usuario de la lista de poseedores
     await Game.updateMany(
       { _id: { $in: userGames } },
-      { $pull: { owners: _id } }
+      { $pull: { owners: id } }
     );
 
-    await User.findByIdAndDelete(_id);
-    if (await User.findById(_id)) {
+    await User.findByIdAndDelete(id);
+    if (await User.findById(id)) {
       return res.status(404).json('User not deleted');
     } else {
-      deleteImgCloudinary(req.user.image);
+      deleteImgCloudinary(req.user.file);
       return res.status(200).json('User deleted');
     }
   } catch (error) {

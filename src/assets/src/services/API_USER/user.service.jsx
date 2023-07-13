@@ -162,8 +162,17 @@ export const updateUser = async (formData) => {
 //*-----------------DELETE-------------------------REVISAR
 //?------------------------------------------------------
 
-export const deleteUser = async () => {
-  return APIuser.delete("/users")
+export const deleteUser = async (user) => {
+  console.log(user.token);
+  const config = {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Bearer ${user?.token}`,
+    },
+  };
+
+  const userID = user?.id;
+  return APIuser.delete(`/users/${userID}`, config)
     .then((res) => res)
     .catch((error) => error);
 };

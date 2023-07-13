@@ -9,6 +9,8 @@ import "./ChangePassword.css"
 import { Navigate } from "react-router-dom";
 import ChangeUserName from "../../components/changeUserName/ChangeUserName";
 import ChangeProfilePic from "../../components/ChangeProfilePic/ChangeProfilePic";
+import useDeleteUser from "../../hooks/useDeleteUser";
+
 
 
 
@@ -26,6 +28,7 @@ const token = user?.token;
   //! -----------------1) FUNCIÓN PARA GESTIONAR EL FORMULATIO
 
   const formSubmit = (formData) => {
+
  
     const { password, newPassword, confirmPassword } = formData;
     if (newPassword === confirmPassword) {
@@ -124,9 +127,15 @@ const token = user?.token;
           </div>
         </form>
       </div>
-      </div>
       <ChangeUserName/>
       <ChangeProfilePic/>
+      <h3
+       
+          className=" textDeleteUser"
+          onClick={() => useDeleteUser(setUser, user)}
+        >Delete your account</h3>
+      </div>
+    
     </>
   );
 };

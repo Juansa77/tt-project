@@ -26,6 +26,10 @@ const Register = () => {
 
   const formSubmit = async (formData) => {
     const inputFile = document.getElementById("file-upload").files;
+    setDatalogin({
+      password: formData.password,
+      email: formData.email,
+    })
 
     if (inputFile.length !== 0) {
       // cuando me han hayan puesto una imagen por el input
@@ -44,10 +48,7 @@ const Register = () => {
         ...formData,
       };
 
-      setDatalogin({
-        password: formData.password,
-        email: formData.email,
-      })
+    
 
       setSend(true);
       setRes(await registerUser(custonFormData));
