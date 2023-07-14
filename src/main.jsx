@@ -15,6 +15,12 @@ import CheckCode from "./assets/src/pages/CheckCode/CheckCode.jsx";
 import Profile from "./assets/src/pages/ProfilePage/Profile.jsx";
 import ForgotPassword from "./assets/src/pages/ForgotPassword/ForgotPassword.jsx";
 import ChangePassword from "./assets/src/pages/ChangePassword/ChangePassword.jsx";
+import ProtectedRoute from "./assets/src/components/ProtectedRoute.jsx";
+import ProtectedCheckChildren from "./assets/src/components/ProtectedRouteChildren.jsx";
+
+
+
+
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -31,10 +37,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/places" element={<PlacesPage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/verifyCode" element={<CheckCode />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/verifyCode" element={<ProtectedCheckChildren><CheckCode /></ProtectedCheckChildren>} />
+          <Route path="/profile" element={<ProtectedRoute><Profile /> </ProtectedRoute>} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/passwordchange" element={<ChangePassword />} />
+          <Route path="/passwordchange" element={<ProtectedRoute><ChangePassword /></ProtectedRoute>} />
         </Routes>
       </AuthContextProvider>
     </BrowserRouter>

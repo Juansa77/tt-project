@@ -67,6 +67,7 @@ export const AuthContextProvider = ({ children }) => {
   const logOut = () => {
     localStorage.removeItem("user");
     setUser(null);
+    setAllUser(null)
     navigate("/login");
   };
 
