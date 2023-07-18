@@ -1,8 +1,10 @@
 import "./FriendSearchPage.css"
+import FriendSearcher from "../../components/FriendSearcher"
+
 
 const FriendSearchPage = () => {
   return (
-    <div className="friendSearch">FriendSearchPage</div>
+    <div className="friendSearch"><FriendSearcher/></div>
   )
 }
 

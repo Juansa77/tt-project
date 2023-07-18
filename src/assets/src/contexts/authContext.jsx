@@ -11,6 +11,7 @@ const AuthContext = createContext();
 
 //! 2) -------------- CREAR LA FUNCION QUE PROVEE DEL CONTEXTO Y QUE GRAPEA A LAS PAGINAS-----
 
+
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     const data = localStorage.getItem("user");
@@ -22,6 +23,9 @@ export const AuthContextProvider = ({ children }) => {
       return null;
     }
   });
+
+  const [ selectedCity, setSelectedCity] = useState(null)
+  const [userPassRegister, setUserPassRegister] = useState(false)
 
   const [dataLogin, setDatalogin] = useState({
     password: '',
@@ -101,7 +105,7 @@ export const AuthContextProvider = ({ children }) => {
       allUser,
       setAllUser,
       bridgeData,
-      dataLogin, setDatalogin
+      dataLogin, setDatalogin, userPassRegister, setUserPassRegister, setSelectedCity, selectedCity
     }),
     [user, allUser]
   );
