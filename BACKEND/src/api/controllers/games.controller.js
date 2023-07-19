@@ -63,6 +63,7 @@ const addGameToUser = async (req, res, next) => {
     await Game.syncIndexes();
     const user = await User.findById(userId);
     const game = await Game.findById(gameId);
+    console.log(user)
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });

@@ -2,7 +2,11 @@
 import Swal from "sweetalert2/dist/sweetalert2.all.js";
 
 
-const useRegisterError = (res, setOkRegister, setRes, setAllUser, setUserPassRegister, userPassRegister) => {
+const useRegisterError = (  res,
+  setOkRegister,
+  setRes,
+  setAllUser,
+  setDatalogin) => {
   //! SI LA RESPUESTA ES OK, RES.STATUS
   //!SI NO ES OK, RES.RESPONSE.STATUS
 
@@ -18,9 +22,9 @@ const useRegisterError = (res, setOkRegister, setRes, setAllUser, setUserPassReg
   const dataToString = JSON.stringify(res);
   localStorage.setItem("data", dataToString);
   setOkRegister(()=>true)
-  setUserPassRegister(()=>true)
+
   //setAllUser(()=> res.data)
- console.log(userPassRegister)
+
 
     Swal.fire({
       icon: "success",

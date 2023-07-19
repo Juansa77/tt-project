@@ -36,9 +36,9 @@ const Register = () => {
   //! ------------------------------------------------------------------------------
 
   const formSubmit = async (formData) => {
-    console.log("Form submitted:", formData);
+ 
     const inputFile = document.getElementById("file-upload").files;
-    console.log("el botón furula");
+
 
     setDatalogin({
       password: formData.password,
@@ -53,10 +53,7 @@ const Register = () => {
         file: inputFile[0],
       };
 
-      setDatalogin({
-        password: formData?.password,
-        email: formData?.email,
-      });
+      setDatalogin(custonFormData);
       console.log(dataLogin);
       console.log(custonFormData);
 

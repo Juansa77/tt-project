@@ -28,8 +28,7 @@ export const AuthContextProvider = ({ children }) => {
   const [userPassRegister, setUserPassRegister] = useState(false)
 
   const [dataLogin, setDatalogin] = useState({
-    password: '',
-    email: '',
+    
   })
 
   //! ALLUSER -----solo cuando me registro para guardar la respuesta--

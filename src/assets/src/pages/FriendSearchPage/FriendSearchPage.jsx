@@ -87,6 +87,7 @@ const FriendSearchPage = () => {
       <p>Selected City: {selectedCitySearchUser}</p>
       <div className="search-result-container">
         {response?.data?.length >0 ? response.data.map((friend, index) =>
+        friend._id != userID &&
           <UserCard
               key={index}
               title={friend.name}

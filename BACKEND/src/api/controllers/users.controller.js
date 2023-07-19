@@ -619,14 +619,22 @@ const addFriendToUser = async (req, res, next) => {
       user.friends.push(friendId);
       friend.friends.push(userId);
 
- //*tomamos todas las variables del objeto user exceptuando la contraseña y después actualizamos, así no modificamos la contraseña
- const { password, ...updatedUser } = user.toObject();
+ //*tomamos todas las variables del objeto user y friend exceptuando la contraseña y después actualizamos, así no modificamos la contraseña
+const { password: userPassword, ...updatedUser} = user.toObject()
+
+const {password: friendPassword, ...updatedFriend} = friend.toObject()
 
  await User.findByIdAndUpdate(userId, updatedUser);
+ await User.findByIdAndUpdate(friendId, updatedFriend);
 
-      await user.save();
-      await friend.save();
-      return res.status(200).json({ message: 'Friend added to user' });
+ const populatedUser = await user.populate("friends");
+ const populatedfriend = await friend.populate("friends");
+
+ return res.status(200).json({
+   message: "Friend added to user",
+   user: populatedUser,
+   game: populatedfriend,
+ });
     }
   } catch (error) {
     console.log('Error adding friend to user', error);
@@ -657,9 +665,20 @@ const deleteFriendInUser = async (req, res, next) => {
       // Eliminamos el juego del array games del usuario y en el array del juego eliminamos el propietario
       user.friends.splice(user.friends.indexOf(friendId), 1);
       friend.friends.splice(friend.friends.indexOf(userId), 1);
-      await user.save();
-      await friend.save();
-      return res.status(200).json({ message: 'Friend erased in user' });
+      const { password: userPassword, ...updatedUser} = user.toObject()
+
+      const {password: friendPassword, ...updatedFriend} = friend.toObject()
+      
+       await User.findByIdAndUpdate(userId, updatedUser);
+       await User.findByIdAndUpdate(friendId, updatedFriend);
+      
+       const populatedUser = await user.populate("friends");
+       const populatedfriend = await friend.populate("friends");
+       return res.status(200).json({
+        message: "Friend deleted to user",
+        user: populatedUser,
+        game: populatedfriend,
+      });
     }
   } catch (error) {
     console.log('Error erasing friend in user', error);
