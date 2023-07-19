@@ -32,6 +32,7 @@ console.log(dataLogin)
       //*usuario que viene del registro
       console.log("esto es all user",allUser)
       console.log("esto es Data Login",dataLogin)
+      console.log("esto es useLogin",userLogin)
       const customFormData = {
         email: allUser.data.user.email,
         confirmationCode: parseInt(formData.confirmationCode),

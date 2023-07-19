@@ -176,3 +176,77 @@ export const deleteUser = async (user) => {
     .then((res) => res)
     .catch((error) => error);
 };
+
+//?------------------------------------------------------
+//*-----------------GET USER BY CITY-------------------------
+//?------------------------------------------------------
+
+export const getUserByCity = async (city) => {
+  console.log(city);
+  //*Creamos un objeto de configuración con los headers de la solicitud
+  const config = {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  };
+
+  //*Creamos unos params para modificar los parámetros de la url
+  const params = new URLSearchParams();
+  //* Por cada clave y valor en formdata, los metemos en los params de la URL. Convertimos sus propiedades en parámetros
+  Object.entries(city).forEach(([key, value]) => {
+    params.append(key, value);
+  });
+  return APIuser.get(
+    `http://localhost:8095/api/v1/users/getuser/city/${city}`,
+    params,
+    config
+  )
+    .then((res) => res)
+    .catch((error) => error);
+};
+
+
+//?------------------------------------------------------
+//*-----------------ADD FRIEND TO USER-------------------------
+//?------------------------------------------------------
+
+export const addFriendToUser = async (userID, friendID, token) => {
+console.log(friendID)
+  const config = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const url = `http://localhost:8095/api/v1/users/${userID}/add-friend/${friendID}`;
+
+  return APIuser.post(url, null, config)
+    .then((res) => res)
+    .catch((error) => error);
+};
+
+//?------------------------------------------------------
+//*-----------------DELETE FRIEND IN USER-------------------------
+//?------------------------------------------------------
+
+export const deleteFriendInUser = async (userID, friendID, token) => {
+
+  //*Creamos un objeto de configuración con los headers de la solicitud
+  const config = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: `Bearer ${token}`, // Añade el token de autenticación en los encabezados
+    },
+  };
+
+  //*Creamos unos params para modificar los parámetros de la url
+  const params = new URLSearchParams();
+//* Por cada clave y valor en formdata, los metemos en los params de la URL. Convertimos sus propiedades en parámetros
+  Object.entries(userID).forEach(([key, value]) => {
+    params.append(key, value);
+  });
+return APIuser.post(`http://localhost:8095/api/v1/users/${userID}/delete-friend/${friendID}`, params, config)
+  .then((res) => res)
+  .catch((error) => error);
+};

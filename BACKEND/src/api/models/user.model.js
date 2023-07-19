@@ -8,7 +8,7 @@ const UserSchema = new Schema(
     name: { type: String, required: true, unique: true },
     city: {
       type: String,
-      enum: ['Sevilla', 'Madrid', 'Cádiz', 'Barcelona', 'Oviedo', 'Huelva'],
+      required:true
     },
     email: {
       type: String,

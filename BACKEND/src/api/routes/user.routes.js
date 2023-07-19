@@ -13,7 +13,8 @@ const {
   addFriendToUser,
   deleteFriendInUser,
   getUserByID,
-  autoLogin
+  autoLogin, 
+  getUserByCity
 } = require('../controllers/users.controller');
 const { isAuth } = require('../../middlewares/auth.midddleware');
 
@@ -39,6 +40,11 @@ UserRoutes.post('/forgotpassword', forgotPassword);
 
 //?-----GET USER BY ID--------
 UserRoutes.get('/getuser/:id',  getUserByID);
+
+
+//?-----GET USER BY CITY--------
+UserRoutes.get('/getuser/city/:city',  getUserByCity);
+
 
 
 //?-------Ruta CHANGE PASSWORD USER--------

@@ -1,8 +1,33 @@
 .friendSearch {
     display: flex;
-    margin-top: 10vh;
     flex-direction: column;
+    margin-top: 10vh;
     align-items: center;
+    width:100%;
+    
     color: beige;
   }
   
+  .btn-wrap{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap:5vh;
+  
+  }
+
+  .btn-citySearch{
+    width: 5vw;
+  }
+
+  .search-result-container{
+
+    display: grid;
+  width: 100vw;
+  margin-top: 10vh;
+  grid-template-columns: repeat(5, 3vw);
+  justify-content: center;
+  justify-items: center;
+  column-gap: 12vw;
+  row-gap: 3vh;
+  }

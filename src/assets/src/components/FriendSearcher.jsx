@@ -16,6 +16,7 @@ const DropdownButton = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  width:10vw;
 `;
 
 const DropdownContent = styled.div`
@@ -36,30 +37,19 @@ const DropdownOption = styled.div`
   }
 `;
 
-const SearchButton = styled.button`
-  background-color: #f9f9f9;
-  color: #333;
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 10px;
-`;
 
-const FriendSearcher = () => {
+const FriendSearcher = ({setSelectedCity}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
 
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
+    console.log(option)
     setIsOpen(false);
+    setSelectedCity(option)
   };
 
-  const handleSearch = () => {
-    // Perform search logic based on the selectedOption
-    console.log('Searching with:', selectedOption);
-  };
+
 
   return (
     <DropdownContainer>
@@ -79,7 +69,7 @@ const FriendSearcher = () => {
           </DropdownOption>
         </DropdownContent>
       )}
-      <SearchButton onClick={handleSearch}>Search</SearchButton>
+     
     </DropdownContainer>
   );
 };

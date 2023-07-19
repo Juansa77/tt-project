@@ -379,12 +379,15 @@ const modifyPassword = async (req, res, next) => {
 //?-----------GET USER BY ID--------------
 //!---------------------------------------
 const getUserByID = async (req, res, next) => {
+  console.log("entra")
   const { id } = req.params;
+  console.log(id)
 
   try {
     const userID = await User.findById(id);
+    console.log(userID)
 
-    if (userID>0) {
+    if (userID) {
       return res.status(200).json(userID);
 
     } else {
@@ -395,6 +398,30 @@ const getUserByID = async (req, res, next) => {
     res.status(500).json(error);
   }
 };
+
+
+//!---------------------------------------
+//?-----------GET USERS BY CITY--------------
+//!---------------------------------------
+const getUserByCity = async (req, res, next) => {
+  console.log("entra en el controlador")
+  const { city } = req.params;
+
+  try {
+    const users = await User.find({
+      city: { $regex: city, $options: "i" },
+    });
+    console.log(users.length);
+    if (users.length > 0) {
+      return res.status(200).json(users);
+    } else {
+      return res.status(404).json("User not found");
+    }
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
 
 //!---------------------------------------
 //?-----------UPDATE USER--------------
@@ -591,6 +618,12 @@ const addFriendToUser = async (req, res, next) => {
       //hacemos push del juego en el array del usuario y del usuario en el array owners del juego
       user.friends.push(friendId);
       friend.friends.push(userId);
+
+ //*tomamos todas las variables del objeto user exceptuando la contraseña y después actualizamos, así no modificamos la contraseña
+ const { password, ...updatedUser } = user.toObject();
+
+ await User.findByIdAndUpdate(userId, updatedUser);
+
       await user.save();
       await friend.save();
       return res.status(200).json({ message: 'Friend added to user' });
@@ -648,4 +681,5 @@ module.exports = {
   deleteFriendInUser,
   getUserByID,
   autoLogin,
+  getUserByCity,
 };

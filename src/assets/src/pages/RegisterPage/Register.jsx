@@ -21,16 +21,15 @@ const Register = () => {
   const [send, setSend] = useState(false);
   //* Estados para manejar que la respuesta es exitosa
   const [okRegister, setOkRegister] = useState(false);
-  const { userPassRegister, setUserPassRegister } = useAuth();
+
   const {
     allUser,
     setAllUser,
     bridgeData,
     setDatalogin,
-
+    dataLogin,
     setSelectedCity,
   } = useAuth();
-  console.log(userPassRegister);
 
   //! ------------------------------------------------------------------------------
   //? 1) funcion que se encarga del formulario - de la data del formulario
@@ -52,8 +51,14 @@ const Register = () => {
       const custonFormData = {
         ...formData,
         file: inputFile[0],
-        city: formData.city.value,
       };
+
+      setDatalogin({
+        password: formData?.password,
+        email: formData?.email,
+      });
+      console.log(dataLogin);
+      console.log(custonFormData);
 
       setSend(true);
       setRes(await registerUser(custonFormData));
@@ -79,8 +84,7 @@ const Register = () => {
       setOkRegister,
       setRes,
       setAllUser,
-      setDatalogin,
-      setUserPassRegister
+      setDatalogin
     );
     if (res?.status == 201) bridgeData("ALLUSER");
   }, [res]);
@@ -113,6 +117,7 @@ const Register = () => {
             </div>
 
             <div className="city_container form-group">
+              {/* //* Código para renderizar un dropdown en REACT HOOK FORM
               <Controller
                 name="city"
                 control={control}
@@ -124,6 +129,15 @@ const Register = () => {
                     ref={ref}
                   />
                 )}
+              />*/}
+
+              <input
+                className="input_user"
+                type="text"
+                id="city"
+                name="city"
+                autoComplete="false"
+                {...register("city", { required: true })}
               />
               <label htmlFor="custom-input" className="custom-placeholder">
                 City

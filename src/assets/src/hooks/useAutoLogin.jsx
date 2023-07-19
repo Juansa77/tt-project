@@ -2,7 +2,7 @@ import { autoLoginUser } from "../services/API_USER/user.service";
 
 const useAutoLogin = async (allUser, userLogin, setOkCheck, dataLogin) => {
   try {
-
+console.log(allUser)
     const { email, password } = allUser?.data?.user;
 
     const customFormData = {
