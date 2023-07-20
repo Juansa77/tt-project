@@ -1,5 +1,33 @@
-.fluidContainerProfile {
-    min-height: 55vh;
-    margin-bottom: 5vh;
-  }
+.games-list {
+  display: flex;
+  width: 100%;
+  gap: 2vh;
+}
+
+.friends-list{
+  display: flex;
+  width: 100%;
+  gap: 2vh;
+}
+
+.profile-container{
+margin-top: 2vh;
   
+}
+
+.profile-main{
+  margin-top: 7vh;
+}
+
+.profile-image{
+
+  min-height: 14vh;
+  min-width: 7vw;
+}
+
+.profile-header{
+  display: flex;
+  width: 100%;
+  
+  border-radius: 5px;
+}

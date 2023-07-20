@@ -686,6 +686,51 @@ const deleteFriendInUser = async (req, res, next) => {
   }
 };
 
+//!----------------------------------------------
+//?-----------GAMES IN USER------------
+//!----------------------------------------------
+
+const getGamesInUser = async (req, res, next) => {
+ console.log(req.params)
+  const { id } = req.params;
+ 
+  try {
+    const user = await User.findById(id).populate('games')
+    console.log(user)
+    if (user) {
+      return res.status(200).json(user.games);
+    } else {
+      return res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+//!----------------------------------------------
+//?-----------FRIENDS IN USER------------
+//!----------------------------------------------
+
+const getFriendsInUser = async (req, res, next) => {
+  console.log(req.params)
+   const { id } = req.params;
+  
+   try {
+     const user = await User.findById(id).populate('friends')
+     console.log(user)
+     if (user) {
+       return res.status(200).json(user.friends);
+     } else {
+       return res.status(404).json({ message: "User not found" });
+     }
+   } catch (error) {
+     return res.status(500).json({ message: "Internal server error" });
+   }
+ };
+ 
+
+
+
 module.exports = {
   register,
   checkNewUser,
@@ -701,4 +746,6 @@ module.exports = {
   getUserByID,
   autoLogin,
   getUserByCity,
-};
+  getGamesInUser,
+  getFriendsInUser,
+}

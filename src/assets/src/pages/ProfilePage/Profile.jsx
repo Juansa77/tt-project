@@ -1,61 +1,107 @@
-import { useState } from "react";
-import GameCard from "../../components/GameCard";
 import { useAuth } from "../../contexts/authContext";
-import { gameByID } from "../../services/API_USER/game.service";
-import ChangePassword from "../ChangePassword/ChangePassword";
-import FormProfile from "../../components/FormProfile";
 import { Link } from "react-router-dom";
-
-
-
+import { getFriendsInUser, getGamesInUser } from "../../services/API_USER/user.service";
+import { useEffect, useState } from "react";
+import MiniGameCard from "../../components/MiniGameCard";
+import "./Profile.css"
+import MiniUserCard from "../../components/MiniUserCard";
 
 const Profile = () => {
-
- 
-
   const { user, setUser } = useAuth();
-  console.log("user",user);
+  const userID = user.id;
+
+  const [gamesData, setGamesData] = useState([]);
+  const [friendsData, setFriendsData] = useState([]);
+
+  //* USEEFFECT PARA CONTROLAR EL SERVICIO DE LOS JUEGOS DEL USUARIO
+  useEffect(() => {
+    // Llamada al servicio para obtener los juegos del usuario
+    getGamesInUser(userID)
+      .then((data) => {
+        // Almacenar los datos en el estado local
+        setGamesData(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching games:", error);
+      });
+  }, [userID]);
+
+
+    //* USEEFFECT PARA CONTROLAR EL SERVICIO DE LOS AMIGOS DEL USUARIO
+    useEffect(() => {
+      // Llamada al servicio para obtener los juegos del usuario
+      getFriendsInUser(userID)
+        .then((data) => {
+          // Almacenar los datos en el estado local
+          setFriendsData(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching friends:", error);
+        });
+    }, [userID]);
+  
+
+  console.log(gamesData);
+  console.log(friendsData);
+
   return (
     <div className="profile-main">
       <div className="profile-container">
         <div className="profile-card">
           <div className="profile-header">
-            <h2 className="username">{user.user}</h2>
-          </div>
           <img className="profile-image" src={user.image} alt="Profile" />
+            <h2 className="username">{user.user}</h2>
+           
+          </div>
         
+
           <div className="profile-content">
             <div className="profile-section">
               <h3 className="section-title">Friends</h3>
-              
+
               <ul className="friends-list">
-                {user?.friends?.map((friend, index) => (
-                  <li key={index}>{friend}</li>
-                ))}
+              {friendsData?.response?.data == "Games not found" && (
+                  <h1>No games in user</h1>
+                )}
+                {friendsData?.data?.length > 0 &&
+                  friendsData?.data?.map((friend, index) => (
+                    <MiniUserCard
+                      key={index}
+                      title={friend.name}
+                      image={friend.file}
+                    />
+                  ))}
               </ul>
             </div>
             <div className="profile-section">
               <h3 className="section-title">Games</h3>
-              <ul className="games-list">
-                {user?.games?.map((game, index) => (
-                  <li key={index}>{game}</li>
-                ))}
-              </ul>
+              <div className="games-list">
+                {gamesData?.response?.data == "Games not found" && (
+                  <h1>No games in user</h1>
+                )}
+                {gamesData?.data?.length > 0 &&
+                  gamesData?.data?.map((game, index) => (
+                    <MiniGameCard
+                      key={index}
+                      title={game.title}
+                      image={game.image}
+                    />
+                  ))}
+              </div>
               <p className="bottom-text">
-            <small>
-            
-              <Link to="/passwordchange" className="anchorCustom-profileLink">
-                Manage your account
-              </Link>
-            </small>
-          </p>
+                <small>
+                  <Link
+                    to="/passwordchange"
+                    className="anchorCustom-profileLink"
+                  >
+                    Manage your account
+                  </Link>
+                </small>
+              </p>
             </div>
           </div>
-          <div className="fluidContainerProfile">
-        
-      </div>
+          <div className="fluidContainerProfile"></div>
         </div>
-        
 
         <style jsx>{`
           .profile-main {

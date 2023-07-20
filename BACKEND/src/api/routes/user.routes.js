@@ -14,7 +14,9 @@ const {
   deleteFriendInUser,
   getUserByID,
   autoLogin, 
-  getUserByCity
+  getUserByCity,
+  getGamesInUser,
+  getFriendsInUser
 } = require('../controllers/users.controller');
 const { isAuth } = require('../../middlewares/auth.midddleware');
 
@@ -44,6 +46,13 @@ UserRoutes.get('/getuser/:id',  getUserByID);
 
 //?-----GET USER BY CITY--------
 UserRoutes.get('/getuser/city/:city',  getUserByCity);
+
+//?-----GET GAMES IN USER--------
+UserRoutes.get('/getuser/games/:id',  getGamesInUser);
+
+
+//?-----GET FRIENDS IN USER--------
+UserRoutes.get('/getuser/friends/:id',  getFriendsInUser);
 
 
 
