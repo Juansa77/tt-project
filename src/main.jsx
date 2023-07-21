@@ -17,31 +17,54 @@ import ForgotPassword from "./assets/src/pages/ForgotPassword/ForgotPassword.jsx
 import ChangePassword from "./assets/src/pages/ChangePassword/ChangePassword.jsx";
 import ProtectedRoute from "./assets/src/components/ProtectedRoute.jsx";
 import ProtectedCheckChildren from "./assets/src/components/ProtectedRouteChildren.jsx";
-
-
-
-
+import DetailGame from "./assets/src/components/DetailGame.jsx";
+import { GameContextProvider } from "./assets/src/contexts/GameContext.jsx";
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthContextProvider>
+      <GameContextProvider>
+
         <NavBar />
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<Home />} />
           </Route>
           <Route path="/games" element={<GameSearch />} />
+          <Route path="/games/:_id" element={<DetailGame />} />
           <Route path="/search-friends" element={<FriendSearchPage />} />
           <Route path="/places" element={<PlacesPage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/verifyCode" element={<ProtectedCheckChildren><CheckCode /></ProtectedCheckChildren>} />
-          <Route path="/profile" element={<ProtectedRoute><Profile /> </ProtectedRoute>} />
+          <Route
+            path="/verifyCode"
+            element={
+              <ProtectedCheckChildren>
+                <CheckCode />
+              </ProtectedCheckChildren>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />{" "}
+              </ProtectedRoute>
+            }
+          />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/passwordchange" element={<ProtectedRoute><ChangePassword /></ProtectedRoute>} />
+          <Route
+            path="/passwordchange"
+            element={
+              <ProtectedRoute>
+                <ChangePassword />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
+        </GameContextProvider>
       </AuthContextProvider>
     </BrowserRouter>
   </React.StrictMode>

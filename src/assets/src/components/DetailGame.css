@@ -1,0 +1,49 @@
+.game-detail{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.game-detail-container {
+  display: flex;
+  margin-top: 10vh;
+  width: 90%;
+  justify-items: center;
+  justify-content: space-between;
+
+  height: 30vh;
+}
+
+.game-cover-detail {
+  height: 40vh;
+  margin-left: 3vw;
+}
+
+.game-name-detail {
+  font-size: 8vh;
+}
+
+
+.btn-detail-container{
+    margin-top: 20vh;
+    display: flex;
+    margin-right: 3vw;
+    justify-content: flex-end;
+    width: 90%;
+}
+
+.btn-game{
+    height: 5vh;
+    width: 20vh;
+}
+
+.game-data-detail{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20vh;
+    width: 90%;
+    justify-content: space-between;
+    justify-items: center;
+    margin-left: 3vw;
+}
+

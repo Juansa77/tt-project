@@ -8,6 +8,9 @@ import {
 } from "../../services/API_USER/game.service";
 import GameCard from "../../components/GameCard";
 import { useAuth } from "../../contexts/authContext";
+import { Link, useNavigate } from "react-router-dom";
+import { useGameContext } from "../../contexts/GameContext";
+
 
 const GameSearch = () => {
   const { user, userLogin } = useAuth();
@@ -15,7 +18,8 @@ const GameSearch = () => {
   const [response, setResponse] = useState([]);
   const userID = user?.id;
 
-  console.log(userID);
+
+
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -29,7 +33,7 @@ const GameSearch = () => {
       console.log(error);
     }
   };
-console.log(user?.id)
+ 
   const handleAddGame = async (gameId) => {
     try {
       console.log("esto es user", user);
@@ -61,6 +65,23 @@ console.log(user?.id)
     }
   };
 
+  //* FUNCIÓN PARA ALMACENAR LOS DATOS DEL JUEGO SELECCIONADO PARA USARLO EN DETAIL Y NO HACER UNA NUEVA LLAMADA
+
+    //* SACAMOS DEL CONTEXTO DE GAME PARA ALMACENAR LOS DATOS DEL JUEGO
+    const { setSelectedGame } = useGameContext();
+
+
+  // Instancia de la historia del enrutador para redirigir a la página de detalles
+  const navigate = useNavigate();
+
+  const handleSelectGame = (game) => {
+    console.log(game)
+    setSelectedGame(game);
+    // Redirige a la página de detalles del juego seleccionado
+    navigate(`/games/${game._id}`);
+
+  };
+
   return (
     <>
       <div className="gameSearch">
@@ -77,13 +98,18 @@ console.log(user?.id)
         )}
         {response?.data?.length > 0 &&
           response?.data?.map((game, index) => (
-            <GameCard
-              key={index}
-              title={game.title}
-              image={game.image}
-              onClickAdd={() => handleAddGame(game._id)}
-              onClickRemove={() => handleRemoveGame(game._id)}
-            />
+            <div
+              key={game._id}
+              onClick={() => handleSelectGame(game)} // Llama a la función al hacer clic en el juego
+            >
+              <GameCard
+                key={index}
+                title={game.title}
+                image={game.image}
+                onClickAdd={() => handleAddGame(game._id)}
+                onClickRemove={() => handleRemoveGame(game._id)}
+              />
+            </div>
           ))}
       </div>
     </>
