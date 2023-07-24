@@ -19,6 +19,9 @@ import ProtectedRoute from "./assets/src/components/ProtectedRoute.jsx";
 import ProtectedCheckChildren from "./assets/src/components/ProtectedRouteChildren.jsx";
 import DetailGame from "./assets/src/components/DetailGame.jsx";
 import { GameContextProvider } from "./assets/src/contexts/GameContext.jsx";
+import DetailUser from "./assets/src/components/DetailUser/DetailUser.jsx";
+import { UserContextProvider } from "./assets/src/contexts/UserContext.jsx";
+
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -26,6 +29,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <AuthContextProvider>
       <GameContextProvider>
+      <UserContextProvider>
 
         <NavBar />
         <Routes>
@@ -34,6 +38,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           </Route>
           <Route path="/games" element={<GameSearch />} />
           <Route path="/games/:_id" element={<DetailGame />} />
+          <Route path="/users/:_id" element={<DetailUser />} />
           <Route path="/search-friends" element={<FriendSearchPage />} />
           <Route path="/places" element={<PlacesPage />} />
           <Route path="/register" element={<Register />} />
@@ -64,6 +69,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             }
           />
         </Routes>
+        </UserContextProvider>
         </GameContextProvider>
       </AuthContextProvider>
     </BrowserRouter>
