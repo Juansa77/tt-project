@@ -6,12 +6,12 @@ import "./DetailGame.css";
 import { useAuth } from "../contexts/authContext";
 import {
   addGameToUser,
-  removeGameInUser,
+  removeGameInUser, gameByID
 } from "../services/API_USER/game.service";
 
 const DetailGame = () => {
   const { _id } = useParams();
-  const { selectedGame } = useGameContext();
+  const { selectedGame, setSelectedGame } = useGameContext();
   console.log(_id);
 
   console.log(selectedGame);
@@ -53,11 +53,34 @@ const DetailGame = () => {
     }
   };
 
+
+   //* USEEFFECT  1 PARA CONTROLAR QUE SI EL GAME DEL CONTEXTO ES NULL, HAGA UN FETCH
+
+
+   useEffect(() => {
+    console.log("hace el useEffect");
+    console.log("selected user del useeefect", selectedGame)
+    const fetchUserData = async () => {
+      try {
+        if (!selectedGame) {
+          console.log("el juego en contexto es null y entra en el useeeffect");
+          // Realiza una llamada a la API para obtener los detalles del juego con el ID _id
+          const response = await gameByID(_id);
+          setSelectedGame(response.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    fetchUserData();
+  }, [_id]);
+
   return (
     <div className="game-detail">
       <div className="game-detail-container">
-        <img className="game-cover-detail" src={selectedGame.image} />
-        <h1 className="game-name-detail">{selectedGame.title}</h1>
+        <img className="game-cover-detail" src={selectedGame?.image} />
+        <h1 className="game-name-detail">{selectedGame?.title}</h1>
       </div>
       <div className="btn-detail-container">
         <button className="btn-game" onClick={() => handleAddGame(selectedGame._id)}>
@@ -69,10 +92,10 @@ const DetailGame = () => {
       </div>
       <div className="game-data-detail">
         <p className="playtime-detail">
-          Tiempo de juego: {selectedGame.playTime}
+          Tiempo de juego: {selectedGame?.playTime}
         </p>
-        <p className="playtime-detail">Jugadores/as: {selectedGame.players}</p>
-        <p className="playtime-detail">Categorias: {selectedGame.typesList}</p>
+        <p className="playtime-detail">Jugadores/as: {selectedGame?.players}</p>
+        <p className="playtime-detail">Categorias: {selectedGame?.typesList}</p>
       </div>
     </div>
   );

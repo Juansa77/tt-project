@@ -8,6 +8,7 @@ import {
   deleteFriendInUser,
   getFriendsInUser,
   getGamesInUser,
+  getUserById
 } from "../../services/API_USER/user.service";
 import MiniUserCard from "../MiniUserCard";
 import MiniGameCard from "../MiniGameCard";
@@ -19,7 +20,7 @@ import MiniGameCard from "../MiniGameCard";
 const DetailUser = () => {
   //* Sacamos la ID del usuario con useParams
   const { _id } = useParams();
-  const { selectedUser} = useUserContext()
+  const { selectedUser, setSelectedUser} = useUserContext()
   console.log("selecteduser en detail user", selectedUser)
 
   console.log("id que entra por params en detail", _id)
@@ -73,6 +74,29 @@ const DetailUser = () => {
     }
   };
 
+  //* USEEFFECT  1 PARA CONTROLAR QUE SI EL USER DEL CONTEXTO ES NULL, HAGA UN FETCH
+
+
+  useEffect(() => {
+    console.log("hace el useEffect");
+    console.log("selected user del useeefect", selectedUser)
+    const fetchUserData = async () => {
+      try {
+        if (!selectedUser) {
+          console.log("el user en contexto es null y entra en el useeeffect");
+          // Realiza una llamada a la API para obtener los detalles del juego con el ID _id
+          const response = await getUserById(_id);
+          setSelectedUser(response.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    fetchUserData();
+  }, [_id]);
+
+
   //* FUNCIONALIDAD PARA OBTENER LOS JUEGOS Y AMIGOS DEL USUARIO
 
   const userID = user.id;
@@ -114,7 +138,7 @@ const DetailUser = () => {
   <div className="profile-container">
     <div className="profile-card">
       <div className="profile-header">
-      <img className="profile-image" src={selectedUser.file} alt="Profile" />
+      <img className="profile-image" src={selectedUser?.file} alt="Profile" />
         <h2 className="username">{selectedUser?.name}</h2>
        
       </div>
