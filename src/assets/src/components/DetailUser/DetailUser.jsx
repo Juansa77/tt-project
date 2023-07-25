@@ -141,7 +141,7 @@ const DetailUser = () => {
         <h2 className="username">{selectedUser?.name}</h2>
         <p className="send-msg-bottom-text">  
               <Link
-                to="/messages"
+                to= {`/messages/${_id}`}
                 className="anchorCustom-profileLink"
               >
                ENVIAR MENSAJE
