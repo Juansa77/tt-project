@@ -1,0 +1,45 @@
+.messages-container{
+    display: flex;
+    margin-top: 10vh;
+    flex-direction: column;
+    width: 100%;
+    height: 80vh;
+    align-items: center;
+}
+
+.header-messages{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    height: 70%;
+    width: 60%;
+    background-color: beige;
+    color:black
+}
+
+.sended-messages-wrapper{
+    display: flex;
+    justify-content: center;
+    height: 70%;
+    width: 90%;
+}
+
+.input-message-wrapper{
+    margin-top: 2vh;
+    width: 60%;
+    height: 4vh;
+    gap:3vw;
+    display: flex;
+    justify-content: left;
+}
+
+input{
+    width: 70%;
+    height: 100%;
+    font-size: 2.5vh;
+}
+
+.sendmsg-btn{
+    width: 10%;
+    height: 4vh;
+}

@@ -139,6 +139,14 @@ const DetailUser = () => {
       <div className="profile-header">
       <img className="profile-image" src={selectedUser?.file} alt="Profile" />
         <h2 className="username">{selectedUser?.name}</h2>
+        <p className="send-msg-bottom-text">  
+              <Link
+                to="/messages"
+                className="anchorCustom-profileLink"
+              >
+               ENVIAR MENSAJE
+              </Link>       
+          </p>
        
       </div>
     
@@ -177,16 +185,6 @@ const DetailUser = () => {
                 />
               ))}
           </div>
-          <p className="bottom-text">
-            <small>
-              <Link
-                to="/passwordchange"
-                className="anchorCustom-profileLink"
-              >
-                Manage your account
-              </Link>
-            </small>
-          </p>
         </div>
       </div>
       <div className="fluidContainerProfile"></div>

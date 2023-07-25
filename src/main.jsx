@@ -21,6 +21,8 @@ import DetailGame from "./assets/src/components/DetailGame.jsx";
 import { GameContextProvider } from "./assets/src/contexts/GameContext.jsx";
 import DetailUser from "./assets/src/components/DetailUser/DetailUser.jsx";
 import { UserContextProvider } from "./assets/src/contexts/UserContext.jsx";
+import MessagesPage from "./assets/src/pages/messagesPage/MessagesPage.jsx";
+
 
 
 
@@ -43,6 +45,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/places" element={<PlacesPage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/messages" element={<MessagesPage />} />
           <Route
             path="/verifyCode"
             element={
