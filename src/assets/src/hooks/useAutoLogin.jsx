@@ -23,7 +23,7 @@ console.log(allUser)
         token: setData.data.token,
         user: setData.data.user.name,
         email: setData.data.user.email,
-        image: setData.data.user.image,
+        image: setData.data.user.file,
         check: setData.data.user.check,
         id: setData.data.user._id,
         games:setData.data.user.games,

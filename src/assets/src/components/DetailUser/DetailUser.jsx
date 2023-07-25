@@ -92,7 +92,6 @@ const DetailUser = () => {
         console.log(error);
       }
     };
-  
     fetchUserData();
   }, [_id]);
 

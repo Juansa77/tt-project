@@ -9,6 +9,7 @@ import MiniUserCard from "../../components/MiniUserCard";
 const Profile = () => {
   const { user, setUser } = useAuth();
   const userID = user.id;
+  console.log("user en profile",user)
 
   const [gamesData, setGamesData] = useState([]);
   const [friendsData, setFriendsData] = useState([]);

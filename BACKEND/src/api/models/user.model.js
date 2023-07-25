@@ -36,6 +36,7 @@ const UserSchema = new Schema(
       ],
       required: true,
     },
+    chats: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }], 
     file: { type: String },
     confirmationCode: { type: Number, required: true },
     check: { type: Boolean, required: true, default: false },
