@@ -36,6 +36,12 @@ const UserSchema = new Schema(
       ],
       required: true,
     },
+    conversations: [
+      {
+        participant: { type: mongoose.Types.ObjectId, ref: 'User', required: true },
+        messages: [{ type: mongoose.Types.ObjectId, ref: 'Message' }],
+      },
+    ],
     chats: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }], 
     file: { type: String },
     confirmationCode: { type: Number, required: true },

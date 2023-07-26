@@ -32,6 +32,7 @@ export const sendNewMessage = async (senderID, receiverID, newMessage) => {
 //?------------------------------------------------------
 
 export const getChat = async (senderID, receiverID) => {
+  console.log("receiverID en serviciode chats", receiverID)
   const params = new URLSearchParams();
   params.append("senderID", senderID);
   params.append("receiverID", receiverID);
@@ -45,6 +46,28 @@ export const getChat = async (senderID, receiverID) => {
 
   return APIuser.get(
     `http://localhost:8095/api/v1/messages/${senderID}/getchat/${receiverID}`,
+    params,
+    config
+  )
+    .then((res) => res.data) // Suponiendo que los datos reales de la respuesta están en la propiedad `data`
+    .catch((error) => error);
+};
+
+
+export const getConversations = async (senderID) => {
+  const params = new URLSearchParams();
+  params.append("senderID", senderID);
+
+
+  const config = {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  };
+
+  return APIuser.get(
+    `http://localhost:8095/api/v1/messages/getconversations/${senderID}`,
     params,
     config
   )

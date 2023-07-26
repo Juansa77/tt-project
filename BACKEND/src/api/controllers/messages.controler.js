@@ -31,9 +31,36 @@ const sendMessage = async (req, res, next) => {
     });
     await newMessage.save();
 
-    // Agregar el nuevo mensaje a los chats de ambos usuarios
+    // * Agregar el nuevo mensaje a los chats de ambos usuarios
     sender.chats.push(newMessage._id);
     receiver.chats.push(newMessage._id);
+
+
+ //*------ Actualizar el campo conversations para ambos usuarios
+ let senderConversation = sender.conversations.find(
+  (c) => c.participant.toString() === receiverUserID
+);
+if (!senderConversation) {
+  senderConversation = {
+    participant: receiverUserID,
+    messages: [],
+  };
+  sender.conversations.push(senderConversation);
+}
+senderConversation.messages.push(newMessage._id);
+
+let receiverConversation = receiver.conversations.find(
+  (c) => c.participant.toString() === senderUserID
+);
+if (!receiverConversation) {
+  receiverConversation = {
+    participant: senderUserID,
+    messages: [],
+  };
+  receiver.conversations.push(receiverConversation);
+}
+receiverConversation.messages.push(newMessage._id);
+
 
  //*tomamos todas las variables del objeto user y friend exceptuando la contraseña y después actualizamos, así no modificamos la contraseña
  const { password: userPassword, ...updatedSender} = sender.toObject()
@@ -91,5 +118,54 @@ const getChat = async (req, res, next) => {
   }
 };
 
+
+const getConversations = async (req, res, next) => {
+  const { userID } = req.params;
+
+  try {
+    const user = await User.findById(userID).populate({
+      path: 'conversations.participant',
+      select: 'name email file' , 
+    }).populate({
+      path: 'conversations.messages',
+      populate: {
+        path: 'sender',
+        select: 'name',
+      },
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    const conversations = user.conversations.map((conversation) => {
+      const messages = conversation.messages.map((message) => {
+        return {
+          _id: message._id,
+          sender: message.sender.name,
+          text: message.text,
+          createdAt: message.createdAt,
+        };
+      });
+
+      return {
+        participant: {
+          _id: conversation.participant._id,
+          name: conversation.participant.name,
+          image:conversation.participant.file,
+          email: conversation.participant.email,
+       
+        },
+        messages: messages,
+      };
+    });
+
+    return res.status(200).json(conversations);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener las conversaciones' });
+  }
+};
+
 module.exports.sendMessage = sendMessage;
 module.exports.getChat = getChat;
+module.exports.getConversations = getConversations

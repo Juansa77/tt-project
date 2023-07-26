@@ -52,6 +52,14 @@ const Profile = () => {
           <div className="profile-header">
           <img className="profile-image" src={user.image} alt="Profile" />
             <h2 className="username">{user.user}</h2>
+            <p className="send-msg-bottom-text">  
+              <Link
+                to= {`/messages/${userID}`}
+                className="anchorCustom-profileLink"
+              >
+              VER MENSAJES
+              </Link>       
+          </p>
            
           </div>
         

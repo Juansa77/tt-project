@@ -45,7 +45,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/places" element={<PlacesPage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/messages/:_id" element={<MessagesPage />} />
+          <Route path="/messages/:_id" element={<ProtectedRoute><MessagesPage /></ProtectedRoute>} />
           <Route
             path="/verifyCode"
             element={
