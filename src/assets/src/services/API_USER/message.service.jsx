@@ -15,7 +15,7 @@ export const sendNewMessage = async (senderID, receiverID, newMessage) => {
     text: newMessage,
   };
 
-  console.log(messageData);
+
   return APIuser.post(
     "http://localhost:8095/api/v1/messages/new-message",
     JSON.stringify(messageData),
@@ -32,7 +32,7 @@ export const sendNewMessage = async (senderID, receiverID, newMessage) => {
 //?------------------------------------------------------
 
 export const getChat = async (senderID, receiverID) => {
-  console.log("receiverID en ser, chats", receiverID)
+
   const params = new URLSearchParams();
   params.append("senderID", senderID);
   params.append("receiverID", receiverID);
@@ -54,6 +54,10 @@ export const getChat = async (senderID, receiverID) => {
 };
 
 
+//?------------------------------------------------------
+//*-----------------GET CONVERSATIONS------------------------
+//?------------------------------------------------------
+
 export const getConversations = async (senderID) => {
   const params = new URLSearchParams();
   params.append("senderID", senderID);
@@ -72,5 +76,30 @@ export const getConversations = async (senderID) => {
     config
   )
     .then((res) => res.data) // Suponiendo que los datos reales de la respuesta están en la propiedad `data`
+    .catch((error) => error);
+};
+
+
+
+
+//?------------------------------------------------------
+//*-----------------MARK AS READ------------------------
+//?------------------------------------------------------
+export const markAsRead = async (messageIds) => {
+  console.log(messageIds)
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json; charset=utf-8",
+  };
+
+
+  return APIuser.put(
+    "http://localhost:8095/api/v1/messages/markasread",
+    JSON.stringify(messageIds),
+    {
+      headers: headers,
+    }
+  ) // Incluir los encabezados directamente en el objeto de configuración
+    .then((res) => res.data)
     .catch((error) => error);
 };

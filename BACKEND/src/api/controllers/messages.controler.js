@@ -171,8 +171,8 @@ const markAllMessageAsReaded = async(req, res, next)=>{
 
 console.log("entra en el controlador mark as read")
 
-  const { messageIds } = req.body; // Se espera que el front-end envíe los IDs de los mensajes a marcar en el cuerpo de la solicitud
-
+  const messageIds  = req.body; // Se espera que el front-end envíe los IDs de los mensajes a marcar en el cuerpo de la solicitud
+console.log("messageid", req.body)
   try {
     //* Encuentra los mensajes con los IDs proporcionados y actualiza el campo 'isRead' a true
     await Message.updateMany({ _id: { $in: messageIds } }, { isRead: true });
