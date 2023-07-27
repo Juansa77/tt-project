@@ -166,6 +166,29 @@ const getConversations = async (req, res, next) => {
   }
 };
 
+
+const markAllMessageAsReaded = async(req, res, next)=>{
+
+console.log("entra en el controlador mark as read")
+
+  const { messageIds } = req.body; // Se espera que el front-end envíe los IDs de los mensajes a marcar en el cuerpo de la solicitud
+
+  try {
+    //* Encuentra los mensajes con los IDs proporcionados y actualiza el campo 'isRead' a true
+    await Message.updateMany({ _id: { $in: messageIds } }, { isRead: true });
+
+    //* Envía una respuesta al front-end para indicar que la operación se realizó correctamente
+    res.status(200).json({ message: 'Mensajes marcados como leídos correctamente' });
+  } catch (error) {
+    console.error('Error al marcar mensajes como leídos:', error);
+    res.status(500).json({ message: 'Hubo un error al marcar mensajes como leídos' });
+  }
+
+
+
+}
+
 module.exports.sendMessage = sendMessage;
 module.exports.getChat = getChat;
 module.exports.getConversations = getConversations
+module.exports.markAllMessageAsReaded= markAllMessageAsReaded

@@ -19,18 +19,23 @@ const MessagesPage = () => {
   const [conversations, setConversations] = useState();
   const [lastParticipant, setLastParticipant] =useState(null)
   const [lastParticipantID, setLastParticipantID] = useState(null)
+  const [selectOtherUser, setSelectOtherUser] = useState()
 
   const senderID = user?.id;
   const [receiverID, setReceiverID] = useState(_id);
-  console.log(senderID);
-  console.log(receiverID);
-  console.log("slected user:", selectedUser);
-  console.log("user:", user);
+ 
+useEffect(()=>{
 
+  if(user.id !== _id){
 
+    setSelectedUser(_id)
+
+  }
+
+},[])
 
   //* USEEFFECT PARA CARGAR LAS CONVERSACIONES DEL USUARIO
-
+/*
   useEffect(() => {
     getConversations(senderID)
       .then((data) => {
@@ -47,26 +52,62 @@ const MessagesPage = () => {
       });
   }, [senderID]);
 
-  console.log("last pàrticipant index", lastParticipantID)
+  console.log("last pàrticipant index", lastParticipantID)*/
   //* USEEFFECT PARA CARGAR LOS CHATS DE LOS USUARIOS
+
+
+
+  useEffect(()=>{
+
+    const fetchConversations = async () => {
+      try {
+
+          // Realiza una llamada a la API para obtener los detalles del juego con el ID _id
+          const response = await getConversations(_id);
+          const dataFiltered = response.filter(element => element.participant._id !== user.id)
+   
+          setLastParticipant(dataFiltered?.length -1)
+          console.log(lastParticipant)
+          setLastParticipantID(dataFiltered[lastParticipant]?.participant?._id)
+          setConversations(dataFiltered);
+        
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchConversations();
+
+
+  },[senderID])
+
+  console.log("last pàrticipant index", lastParticipantID)
+
+
+  //*--------------CARGAR CHAT CON USUARIO------------------------
   useEffect(() => {
     // Llamada al servicio para obtener los juegos del usuario
 /*
     if (senderID == receiverID) {
       setReceiverID(lastParticipantID);
     }
-*/
+*/console.log(receiverID)
     getChat(senderID, receiverID)
       .then((data) => {
         // Almacenar los datos en el estado local
         setChats(data);
+        console.log("chats en data", data)
+        
       })
       .catch((error) => {
         console.error("Error fetching chats:", error);
       });
   }, [senderID, receiverID, newMessage]);
 
-  //* Función del boton del input para enviar el mensaje
+ console.log("selecteduser", selectedUser)
+  
+ 
+ 
+ //* Función del boton del input para enviar el mensaje-----------------------------
 
   const handleNewMessage = async () => {
     try {
@@ -82,38 +123,57 @@ const MessagesPage = () => {
 
   //* USEEFFECT  1 PARA CONTROLAR QUE SI EL SELECTED USER  DEL CONTEXTO ES NULL, HAGA UN FETCH
   useEffect(() => {
-    console.log("hace el useEffect");
-    console.log("selected user del useeefect", selectedUser);
+    console.log(selectedUser)
+    if(user?.id !== selectedUser){
+      console.log("entra en el if")
+      
+
     const fetchUserData = async () => {
       try {
-        if (!selectedUser) {
-          console.log("el user en contexto es null y entra en el useeeffect");
+        
+         console.log(selectedUser)
           // Realiza una llamada a la API para obtener los detalles del juego con el ID _id
-          const response = await getUserById(_id);
-          setSelectedUser(response.data);
-        }
+          const response = await getUserById(selectedUser);
+          setSelectOtherUser(response.data);
+      
+         
+        
       } catch (error) {
         console.log(error);
       }
     };
-    fetchUserData();
-  }, [_id]);
-
-  //*---FUNCIÓN PARA CAMBIAR DE CONVERSACIÓN
-
-  const handleConversations = async (receiverID) => {
+    fetchUserData();}
     
-    getChat(senderID, receiverID)
+    console.log(selectOtherUser)
+  }, [_id, selectedUser]);
+
+  //*---FUNCIÓN PARA CAMBIAR DE CONVERSACIÓN-------------------------------
+
+  const handleConversations = async (participant) => {
+    console.log("participant en cambio de conversación",participant)
+    
+    setSelectedUser(participant)
+    console.log(selectedUser)
+    getChat(senderID, participant)
       .then((data) => {
         // Almacenar los datos en el estado local
+        
         setChats(data);
+        console.log("data de conversation handle", data)
       })
       .catch((error) => {
         console.error("Error fetching chats:", error);
       });
   };
 
-  console.log("chats de los usuarios", chats);
+
+  const handleReadMessage = async() =>{
+
+    console.log()
+  }
+console.log("selecteduser", selectedUser)
+console.log("select other user", selectOtherUser)
+
 
   return (
     <div className="msg-page-wrapper">
@@ -139,7 +199,7 @@ const MessagesPage = () => {
       </div>
       <div className="messages-container">
       {selectedUser ? (
-        <h2>Chats with {selectedUser.name}</h2>
+        <h2>Chats with {selectOtherUser?.name}</h2>
       ) : (
         <h2>Chats with Friends</h2>
       )}
@@ -152,12 +212,12 @@ const MessagesPage = () => {
                 <img
                   className="chat-user-img"
                   src={
-                    message.sender == user.id ? user.image : selectedUser.file
+                    message.sender == user.id ? user.image : user?.id == selectedUser?  selectedUser?.file : selectOtherUser?.file
                   }
                 />
                 <h4>
                   <b>
-                    {message.sender == user.id ? user.user : selectedUser.name}
+                    {  message.sender == user.id ? user.user : user?.id == selectedUser? selectedUser?.name : selectOtherUser?.name}
                   </b>
                 </h4>
                 <p>{message.text}</p>

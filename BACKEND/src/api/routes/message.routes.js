@@ -1,7 +1,7 @@
 
 
 const express = require('express');
-const { sendMessage, getChat, getConversations } = require('../controllers/messages.controler');
+const { sendMessage, getChat, getConversations, markAllMessageAsReaded } = require('../controllers/messages.controler');
 
 const MessageRoutes = express.Router();
 
@@ -14,11 +14,17 @@ MessageRoutes.post('/new-message', sendMessage);
 
 MessageRoutes.get('/:senderID/getchat/:receiverID', getChat);
 
-module.exports = MessageRoutes
+
 
 
 //?-----Ruta GET CONVERSATIONS--------
 
 MessageRoutes.get('/getconversations/:userID', getConversations);
+
+
+//?-----Ruta MARCAR MENSAJES COMO LEIDOS--------
+
+MessageRoutes.put("/markasread", markAllMessageAsReaded);
+
 
 module.exports = MessageRoutes

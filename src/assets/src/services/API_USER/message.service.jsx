@@ -32,7 +32,7 @@ export const sendNewMessage = async (senderID, receiverID, newMessage) => {
 //?------------------------------------------------------
 
 export const getChat = async (senderID, receiverID) => {
-  console.log("receiverID en serviciode chats", receiverID)
+  console.log("receiverID en ser, chats", receiverID)
   const params = new URLSearchParams();
   params.append("senderID", senderID);
   params.append("receiverID", receiverID);
