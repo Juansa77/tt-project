@@ -145,6 +145,7 @@ const getConversations = async (req, res, next) => {
           sender: message.sender.name,
           text: message.text,
           createdAt: message.createdAt,
+          isRead: message.isRead,
         };
       });
 
