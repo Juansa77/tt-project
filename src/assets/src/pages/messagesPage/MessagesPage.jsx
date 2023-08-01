@@ -6,6 +6,7 @@ import {
   sendNewMessage,
   getConversations,
   markAsRead,
+  getAllChats,
 } from "../../services/API_USER/message.service";
 import "./MessagesPage.css";
 import React, { useEffect, useState } from "react";
@@ -14,131 +15,31 @@ import { getUserById } from "../../services/API_USER/user.service";
 const MessagesPage = () => {
   const { user } = useAuth();
   const { _id } = useParams();
+
   const { selectedUser, setSelectedUser } = useUserContext();
   const [newMessage, setNewMessage] = useState("");
   const [chats, setChats] = useState();
-  const [conversations, setConversations] = useState();
-  const [lastParticipant, setLastParticipant] = useState(null);
-  const [lastParticipantID, setLastParticipantID] = useState(null);
+  const [newMessageSent, setNewMessageSent] = useState(false);
+
   const [selectOtherUser, setSelectOtherUser] = useState();
-  const [messagesNotReaded, setMessagesNotReaded] = useState(false);
 
   const senderID = user?.id;
+  const [differentUserConversations, setDifferentUserConversations] =
+    useState();
 
-  const [receiverID, setReceiverID] = useState(_id);
-
-  useEffect(() => {
-    if (selectedUser == null) {
-      setSelectedUser(_id);
-    }
-  }, []);
-
-  //* USEEFFECT PARA CARGAR LAS CONVERSACIONES DE LOS USUARIOS Y SETEAR SELECTED USER EN CASO DE QUE SEA NULL
+  //* ---USEEFFECT PARA SETEAR EL USUARIO A UNA NUEVA LLAMADA EN CASO DE QUE SEA NULL
 
   useEffect(() => {
-    const fetchConversations = async () => {
-      try {
-       
-        const response = await getConversations(user?.id);
-        console.log("response de conversarions", response);
-        const dataFiltered = response.filter(
-          (element) => element.participant._id !== user.id
-        );
-        console.log("data filtered", dataFiltered);
-        //* Filtramos las conversaciones que tienen datos sin leer
-        const dataWithUnreadMessages = dataFiltered.map((conversation) => {
-          //* hacemos un some para ver si algún valor tiene el isRead a false, devuelve booleano
-          const hasUnreadMessages = conversation.messages.some(
-            (message) => !message.isRead
-          );
+    setSelectOtherUser(selectedUser);
 
-          const messagesWithUnreadProp = conversation.messages.map(
-            (message) => ({
-              ...message,
-              hasUnreadMessage: !message.isRead,
-            })
-          );
-
-          return {
-            ...conversation,
-            messages: messagesWithUnreadProp,
-            hasUnreadMessages,
-          };
-        });
-
-        console.log("data con mensajes unread", dataWithUnreadMessages);
-
-        const hasUnreadMessages = dataFiltered.some((element) =>
-          element.messages.some((message) => !message.isRead)
-        );
-        console.log("tiene mensaje sin leer", hasUnreadMessages);
-
-        if (hasUnreadMessages == true) {
-          setMessagesNotReaded(true);
-        }
-
-        if (selectedUser == null) {
-          setSelectedUser(
-            dataFiltered[dataFiltered.length - 1].participant._id
-          );
-        }
-
-        setLastParticipantID(dataFiltered[lastParticipant]?.participant?._id);
-        setConversations(dataWithUnreadMessages);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchConversations();
-  }, [senderID, selectedUser]);
-  console.log(messagesNotReaded);
-  console.log("conversaciones", conversations);
-
-
-
-  //*--------------CARGAR CHAT CON USUARIO------------------------
-  useEffect(() => {
-  
-    getChat(senderID, receiverID)
-      .then((data) => {
-        // Almacenar los datos en el estado local
-        setChats(data);
-
-        console.log("chats en carga", chats);
-      })
-      .catch((error) => {
-        console.error("Error fetching chats:", error);
-      });
-  }, [senderID, receiverID, newMessage]);
-
-
-
-  //* Función del boton del input para enviar el mensaje-----------------------------
-
-  const handleNewMessage = async () => {
-    try {
-      console.log(receiverID);
-      const response = await sendNewMessage(senderID, selectedUser, newMessage);
-      console.log("response del mensaje", response);
-
-      // Después de enviar el mensaje, puedes restablecer el valor de `newMessage` a una cadena vacía.
-      setNewMessage("");
-    } catch (error) {
-      console.error("Error sending message:", error);
-    }
-  };
-
-  //* USEEFFECT  1 PARA CONTROLAR QUE SI EL SELECTED USER  DEL CONTEXTO ES NULL, HAGA UN FETCH
-  useEffect(() => {
-    console.log(selectedUser);
-    if (user?.id !== selectedUser) {
+    if (selectedUser == null && _id != user.id) {
       console.log("entra en el if");
 
       const fetchUserData = async () => {
         try {
           console.log(selectedUser);
-          // Realiza una llamada a la API para obtener los detalles del juego con el ID _id
-          const response = await getUserById(selectedUser);
+
+          const response = await getUserById(_id);
           setSelectOtherUser(response.data);
         } catch (error) {
           console.log(error);
@@ -148,67 +49,216 @@ const MessagesPage = () => {
     }
 
     console.log(selectOtherUser);
-  }, [_id, selectedUser]);
+  }, []);
 
-  //*---FUNCIÓN PARA CAMBIAR DE CONVERSACIÓN-------------------------------
+  //*USEEFEFECT PARA CARGAR LAS CONVERSACIONES DEL USUARIO y CREAR OBJETO CUSTOM CON EL RESULTADO DE LA LLAMADA
 
-  const handleConversations = async (participant) => {
-    console.log(participant);
-
-    setSelectedUser(participant);
-
-    getChat(senderID, participant)
+  useEffect(() => {
+    //* llamamos al controlador para obtener todos los chats del usuario
+    getAllChats(senderID)
       .then((data) => {
-        setChats(data);
-        //*Lçogica para filtrar mensajes por si están leidos o no--------
-        //*Filtro para quedarme con los mensajes que están sin leer y QUE NO SEAN DEL USUARIO pillar sus IDS
-        console.log("data de handle ", data)
-        const messageIds = data
-          .filter((element) => element.isRead === false && element.sender !== user?.id)
-          .map((element) => element._id);
+        //* Con la data de la llamada creamos objeto custom con las conversaciones del usuario para iterar fácil
+        const getDifferentUserIds = (response, userId) => {
+          const differentUserIds = [];
 
-        console.log("messagesID", messageIds);
+          response.forEach((conversation) => {
+            const otherUserId =
+              conversation.sender === userId
+                ? conversation.receiver
+                : conversation.receiver === userId && conversation.sender;
+            if (otherUserId !== userId) {
+              //* Buscar si ya existe el usuario en el array differentUserIds
+              const existingUser = differentUserIds.find(
+                (userObj) => userObj.user === otherUserId
+              );
 
-        markAsRead(messageIds);
-        setMessagesNotReaded(false);
+              if (existingUser) {
+                //* Si el usuario ya existe, agregar la nueva conversación al array de conversaciones
+                existingUser.conversation.push({
+                  senderID: conversation.sender,
+                  receiverID: conversation.receiver,
+                  text: conversation.text,
+                  senderName: conversation.senderName,
+                  receiverImage: conversation.receiverImage,
+                  senderImage: conversation.senderImage,
+                  createdAt: conversation.createdAt,
+                  receiverName: conversation.receiverName,
+                  isRead: conversation.isRead,
+                  id: conversation._id,
+                });
+              } else {
+                //* Si el usuario no existe, crear un nuevo objeto con el usuario y su conversación
+                differentUserIds.push({
+                  user: otherUserId,
+                  image:
+                    conversation.sender === userId
+                      ? conversation.receiverImage
+                      : conversation.receiver === userId &&
+                        conversation.senderImage,
+                  name:
+                    conversation.sender === userId
+                      ? conversation.receiverName
+                      : conversation.receiver === userId &&
+                        conversation.senderName,
+                  conversation: [
+                    {
+                      senderID: conversation.sender,
+                      receiverID: conversation.receiver,
+                      text: conversation.text,
+                      senderName: conversation.senderName,
+                      senderImage: conversation.senderImage,
+                      createdAt: conversation.createdAt,
+                      receiverName: conversation.receiverName,
+                      receiverImage: conversation.receiverImage,
+                      isRead: conversation.isRead,
+                      id: conversation._id,
+                    },
+                  ],
+                });
+              }
+            }
+          });
+
+          return differentUserIds;
+        };
+
+        //* Utilizamos la función para obtener los arrays ordenados con las conversaciones
+
+        const differentUserConversations = getDifferentUserIds(data, user.id);
+
+        var index = differentUserConversations.findIndex(
+          (element) => element.user === selectedUser
+        );
+
+        setDifferentUserConversations(differentUserConversations);
+
+        //* VAMOS A SETEAR EL USUARIO AL ÚLTIMO CHAT QUE TENGA ABIERTO
+        if (newMessageSent === true) {
+          console.log("entra");
+          setSelectedUser(selectedUser);
+          setChats(differentUserConversations[index]);
+          console.log("respuesta de chats en useeefect", chats);
+        }
+        if (newMessageSent == false && index == -1) {
+          //*EL FALLO ESTÁ AQUÍ, CUANDO VUELVE A RENDERIZAR EL SENT SE PONE EN
+          console.log("aquí noi tiene que entrar");
+          setSelectedUser(_id);
+          setChats();
+        }
+        setNewMessageSent(false);
+        console.log("el chat después del camnio del seteo", chats);
+        console.log("otra vez", differentUserConversations);
+
+        console.log("RESPONDE DE LA NUEVA FUNCIÓN", chats);
       })
       .catch((error) => {
         console.error("Error fetching chats:", error);
       });
+  }, [user.id, newMessageSent]);
+
+  //* USEEFFECT PARA VOLVER A RENDERIZAR EL CHAT CUANDO SE MANDA UN MENSAJE
+
+  //* ------------------Función del boton del input para enviar el mensaje-----------------------------
+
+  const handleNewMessage = async () => {
+    try {
+      if (_id !== user?.id && _id == selectedUser) {
+        await sendNewMessage(senderID, _id, newMessage); // Enviar el nuevo mensaje
+        setNewMessage(""); // Restablecer el campo de entrada para el nuevo mensaje
+        setNewMessageSent(true); // Activar useEffect para obtener las conversaciones actualizadas
+        console.log(newMessageSent);
+      } else {
+        await sendNewMessage(senderID, selectedUser, newMessage); // Enviar el nuevo mensaje
+        setNewMessage(""); // Restablecer el campo de entrada para el nuevo mensaje
+        setNewMessageSent(true); // Activar useEffect para obtener las conversaciones actualizadas
+        console.log(newMessageSent);
+      }
+
+      // Usar el valor actualizado de selectedUser para setSelectedUser
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
   };
-  console.log("conversations finale", conversations);
+
+  //* USEEFFECT  1 PARA CONTROLAR QUE SI EL SELECTED USER  DEL CONTEXTO ES NULL, HAGA UN FETCH
+
+  //*---FUNCIÓN PARA CAMBIAR DE CONVERSACIÓN-------------------------------
+
+  const handleConversations = async (participant, index) => {
+    console.log(participant);
+    console.log(index);
+
+    setSelectedUser(participant);
+
+    setChats(differentUserConversations[index]);
+    console.log("chats en handle", chats);
+
+    const messageIds = chats.conversation
+      .filter(
+        (element) =>
+          typeof element.isRead === "boolean" &&
+          !element.isRead &&
+          element.senderID !== user?.id
+      )
+      .map((element) => element.id);
+
+    const response = await markAsRead(messageIds);
+    console.log(response);
+    console.log("messagesid", messageIds);
+  };
+  console.log("chats final", chats);
+
+  console.log("differents", differentUserConversations);
 
   return (
     <div className="msg-page-wrapper">
       <div className="conversations-container">
-        {conversations?.map((participant, index) => (
-          <div
-            key={index}
-            className="conversation-wrapper"
-            onClick={() => handleConversations(participant.participant._id)}
-            style={{
-              backgroundColor:
-                participant?.hasUnreadMessages === false
-                  ? "#33FCFF"
-                  : "#FF5733",
-            }}
-          >
-            <img
-              className="conversation-user-img"
-              src={participant.participant.image}
-            />
-            <div className="conversation-text-wrapper">
-              <h3>{participant.participant.name}</h3>
-              <p>
-                {participant?.messages[participant.messages.length - 1]?.text}
-              </p>
+        {differentUserConversations?.map((participant, index) => {
+          //* Filtrar los mensajes no leídos para el usuario actual si el reciever es el user y el estado es falso
+          const unreadMessages = participant.conversation.filter(
+            (message) =>
+              message.receiverID === user?.id && 
+              message.isRead === false 
+          );
+          return (
+            <div
+              key={index}
+              className="conversation-wrapper"
+              onClick={() => handleConversations(participant.user, index)}
+              style={{
+                backgroundColor:
+                  unreadMessages.length>0 
+                    ? "#33FCFF"
+                    : "#f5f5dc",
+              }}
+            >
+              <img className="conversation-user-img" src={participant.image} />
+              <div className="conversation-text-wrapper">
+                <h3>{participant?.name}</h3>
+                <p>
+                  {participant.conversation.length > 0
+                    ? participant.conversation[
+                        participant.conversation.length - 1
+                      ].text
+                    : ""}
+                </p>
+                {/* Agregar el número de mensajes no leídos a la etiqueta p */}
+                {unreadMessages.length > 0 && (
+                  <span>{unreadMessages.length} mensajes no leídos</span>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
       <div className="messages-container">
         {selectedUser ? (
-          <h2>Chats with {selectOtherUser?.name}</h2>
+          <h2>
+            Chats with{" "}
+            {selectOtherUser == null
+              ? selectedUser?.name
+              : selectOtherUser?.name}
+          </h2>
         ) : (
           <h2>Chats with Friends</h2>
         )}
@@ -216,25 +266,21 @@ const MessagesPage = () => {
           <div className="header-text-wrapper"></div>
 
           <div className="sended-messages-wrapper">
-            {chats?.map((message, index) => (
+            {chats?.conversation?.map((message, index) => (
               <div key={index} className="message">
                 <img
                   className="chat-user-img"
                   src={
                     message?.sender == user?.id
                       ? user.image
-                      : selectOtherUser == undefined
-                      ? selectedUser.file
-                      : selectOtherUser.file
+                      : message.senderImage
                   }
                 />
                 <h4>
                   <b>
-                    {message?.sender == user.id
+                    {message?.sender == user?.id
                       ? user.user
-                      : user?.id == selectedUser
-                      ? selectedUser?.name
-                      : selectOtherUser?.name}
+                      : message.senderName}
                   </b>
                 </h4>
                 <p>{message.text}</p>

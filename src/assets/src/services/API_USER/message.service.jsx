@@ -103,3 +103,31 @@ export const markAsRead = async (messageIds) => {
     .then((res) => res.data)
     .catch((error) => error);
 };
+
+
+
+//?------------------------------------------------------
+//*-----------------CHATS GET ALL------------------------
+//?------------------------------------------------------
+
+export const getAllChats = async (senderID) => {
+console.log(senderID)
+  const params = new URLSearchParams();
+  params.append("senderID", senderID);
+
+
+  const config = {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  };
+
+  return APIuser.get(
+    `http://localhost:8095/api/v1/messages/getchatsinuser/${senderID}`,
+    params,
+    config
+  )
+    .then((res) => res.data) // Suponiendo que los datos reales de la respuesta están en la propiedad `data`
+    .catch((error) => error);
+};

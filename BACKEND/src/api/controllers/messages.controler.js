@@ -9,7 +9,7 @@ const sendMessage = async (req, res, next) => {
   //* Sacamos los datos de los usuarios y el mensaje de req.body
 
   const { senderUserID, receiverUserID, text } = req.body;
-  console.log("req.body",senderUserID);
+ 
 
   try {
     //*Buscamos los usuarios
@@ -18,8 +18,7 @@ const sendMessage = async (req, res, next) => {
       User.findById(senderUserID),
       User.findById(receiverUserID),
     ]);
-    console.log("sender", sender);
-    console.log("sender", receiver);
+   
     if (!sender || !receiver) {
       return res.status(404).json({ error: "Usuario no encontrado" });
     }
@@ -28,6 +27,11 @@ const sendMessage = async (req, res, next) => {
       sender: sender._id,
       receiver: receiver._id,
       text,
+      senderName: sender.name,
+      receiverName: receiver.name,
+      senderImage: sender.file,
+      receiverImage: receiver.file,
+
     });
     await newMessage.save();
 
@@ -77,6 +81,10 @@ receiverConversation.messages.push(newMessage._id);
     message: "Message send",
     sender: populatedSender,
   receiver: populatedReceiver,
+  senderName: sender.name,
+  receiverName: receiver.name,
+  senderImage: sender.file,
+  receiverImage: receiver.file,
   });
 
 
@@ -95,22 +103,12 @@ const getChat = async (req, res, next) => {
 
 
   try {
-    const [sender, receiver] = await Promise.all([
-      User.findById(senderID).populate("chats"),
-      User.findById(receiverID).populate("chats"),
-    ]);
-
-    if (!sender || !receiver) {
-      return res.status(404).json({ error: "Usuario no encontrado" });
-    }
-
-    // Obtener los mensajes entre los dos usuarios
-    const messages = sender.chats.filter(
-      (chat) =>
-        chat.receiver.toString() === receiverID ||
-        chat.sender.toString() === receiverID
-    );
-
+    const messages = await Message.find({
+      $or: [
+        { sender: senderID, receiver: receiverID },
+        { sender: receiverID, receiver: senderID },
+      ],
+    });
    return res.status(200).json(messages);
 
   } catch (error) {
@@ -119,6 +117,74 @@ const getChat = async (req, res, next) => {
 };
 
 
+//!---------------------------------------
+//?-----------GET ALL CHAT---------
+//!---------------------------------------
+
+const getAllChatOfUser = async (req, res, next) => {
+  const { userID } = req.params;
+  console.log("entra en el controlador")
+
+  try {
+    // Buscar los mensajes donde el usuario es el emisor o el receptor
+    const messages = await Message.find({
+      $or: [{ sender: userID }, { receiver: userID }],
+    });
+
+    return res.status(200).json(messages);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener los mensajes" });
+  }
+};
+
+//!---------------------------------------
+//?-----------GET CHAT IN USER POPULATE---------
+//!---------------------------------------
+
+// Controlador para obtener los chats con los diferentes usuarios del usuario actual
+const getUserChats = async (req, res, next) => {
+  const { userID } = req.params;
+
+  try {
+    // Buscar el usuario por su ID y popular sus mensajes
+    const user = await User.findById(userID).populate("chats");
+
+    if (!user) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    // Obtener los usuarios con los que el usuario ha tenido chat
+    const chatUsers = new Set();
+
+    user.chats.forEach((chat) => {
+      if (chat.sender.toString() === userID) {
+        chatUsers.add(chat.receiver);
+      } else {
+        chatUsers.add(chat.sender);
+      }
+    });
+
+    // Convertir el conjunto de usuarios en un array
+    const chatUsersArray = Array.from(chatUsers);
+
+    // Obtener los detalles de los usuarios con los que ha tenido chat
+    const usersWithChat = await User.find({
+      _id: { $in: chatUsersArray },
+    });
+
+    return res.status(200).json(usersWithChat);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener los chats del usuario" });
+  }
+};
+
+
+
+//!---------------------------------------
+//?-----------GET CONVERSATIONS
+//!---------------------------------------
+
+// eslint-disable-next-line no-unused-vars
 const getConversations = async (req, res, next) => {
   const { userID } = req.params;
 
@@ -168,6 +234,11 @@ const getConversations = async (req, res, next) => {
 };
 
 
+//!---------------------------------------
+//?-----------MARK AS READ------------
+//!---------------------------------------
+
+
 const markAllMessageAsReaded = async(req, res, next)=>{
 
 console.log("entra en el controlador mark as read")
@@ -193,3 +264,5 @@ module.exports.sendMessage = sendMessage;
 module.exports.getChat = getChat;
 module.exports.getConversations = getConversations
 module.exports.markAllMessageAsReaded= markAllMessageAsReaded
+module.exports.getUserChats = getUserChats
+module.exports.getAllChatOfUser = getAllChatOfUser
