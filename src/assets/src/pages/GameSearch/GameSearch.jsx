@@ -71,7 +71,7 @@ const GameSearch = () => {
     const { setSelectedGame } = useGameContext();
 
 
-  // Instancia de la historia del enrutador para redirigir a la página de detalles
+  //* Instancia de la historia del enrutador para redirigir a la página de detail
   const navigate = useNavigate();
 
   const handleSelectGame = (game) => {

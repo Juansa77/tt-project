@@ -1,0 +1,104 @@
+.game-selection-container {
+  display: flex;
+  position: relative;
+  min-height: 45vh;
+  max-height: 45vh;
+  width: 50%;
+  align-content: center;
+  align-items: center;
+  scroll-behavior: smooth;
+  transition: transform 0.3s ease;
+  gap: 5vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+/* Estilos para las tarjetas */
+.card-container-selection {
+  min-width: 14vw;
+  max-width: 14vw;
+  height: 37vh;
+  max-height: 37vh;
+  background-color: #141414;
+  color: #fff;
+  border-radius: 8px;
+
+  position: relative;
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+  box-shadow: 5px 2px 20px black;
+  scroll-behavior: smooth;
+}
+
+
+.card-container-selection:hover {
+ 
+  border: 3px solid beige;
+
+  transform: scale(1.05);
+  overflow:hidden;
+  
+}
+
+/* Estilos para la imagen */
+.image-selection {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 80%;
+  transition: 0.2s ease-in-out;
+}
+
+/* Estilos para el título */
+.title-container-selection {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+}
+
+.title-selection {
+  font-size: 2.3vh;
+  text-align: left;
+  margin: 0;
+  margin-bottom: 2vh;
+}
+
+/* Estilos para los botones de agregar y remover */
+.add-button,
+.remove-button {
+  position: absolute;
+  top: 10px;
+  z-index: 2;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+.add-button {
+  right: 10px;
+}
+
+.remove-button {
+  right: 40px;
+}
+
+/* Estilos para los botones de desplazamiento */
+.scroll-buttons-container {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  right: 0;
+
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-20%);
+}
+
+.scroll-buttons-container button svg {
+  width: 50px;
+  height: 50px;
+  fill: #333;
+}
