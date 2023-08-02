@@ -15,6 +15,7 @@
   align-items: center;
 }
 .gameContainer{
+  transition: transform 0.3s ease;
   position: relative;
   display: flex;
   max-width: 90%;
@@ -22,7 +23,12 @@
   justify-content: space-between;
   gap: 2vw;
   overflow-x: hidden;
+  transition: opacity 0.5s ease; /* Agrega la animación de transición con 0.5 segundos de duración */
+  opacity: 0; 
   }
 
 
   
+  .gameContainer.visible {
+    opacity: 1; /* Cuando se agrega la clase 'visible', la opacidad se establece en 1 mostrando el componente */
+  }

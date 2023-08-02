@@ -7,27 +7,27 @@
   align-content: center;
   align-items: center;
   scroll-behavior: smooth;
-  transition: transform 0.3s ease;
+  
   gap: 5vh;
   overflow-x: hidden;
   overflow-y: hidden;
 }
 
-/* Estilos para las tarjetas */
+
 .card-container-selection {
-  min-width: 14vw;
-  max-width: 14vw;
-  height: 37vh;
-  max-height: 37vh;
+  min-width: 20vw;
+  max-width: 20vw;
+  height: 32vh;
+    max-height: 37vh;
   background-color: #141414;
   color: #fff;
-  border-radius: 8px;
-
-  position: relative;
+  border-radius: 10px;
+   position: relative;
   transition: 0.2s ease-in-out;
   cursor: pointer;
   box-shadow: 5px 2px 20px black;
   scroll-behavior: smooth;
+  overflow: hidden;
 }
 
 
@@ -88,9 +88,9 @@
 /* Estilos para los botones de desplazamiento */
 .scroll-buttons-container {
   position: absolute;
-  top: 50%;
+  top: 53%;
   left: 5px;
-  right: 0;
+  right: -10px;
 
   display: flex;
   justify-content: space-between;
@@ -100,5 +100,35 @@
 .scroll-buttons-container button svg {
   width: 50px;
   height: 50px;
-  fill: #333;
+  fill: #e7d8d888;
+  background:transparent;
+}
+
+.arrow-btn{
+  background-color:transparent;
+  border: none;
+  height: 10vh;
+}
+
+.CategoryTextContainer{
+  bottom: 0;
+  left: 0;
+  min-width: 100%;
+  overflow:hidden;
+  height:4.5vh;
+ color:beige;
+  display:flex;
+  margin-top:3vh;
+  justify-content:center;
+
+}
+
+.CategoryText{
+  font-size: 3.2vh;
+  min-width:100%;
+  color:beige;
+  text-align:left;
+  margin-left:2vw;
+  height:7vh;
+
 }
