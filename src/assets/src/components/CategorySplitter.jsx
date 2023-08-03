@@ -5,14 +5,15 @@ import styled from 'styled-components';
 const CategoryTextContainer = styled.div`
   bottom: 0;
   left: 0;
-  min-width: 110%;
+  min-width: 100%;
   overflow:hidden;
-  height:6.7vh;
+  height:4vh;
  color:beige;
   display:flex;
-  margin-top:6vh;
-  margin-bottom:5vh;
+  margin-top:5vh;
+
   justify-content:center;
+  margin-bottom:-10vh;
 
   
   
@@ -20,13 +21,14 @@ const CategoryTextContainer = styled.div`
 `;
 
 const CategoryText = styled.h2`
-  font-size: 3.2vh;
+  font-size: 2.9vh;
   min-width:100%;
-  margin-bottom:2vh;
+
   color:beige;
   text-align:left;
-  margin-left:32vw;
-  height:7vh;
+  margin-left:22vw;
+  height:4vh;
+
 
 `;
 

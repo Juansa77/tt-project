@@ -15,7 +15,6 @@
   align-items: center;
 }
 .gameContainer{
-  transition: transform 0.3s ease;
   position: relative;
   display: flex;
   max-width: 90%;
@@ -23,7 +22,7 @@
   justify-content: space-between;
   gap: 2vw;
   overflow-x: hidden;
-  transition: opacity 0.5s ease; /* Agrega la animación de transición con 0.5 segundos de duración */
+  transition:  opacity 2s ease;
   opacity: 0; 
   }
 

@@ -39,6 +39,7 @@ const GameSelectionComponent = ({ category, searchFunction, searchTerm }) => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await searchFunction(search);
+      console.log("LLamada hecha")
       setResponse(data);
     };
     fetchData();
@@ -60,7 +61,7 @@ const GameSelectionComponent = ({ category, searchFunction, searchTerm }) => {
 
 
   return (
-    <div>
+    <div className="GameSelectionWrapper">
     <div className="CategoryTextContainer">
       <h2 className="CategoryText ">{category}</h2>
     </div>
@@ -81,9 +82,10 @@ const GameSelectionComponent = ({ category, searchFunction, searchTerm }) => {
               src={game.image}
               alt={`${game.title} cover`}
             />
+            
+            </div>
             <div className="title-container-selection">
               <h2 className="title-selection">{game.title}</h2>
-            </div>
             </div>
           </div>
         ))}

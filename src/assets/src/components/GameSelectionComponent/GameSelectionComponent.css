@@ -1,23 +1,23 @@
 .game-selection-container {
   display: flex;
   position: relative;
-  min-height: 45vh;
-  max-height: 45vh;
+  min-height: 40vh;
+  max-height: 40vh;
   width: 50%;
   align-content: center;
   align-items: center;
   scroll-behavior: smooth;
-  
   gap: 5vh;
   overflow-x: hidden;
   overflow-y: hidden;
+
 }
 
 
 .card-container-selection {
-  min-width: 20vw;
-  max-width: 20vw;
-  height: 32vh;
+  min-width: 15vw;
+  max-width: 15vw;
+  height: 30vh;
     max-height: 37vh;
   background-color: #141414;
   color: #fff;
@@ -52,14 +52,14 @@
 /* Estilos para el título */
 .title-container-selection {
   position: absolute;
-  bottom: 0;
-  left: 0;
+  bottom: -24px;
+  left: 13px;
   width: 100%;
   padding: 10px;
 }
 
 .title-selection {
-  font-size: 2.3vh;
+  font-size: 2vh;
   text-align: left;
   margin: 0;
   margin-bottom: 2vh;
@@ -130,5 +130,11 @@
   text-align:left;
   margin-left:2vw;
   height:7vh;
+
+}
+
+
+.GameSelectionWrapper{
+
 
 }
