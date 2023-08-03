@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useGameContext } from "../../contexts/GameContext";
 
 
-const GameSelectionComponent = ({ category, searchFunction, searchTerm }) => {
+const GameSelectionComponent = ({ category, searchFunction, searchTerm, collectionSetter }) => {
   const [response, setResponse] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
   const { setSelectedGame } = useGameContext();
@@ -32,6 +32,7 @@ const GameSelectionComponent = ({ category, searchFunction, searchTerm }) => {
         setScrollPosition(newScrollPosition);
       }
     }
+
   };
 
   //* ---LÓGICA PARA EL FETCH----

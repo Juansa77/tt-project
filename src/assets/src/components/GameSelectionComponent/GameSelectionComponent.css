@@ -7,7 +7,7 @@
   align-content: center;
   align-items: center;
   scroll-behavior: smooth;
-  gap: 5vh;
+  gap: 3vh;
   overflow-x: hidden;
   overflow-y: hidden;
 
@@ -15,10 +15,10 @@
 
 
 .card-container-selection {
-  min-width: 15vw;
-  max-width: 15vw;
-  height: 30vh;
-    max-height: 37vh;
+  min-width: 17vw;
+  max-width: 17vw;
+  height: 25vh;
+    max-height: 25vh;
   background-color: #141414;
   color: #fff;
   border-radius: 10px;

@@ -1,22 +1,28 @@
 export const SliderData = [
-    {
-      image:
-        'https://images.unsplash.com/photo-1546768292-fb12f6c92568?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
-    },
-    {
-      image:
-        'https://images.unsplash.com/photo-1501446529957-6226bd447c46?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1489&q=80'
-    },
-    {
-      image:
-        'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80'
-    },
-    {
-      image:
-        'https://images.unsplash.com/photo-1475189778702-5ec9941484ae?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1351&q=80'
-    },
-    {
-      image:
-        'https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80'
-    }
-  ];
+
+  {
+    image:
+    "https://m.media-amazon.com/images/I/91GcxTzEKBL._AC_SL1500_.jpg",
+    text: "Lo último de Pandemic Legacy",
+    link: "",
+    type:"game",
+    _id:"6479a4c83f628e6a6d8369b0"
+  },
+
+  {
+    image:
+    "https://azure.wgp-cdn.co.uk/app-table-top-gaming/posts/Nemesisarttlodobre-1920x1100.jpg?&format=webp&webp.quality=40&scale=both",
+    text: "Alien, pero sin pagar derechos de autor",
+    link: "",
+    type:"game",
+    _id:"6479a4c83f628e6a6d8369c1"
+  },
+  {
+    image:
+    "https://cdn.thewirecutter.com/wp-content/media/2021/07/boardgames-2048px-2233-2x1-1.jpg?auto=webp&quality=75&crop=2:1&width=980&dpr=2",
+    text: "Encuentra gente en tu ciudad para echar una party",
+    link: "/search-friends",
+    type:"ownPage",
+    _id:""
+  }
+];
