@@ -1,49 +1,159 @@
-.game-detail{
-    display: flex;
-    flex-direction: column;
+/* Ajustes generales para el contenedor principal */
+.game-detail {
+  position: absolute;
+top:0; /* Desplaza el contenedor hacia abajo para evitar la barra de navegación */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  background-size: cover;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
-
+/* Estilo para el contenedor interno con desenfoque */
 .game-detail-container {
-  display: flex;
-  margin-top: 10vh;
-  width: 90%;
-  justify-items: center;
-  justify-content: space-between;
+  margin-left: 6vw;
+ 
+  margin-top: 9vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  width: 100%;
+  height: min-content;
+  max-width: 100%; /* Limita el ancho del contenedor interno */
+  
+/* Desenfoque del contenedor */
 
-  height: 30vh;
+  padding: 20px;
+
 }
 
+/* Estilos para la sección de detalles principales */
+.detailGameMain {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.detailMainTextWrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  height: 100%;
+  margin-left: 1vh;
+
+align-items: start;
+}
+
+.detailRating{
+  border: 3px solid beige;
+  padding: 1rem;
+  font-weight: bold;
+  font-size: 4.7vh;
+  border-radius: 2px;
+}
 .game-cover-detail {
   height: 40vh;
-  margin-left: 3vw;
+
+  object-fit: cover;
+  border-radius: 8px;
+  
 }
 
 .game-name-detail {
-  font-size: 8vh;
+  font-size: 7vh;
+
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Estilos para los botones de acción */
+.btn-detail-container {
+padding-top: 2rem;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.btn-game {
+  height: 40px;
+  padding: 8px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  background-color: #0096c7;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-game:hover {
+  background-color: #0076a3;
+  transform: translateY(-2px);
+}
+
+.btn-game:active {
+  background-color: #005b85;
+  transform: translateY(1px);
+}
+
+/* Estilos para la sección de detalles adicionales */
+.game-data-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Reducimos el espacio entre los elementos */
+  margin-top: 20px;
+  width: 100%;
+  padding-top: 2rem;
+  color:beige;
+}
+
+.playtime-detail,
+.playtime-detail::before,
+.playtime-detail::after,
+.detail-category-text {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 0; /* Eliminamos los márgenes por defecto */
+}
+
+.detail-category-container {
+  background: rgba(221, 218, 218, 0.3);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  border: 1.5px solid rgba(209, 213, 219, 0.3);
+  padding: 10px;
+  border-radius: 4px;
+  width: 90%;
+  height: 120%;
+  padding-top: 2rem;
+  color:beige;
+}
+
+.detail-wrapper{
+  width: 100%;
+  height: 100%;
 }
 
 
-.btn-detail-container{
-    margin-top: 20vh;
-    display: flex;
-    margin-right: 3vw;
-    justify-content: flex-end;
-    width: 90%;
+.detailGame-userWrap{
+  margin-top: 1vh;
+  display: flex;
+  flex-direction: column;
+  margin-left: 6vw;
+  padding: 8px 20px;
 }
 
-.btn-game{
-    height: 5vh;
-    width: 2%;
+.usersGameDetailWrapper{
+  margin-top: 3vh;
+  display: flex;
+  gap:4vh;
 }
-
-.game-data-detail{
-    display: flex;
-    flex-direction: column;
-    margin-top: 20vh;
-    width: 90%;
-    justify-content: space-between;
-    justify-items: center;
-    margin-left: 3vw;
-}
-

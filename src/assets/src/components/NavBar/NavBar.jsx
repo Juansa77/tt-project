@@ -18,28 +18,28 @@ const NavBar = () => {
     <div className="navigation">
       <ul>
         <li>
-          <NavLink to="/">HOME</NavLink>
+          <NavLink to="/"><h3>Home</h3></NavLink>
         </li>
 
         <li>
-          <NavLink to="/games">GAME SEARCH</NavLink>
+          <NavLink to="/games"><h3>Game search</h3></NavLink>
         </li>
         <li>
-          <NavLink to="/search-friends">SEARCH FRIENDS</NavLink>
+          <NavLink to="/search-friends"><h3>Search friends</h3></NavLink>
         </li>
         <li>
-          <NavLink to="/places">PLACES TO PLAY</NavLink>
+          <NavLink to="/places"><h3>Places to play</h3></NavLink>
         </li>
         <li>
-          <NavLink to="/register">REGISTER</NavLink>
+          <NavLink to="/register"><h3>Register</h3></NavLink>
         </li>
         {user !== null ? (
           <li>
-            <NavLink to="/profile">PROFILE</NavLink>
+            <NavLink to="/profile"><h3>Profile</h3></NavLink>
           </li>
         ) : (
           <li>
-            <NavLink to="/login">LOGIN</NavLink>
+            <NavLink to="/login"><h3>Login</h3></NavLink>
           </li>
         )}
         {user !== null && (
@@ -61,11 +61,14 @@ const NavBar = () => {
           height: 5vh;
           margin-bottom: 10vh;
           color:beige;
-          background-color: #FF4500;
+          background-color: transparent;
           position:fixed;
+          font-weight: 900;
           top:0;
           margin-bottom: 5%;
           z-index:1;
+          padding:1vh;
+          font-size:1.5vh;
         
         }
 

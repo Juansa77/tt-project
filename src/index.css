@@ -12,4 +12,5 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
   background: #363636;
+  height: min-content;
 }

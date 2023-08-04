@@ -15,7 +15,8 @@ const useLoginError = (res, setLoginOk, userLogin, setRes) => {
       image: res.data.user.file,
       check: res.data.user.check,
       games:res.data.user.games,
-      friends:res.data.user.friends
+      friends:res.data.user.friends,
+      city:res.data.user.city
     };
 
 

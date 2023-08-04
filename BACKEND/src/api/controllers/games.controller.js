@@ -179,6 +179,7 @@ const gameByOwners = async (req, res, next) => {
 //?-----------GAME TITLE OWNED BY CITY------------
 //!----------------------------------------------------
 const gamesByCities = async (req, res, next) => {
+  console.log("entra en game by city")
   const { title, city } = req.params;
   //Utilizamos la función para verificar si la ciudad es válida antes de hacer nada
   const cityIsValid = cityValidation(city);
@@ -188,10 +189,15 @@ const gamesByCities = async (req, res, next) => {
     return res.status(404).json("City is not valid");
   }
   try {
-    //Obtenemos el juego
-    const games = await Game.find({ title: titleToSearch });
+    //*Obtenemos el juego y los usuarios populados, extrayendo los campos de chats
+    const games = await Game.find({ title: titleToSearch }).populate({
+      path: "owners",
+      select: "-chats -conversations", // Aquí excluimos los campos que no queremos
+    });
+    console.log("game", games.length)
 
-    if (games.length > 0) {
+    if (games?.length > 0) {
+      console.log("entra en length")
       //Usamos un Promise all para poder usar el await y manejar la asincronía
       const ownersInCity = await Promise.all(
         games.flatMap(async (game) => {
@@ -204,6 +210,7 @@ const gamesByCities = async (req, res, next) => {
               }
             })
           );
+        
           //retotnamos el array mappeado controlado que no sea undefined
           return mappedOwners.filter((owner) => owner !== undefined);
         })
@@ -211,7 +218,7 @@ const gamesByCities = async (req, res, next) => {
       //aplanamos el array para devolverlo
       const flattenedOwners = ownersInCity.flat();
       //Ternario para manejar si hay propietarios del título y manejar la respuesta
-
+console.log(flattenedOwners)
       return flattenedOwners.length === 0
         ? res.status(404).json({ message: "Game not found in city" })
         : res.status(200).json(flattenedOwners);
