@@ -1,13 +1,14 @@
 
 import { useState } from 'react';
 import styled from 'styled-components';
+import { FaSearch } from 'react-icons/fa';
 useState
 
 const SearchBarContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 30vw;
-  height: 40px;
+  width: 33vw;
+  height: 50px;
   background-color: #000;
   border-radius: 20px;
   padding: 0 10px;
@@ -49,7 +50,7 @@ const SearchBar = ({ placeholder, searchTerm, handleChange, handleSearch }) => {
         value={searchTerm}
         onChange={handleChange}
       />
-      <SearchButton onClick={handleSearch}>Buscar</SearchButton>
+      <SearchButton onClick={handleSearch}><FaSearch size="25px"/></SearchButton>
     </SearchBarContainer>
   );
 };

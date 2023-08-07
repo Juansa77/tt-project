@@ -109,6 +109,10 @@ export const gameByPlayingTime = async (time) => {
     .catch((error) => error);
 };
 
+
+//?----------------------------------------------
+//*---GAME BY CITY----------------------
+//?----------------------------------------------
 export const gameByCity = async (game, city) => {
 
 console.log(game, city)
@@ -129,3 +133,84 @@ console.log(game, city)
     .then((res) => res)
     .catch((error) => error);
 };
+
+
+//?----------------------------------------------
+//*---GAME BY RATING----------------------
+//?----------------------------------------------
+
+export const gameByRating = async (rating) => {
+
+  console.log(rating)
+      //*Creamos un objeto de configuración con los headers de la solicitud
+      const config = {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      };
+    
+      //*Creamos unos params para modificar los parámetros de la url
+      const params = new URLSearchParams();
+    //* Por cada clave y valor en formdata, los metemos en los params de la URL. Convertimos sus propiedades en parámetros
+      Object.entries(rating).forEach(([key, value]) => {
+        params.append(key, value);
+      });
+    return APIuser.get(`http://localhost:8095/api/v1/games/byrate/${rating}`, params, config)
+      .then((res) => res)
+      .catch((error) => error);
+  };
+
+  
+//?----------------------------------------------
+//*---GAME BY TYPE----------------------
+//?----------------------------------------------
+
+
+export const gameByType = async (type) => {
+
+  console.log(type)
+      //*Creamos un objeto de configuración con los headers de la solicitud
+      const config = {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      };
+    
+      //*Creamos unos params para modificar los parámetros de la url
+      const params = new URLSearchParams();
+    //* Por cada clave y valor en formdata, los metemos en los params de la URL. Convertimos sus propiedades en parámetros
+      Object.entries(type).forEach(([key, value]) => {
+        params.append(key, value);
+      });
+    return APIuser.get(`http://localhost:8095/api/v1/games/bytype?type=${type}`, params, config)
+      .then((res) => res)
+      .catch((error) => error);
+  };
+
+  //?----------------------------------------------
+//*---GAME BY  PLAYERS----------------------
+//?----------------------------------------------
+
+
+
+export const gameByPlayers = async (players) => {
+
+  console.log(players)
+      //*Creamos un objeto de configuración con los headers de la solicitud
+      const config = {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      };
+    
+      //*Creamos unos params para modificar los parámetros de la url
+      const params = new URLSearchParams();
+    //* Por cada clave y valor en formdata, los metemos en los params de la URL. Convertimos sus propiedades en parámetros
+      Object.entries(players).forEach(([key, value]) => {
+        params.append(key, value);
+      });
+    return APIuser.get(`http://localhost:8095/api/v1/games/byplayers?players=${players}`, params, config)
+      .then((res) => res)
+      .catch((error) => error);
+  };
+

@@ -237,6 +237,7 @@ console.log(flattenedOwners)
 
 const byPlayingTime = async (req, res, next) => {
   const { playingTime } = req.params;
+  console.log(playingTime)
 
   try {
     //PARA ENCONTRAR ELEMENTOS IGUALES O SUPERIORES A LA PUNTUACIÓN ELEGIDA, PONEMOS EL OPERADOR DE MONGO $gte
@@ -251,12 +252,38 @@ const byPlayingTime = async (req, res, next) => {
   }
 };
 
+
+//!----------------------------------------------
+//?-----------GAME  BY PLAYERS------------
+//!----------------------------------------------
+
+const byPlayers= async (req, res, next) => {
+  const { players } = req.query;
+  console.log(req.params)
+  console.log(players)
+  console.log("entra en byplayers")
+
+  try {
+    //PARA ENCONTRAR ELEMENTOS IGUALES O SUPERIORES A LA PUNTUACIÓN ELEGIDA, PONEMOS EL OPERADOR DE MONGO $gte
+    const games = await Game.find({ players: players });
+    if (games.length > 0) {
+      return res.status(200).json(games);
+    } else {
+      return res.status(404).json("Games not found");
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
 //!----------------------------------------------
 //?-----------GAME  BY TYPE------------
 //!----------------------------------------------
 
 const byType = async (req, res, next) => {
   const { type } = req.query;
+  console.log(type)
 
   try {
     let typesArray = type.split(","); // Obtener un array de strings separados por comas
@@ -429,4 +456,5 @@ module.exports = {
   deleteGameByID,
   multIFilter,
   addGameToDb,
+  byPlayers,
 };

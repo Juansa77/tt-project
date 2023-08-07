@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 
 const CardContainer = styled.div`
-  width: 14vw;
-  height: 32vh;
+  width: 17vw;
+  height: 23vh;
   background-color: #141414;
   color: #fff;
   border-radius: 8px;

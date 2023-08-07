@@ -13,7 +13,8 @@ const {
   updateGame,
   deleteGameByID,
   multIFilter,
-  addGameToDb
+  addGameToDb,
+  byPlayers
 } = require('../controllers/games.controller');
 const { isAuth, isAuthAdmin } = require('../../middlewares/auth.midddleware');
 
@@ -45,6 +46,10 @@ GamesRoutes.get('/playing-time/:playingTime', byPlayingTime);
 
 //?-----Ruta GAME BY TYPE-------------
 GamesRoutes.get('/bytype', byType);
+
+//?-----Ruta GAME BY PLAYERS-------------
+GamesRoutes.get('/byplayers', byPlayers);
+
 
 //?-----Ruta UPDATE GAME--------
 GamesRoutes.patch(

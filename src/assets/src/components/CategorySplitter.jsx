@@ -7,13 +7,14 @@ const CategoryTextContainer = styled.div`
   left: 0;
   min-width: 100%;
   overflow:hidden;
-  height:4vh;
+  height:7vh;
  color:beige;
   display:flex;
+  flex-direction:column;
   margin-top:5vh;
 
   justify-content:center;
-  margin-bottom:-10vh;
+  margin-bottom:-15vh;
 
   
   
@@ -26,18 +27,30 @@ const CategoryText = styled.h2`
 
   color:beige;
   text-align:left;
-  margin-left:22vw;
+  margin-left:6vw;
+  height:4vh;
+
+
+`;
+
+const CategorySubText = styled.h4`
+  font-size: 1.6vh;
+  min-width:100%;
+
+  color:beige;
+  text-align:left;
+  margin-left:6vw;
   height:4vh;
 
 
 `;
 
 
-
-const CategorySplitter = ({title}) => {
+const CategorySplitter = ({title, text}) => {
   return (
     <CategoryTextContainer>
         <CategoryText>{title}</CategoryText>
+        <CategorySubText>{text}</CategorySubText>
     </CategoryTextContainer>
   )
 }

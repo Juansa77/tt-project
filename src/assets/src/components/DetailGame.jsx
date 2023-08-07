@@ -20,7 +20,7 @@ const DetailGame = () => {
   const [gameUsers, setGameUsers] = useState(null);
   console.log(_id);
 
-  const [blurCount, setBlurCount] = useState(50);
+  const [blurCount, setBlurCount] = useState(40);
   console.log(selectedGame);
 
   //*--------------FUNCIONALIDAD PARA AGREGAR EL JUEGO AL USUARIO-----
@@ -35,9 +35,9 @@ const DetailGame = () => {
     const interval = setInterval(() => {
       // Incrementa el valor de blurCount en 10 cada segundo hasta llegar a 100
       if (blurCount < 100) {
-        setBlurCount((prevBlurCount) => prevBlurCount + 22);
+        setBlurCount((prevBlurCount) => prevBlurCount + 1);
       }
-    }, 200); // 1000 milisegundos = 1 segundo
+    }, 10); // 1000 milisegundos = 1 segundo
 
     return () => {
       // Limpia el intervalo cuando el componente se desmonte

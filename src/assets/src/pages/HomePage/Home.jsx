@@ -34,7 +34,7 @@ const Home = () => {
       <SliderGallery slides={SliderData}/>
        
       </div>
-      <CategorySplitter title= {"Para partidas rápidas..."}/>
+      <CategorySplitter title= {"Para partidas rápidas..."} text={"Si te apetecen juegos de 20 minutos"} />
       {verticalScrollPosition >= 0 && (
         <div className={`gameContainer ${verticalScrollPosition >= 0 ? "visible" : ""}`}>
           <GameSelectionComponent
@@ -43,7 +43,7 @@ const Home = () => {
           />
         </div>
       )}
-      <CategorySplitter title="Si tienes una horilla" />
+      <CategorySplitter title="Si tienes una horilla" text={"Una selección de juegos de una hora"} />
       {verticalScrollPosition >= 0 && (
         <div className={`gameContainer ${verticalScrollPosition >= 0 ? "visible" : ""}`}>
           <GameSelectionComponent
