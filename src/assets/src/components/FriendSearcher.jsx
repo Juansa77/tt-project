@@ -16,7 +16,7 @@ const DropdownButton = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  width:10vw;
+  width:14vw;
 `;
 
 const DropdownContent = styled.div`
@@ -54,7 +54,7 @@ const FriendSearcher = ({setSelectedCity}) => {
   return (
     <DropdownContainer>
       <DropdownButton onClick={() => setIsOpen(!isOpen)}>
-        {selectedOption || 'Select a city'}
+        {selectedOption || 'Click to select a city'}
       </DropdownButton>
       {isOpen && (
         <DropdownContent>

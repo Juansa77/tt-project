@@ -61,7 +61,8 @@ const NavBar = () => {
           height: 5vh;
           margin-bottom: 10vh;
           color:beige;
-          background-color: transparent;
+          background: #363636;
+          -webkit-backdrop-filter: blur(5px);
           position:fixed;
           font-weight: 900;
           top:0;

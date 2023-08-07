@@ -3,16 +3,18 @@ import styled from 'styled-components';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 
 const CardContainer = styled.div`
-  width: 14vw;
-  height: 32vh;
-  background-color: #141414;
+  width: 9vw;
+  border-radius: 50%;
+  height: 20vh;
+  background-color: transparent;
   color: #fff;
-  border-radius: 8px;
-  overflow: hidden;
+  margin-top:4vh;
+
+
   position: relative;
   transition:  0.2s ease-in-out;
   cursor:pointer;
-  box-shadow: 5px 2px 20px black;
+
 
   @media (max-width: 768px) {
     width: 35vw;
@@ -25,7 +27,7 @@ const CardContainer = styled.div`
  
     border: 3px solid beige;
     box-shadow: 0 5px 50px black;
-    transform: scale(1.05);
+
     overflow:hidden;
     
   }
@@ -35,6 +37,7 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 50%;
   opacity: 80%;
   transition:  0.2s ease-in-out;
   &:hover {
@@ -45,19 +48,24 @@ const Image = styled.img`
 `;
 
 const TitleContainer = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  display: flex;
+  text-align: center;
   width: 100%;
-  padding: 10px;
+  height: 100%;
+  align-content: center;
+  align-items: center;
+  background-color: transparent;
+  margin-top:-7vh;
 
 `;
 
 const Title = styled.h2`
   font-size: 2.3vh;
-  text-align: left;
+  text-align: center;
   margin: 0;
   margin-bottom:2vh;
+  width:100%;
+
 
 
 `;
@@ -90,12 +98,6 @@ const RemoveButton = styled.button`
 const UserCard=({image, title, onClickAdd, onClickRemove}) => {
   return (
     <CardContainer>
-    <AddButton onClick={onClickAdd}>
-        <FaPlus />
-      </AddButton>
-      <RemoveButton onClick={onClickRemove}>
-        <FaMinus />
-      </RemoveButton>
       <Image src={image} alt="Imagen" />
       <TitleContainer>
         <Title>{title}</Title>

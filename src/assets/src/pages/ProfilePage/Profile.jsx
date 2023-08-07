@@ -1,15 +1,18 @@
 import { useAuth } from "../../contexts/authContext";
 import { Link } from "react-router-dom";
-import { getFriendsInUser, getGamesInUser } from "../../services/API_USER/user.service";
+import {
+  getFriendsInUser,
+  getGamesInUser,
+} from "../../services/API_USER/user.service";
 import { useEffect, useState } from "react";
 import MiniGameCard from "../../components/MiniGameCard";
-import "./Profile.css"
+import "./Profile.css";
 import MiniUserCard from "../../components/MiniUserCard";
 
 const Profile = () => {
   const { user, setUser } = useAuth();
   const userID = user.id;
-  console.log("user en profile",user)
+  console.log("user en profile", user);
 
   const [gamesData, setGamesData] = useState([]);
   const [friendsData, setFriendsData] = useState([]);
@@ -27,20 +30,18 @@ const Profile = () => {
       });
   }, [userID]);
 
-
-    //* USEEFFECT PARA CONTROLAR EL SERVICIO DE LOS AMIGOS DEL USUARIO
-    useEffect(() => {
-      // Llamada al servicio para obtener los juegos del usuario
-      getFriendsInUser(userID)
-        .then((data) => {
-          // Almacenar los datos en el estado local
-          setFriendsData(data);
-        })
-        .catch((error) => {
-          console.error("Error fetching friends:", error);
-        });
-    }, [userID]);
-  
+  //* USEEFFECT PARA CONTROLAR EL SERVICIO DE LOS AMIGOS DEL USUARIO
+  useEffect(() => {
+    // Llamada al servicio para obtener los juegos del usuario
+    getFriendsInUser(userID)
+      .then((data) => {
+        // Almacenar los datos en el estado local
+        setFriendsData(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching friends:", error);
+      });
+  }, [userID]);
 
   console.log(gamesData);
   console.log(friendsData);
@@ -50,26 +51,27 @@ const Profile = () => {
       <div className="profile-container">
         <div className="profile-card">
           <div className="profile-header">
-          <img className="profile-image" src={user.image} alt="Profile" />
-            <h2 className="username">{user.user}</h2>
-            <p className="send-msg-bottom-text">  
+            <img className="profile-image" src={user.image} alt="Profile" />
+            <div>
+            <h2 className="userNameText">{user.user}</h2>
+            <div className="msgContainer">
               <Link
-                to= {`/messages/${userID}`}
-                className="anchorCustom-profileLink"
+                to={`/messages/${userID}`}
+                className="anchorCustom-profileLink apple-tv-button"
               >
-              VER MENSAJES
-              </Link>       
-          </p>
-           
+                VER MENSAJES
+              </Link>
+            </div>
+            </div>
           </div>
-        
 
           <div className="profile-content">
+            
             <div className="profile-section">
               <h3 className="section-title">Friends</h3>
 
               <ul className="friends-list">
-              {friendsData?.response?.data == "Games not found" && (
+                {friendsData?.response?.data == "Games not found" && (
                   <h1>No games in user</h1>
                 )}
                 {friendsData?.data?.length > 0 &&
@@ -83,7 +85,9 @@ const Profile = () => {
               </ul>
             </div>
             <div className="profile-section">
+              <div className="skewed"></div>
               <h3 className="section-title">Games</h3>
+              <section></section>
               <div className="games-list">
                 {gamesData?.response?.data == "Games not found" && (
                   <h1>No games in user</h1>
@@ -97,16 +101,11 @@ const Profile = () => {
                     />
                   ))}
               </div>
-              <p className="bottom-text">
-                <small>
-                  <Link
-                    to="/passwordchange"
-                    className="anchorCustom-profileLink"
-                  >
-                    Manage your account
-                  </Link>
-                </small>
-              </p>
+              <div className="bottom-text">
+                <Link to="/passwordchange" >
+                  Manage your account
+                </Link>
+              </div>
             </div>
           </div>
           <div className="fluidContainerProfile"></div>
@@ -117,16 +116,21 @@ const Profile = () => {
             display: flex;
             width: 100vw;
             justify-content: center;
-            background-color: #363636;
+
+            justify-content: center;
+            justify-items: center;
+          
           }
 
           .profile-container {
-            background: #363636;
+
             display: flex;
+
             justify-content: center;
+            justify-items: center;
             align-items: center;
             min-height: 70vh;
-            width: 70vw;
+
 
             font-family: Arial, sans-serif;
           }
@@ -143,7 +147,6 @@ const Profile = () => {
 
           .profile-header {
             display: flex;
-            flex-direction: column;
             align-items: center;
             margin-bottom: 20px;
           }
@@ -177,8 +180,6 @@ const Profile = () => {
           .friends-list,
           .games-list {
             list-style: none;
-            padding: 0;
-            margin: 0;
           }
 
           .friends-list li,

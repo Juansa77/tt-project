@@ -10,6 +10,7 @@ import UserCard from "../../components/UserCard";
 import { useAuth } from "../../contexts/authContext";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
+import { FaSearch } from "react-icons/fa";
 
 const FriendSearchPage = () => {
   const [selectedCitySearchUser, setSelectedCitySearchUser] = useState("");
@@ -89,34 +90,54 @@ const FriendSearchPage = () => {
   };
 
   return (
-    <div className="friendSearch">
-      <div className="btn-wrap">
-        <FriendSearcher setSelectedCity={handleCitySelect} />
-        <button className="btn-citySearch" onClick={handleSearch}>
-          Search
-        </button>
-      </div>
-      <p>Selected City: {selectedCitySearchUser}</p>
+    <div className="friendSearch" >
       <div className="search-result-container">
-        {response?.data?.length > 0 ? (
-          response.data.map(
-            (friend, index) =>
-              friend._id != userID && (
-        <div key={friend._id} onClick={()=>handleSelectFriend(friend)}>
-                  <UserCard
-                    key={index}
-                    title={friend.name}
-                    image={friend.file}
-                    onClickAdd={() => handleAddUser(friend._id)}
-                    onClickRemove={() => handleRemoveUser(friend._id)}
-                  />
+        <div className="btn-wrap">
+          <div>
+            <FriendSearcher setSelectedCity={handleCitySelect} />
+            <button
+              className="btn-citySearch"
+              onClick={handleSearch}
+              style={{ backgroundColor: "transparent" }}
+            >
+              <FaSearch size="20px" />
+            </button>
+          </div>
+        </div>
+        <div className="friendSearch-main">
+          {response?.data?.length > 0 ? (
+            response.data.map(
+              (friend, index) =>
+                friend._id != userID && (
+                  <div
+                    key={friend._id}
+                    onClick={() => handleSelectFriend(friend)}
+                  >
+                    <UserCard
+                      key={index}
+                      title={friend.name}
+                      image={friend.file}
+                    />
                   </div>
-               
-              )
-          )
-        ) : (
-          <p>No users in the city </p>
-        )}
+                )
+            )
+          ) : response?.response?.data == "User not found" ? (
+            <div className="friendSearchAdvice">
+              <div className="adviceTextWrapper">
+                <h3>No users in the city </h3>
+              </div>
+            </div>
+          ) : (
+            <div className="friendSearchAdvice">
+              <div className="adviceTextWrapper">
+                <h1>Busca amigos en tu ciudad</h1>
+                <p>
+                  Selecciona tu ciudad y encuentra amigos y amigas para jugar
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
