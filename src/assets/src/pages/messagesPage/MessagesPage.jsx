@@ -207,98 +207,93 @@ const MessagesPage = () => {
     console.log("messagesid", messageIds);
   };
   console.log("chats final", chats);
-
+  console.log(selectedUser);
   console.log("differents", differentUserConversations);
-
+  console.log(selectOtherUser);
+  console.log(selectedUser);
   return (
-    <div className="msg-page-wrapper">
-      <div className="conversations-container">
-        {differentUserConversations?.map((participant, index) => {
-          //* Filtrar los mensajes no leídos para el usuario actual si el reciever es el user y el estado es falso
-          const unreadMessages = participant.conversation.filter(
-            (message) =>
-              message.receiverID === user?.id && 
-              message.isRead === false 
-          );
-          return (
-            <div
-              key={index}
-              className="conversation-wrapper"
-              onClick={() => handleConversations(participant.user, index)}
-              style={{
-                backgroundColor:
-                  unreadMessages.length>0 
-                    ? "#33FCFF"
-                    : "#f5f5dc",
-              }}
-            >
-              <img className="conversation-user-img" src={participant.image} />
-              <div className="conversation-text-wrapper">
-                <h3>{participant?.name}</h3>
-                <p>
-                  {participant.conversation.length > 0
-                    ? participant.conversation[
-                        participant.conversation.length - 1
-                      ].text
-                    : ""}
-                </p>
-                {/* Agregar el número de mensajes no leídos a la etiqueta p */}
-                {unreadMessages.length > 0 && (
-                  <span>{unreadMessages.length} mensajes no leídos</span>
-                )}
-              </div>
-            </div>
-          );
-        })}
+    <div className="chat-main">
+      <div className="headerChatText">
+      
       </div>
-      <div className="messages-container">
-        {selectedUser ? (
-          <h2>
-            Chats with{" "}
-            {selectOtherUser == null
-              ? selectedUser?.name
-              : selectOtherUser?.name}
-          </h2>
-        ) : (
-          <h2>Chats with Friends</h2>
-        )}
-        <div className="header-messages">
-          <div className="header-text-wrapper"></div>
-
-          <div className="sended-messages-wrapper">
-            {chats?.conversation?.map((message, index) => (
-              <div key={index} className="message">
+      <div className="msg-page-wrapper">
+        <div className="conversations-container">
+          {differentUserConversations?.map((participant, index) => {
+            //* Filtrar los mensajes no leídos para el usuario actual si el reciever es el user y el estado es falso
+            const unreadMessages = participant.conversation.filter(
+              (message) =>
+                message.receiverID === user?.id && message.isRead === false
+            );
+            return (
+              <div
+                key={index}
+                className="conversation-wrapper"
+                onClick={() => handleConversations(participant.user, index)}
+                style={{
+                  backgroundColor:
+                    unreadMessages.length > 0 ? "#0070c9" : "#1d1b1f4b",
+                }}
+              >
                 <img
-                  className="chat-user-img"
-                  src={
-                    message?.sender == user?.id
-                      ? user.image
-                      : message.senderImage
-                  }
+                  className="conversation-user-img"
+                  src={participant.image}
                 />
-                <h4>
-                  <b>
-                    {message?.sender == user?.id
-                      ? user.user
-                      : message.senderName}
-                  </b>
-                </h4>
-                <p>{message.text}</p>
-                <h5>{message.createdAt}</h5>
+                <div className="conversation-text-wrapper">
+                  <h3>{participant?.name}</h3>
+                  <p>
+                    {participant.conversation.length > 0
+                      ? participant.conversation[
+                          participant.conversation.length - 1
+                        ].text
+                      : ""}
+                  </p>
+                  {/* Agregar el número de mensajes no leídos a la etiqueta p */}
+                  {unreadMessages.length > 0 && (
+                    <span>{unreadMessages.length} mensajes no leídos</span>
+                  )}
+                </div>
               </div>
-            ))}{" "}
-          </div>
+            );
+          })}
         </div>
-        <div className="input-message-wrapper">
-          <input
-            type="text"
-            placeholder="Type your message..."
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-          />
-          <button className="sendmsg-btn" onClick={handleNewMessage}>
-            Send
-          </button>
+        <div className="messages-container">
+          <div className="header-messages">
+            <div className="sended-messages-wrapper">
+              {chats?.conversation?.map((message, index) => (
+                <div key={index} className="message">
+                  <img
+                    className="chat-user-img"
+                    src={
+                      message?.sender == user?.id
+                        ? user.image
+                        : message.senderImage
+                    }
+                  />
+                  <h4>
+                    <b>
+                      {message?.sender == user?.id
+                        ? user.user
+                        : message.senderName}
+                    </b>
+                  </h4>
+                  <p>{message.text}</p>
+                  <h5>{message.createdAt}</h5>
+                </div>
+              ))}{" "}
+            </div>
+          </div>
+          <div className="input-message-wrapper">
+            <input
+              className="input-msg"
+              type="text"
+              placeholder="Type your message..."
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+            />
+            <button className="sendmsg-btn" onClick={handleNewMessage}>
+              Send
+            </button>
+          </div>
         </div>
       </div>
     </div>
