@@ -1,84 +1,105 @@
 .games-list {
   display: flex;
   height: 25vh;
-  align-items:center;
+  align-items: center;
   width: 100%;
   gap: 2vh;
   background-color: #121b27;
 
   border-radius: 5px;
   padding: 1rem;
-  border-top:1px solid beige ;
 }
 
-.friends-list{
+.friends-list {
   display: flex;
   height: 25vh;
-  align-items:center;
+  align-items: center;
   width: 100%;
   gap: 2vh;
   background-color: #121b27;
+  border: 1px solid rgba(173, 166, 166, 0.404);
 
-  border-radius: 5px;
   padding: 1rem;
-  border-top:1px solid beige
 }
 
-.profile-container{
-margin-top: 2vh;
-border-radius: 2px;
-padding: 1rem;
-display: flex;
-justify-content: center;
-justify-items: center;
-  
+.friends-sectionName {
+  padding: 2.1rem;
+  background-color: rgba(173, 166, 166, 0.404);
+  height: 4vh;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  color: rgb(204, 198, 198);
+  line-height: 1rem;
+  font-size: 3vh;
+  border-radius: 10px 10px 0 0;
 }
 
-.profile-card{
+.profile-container {
+  margin-top: 3vh;
+  border-radius: 2px;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+}
+
+.profile-card {
   display: flex;
   flex-direction: column;
-justify-content: center;
-justify-items: center;
-align-content: center;
-align-items: center;
-width: 100%;
-padding: 1rem;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  background: #363636;
 }
 
-.profile-main{
+.profile-main {
   margin-top: 7vh;
   width: 100%;
   display: flex;
-justify-content: center;
-justify-items: center;
-padding: 1rem;
+  justify-content: center;
+  justify-items: center;
+  padding: 1rem;
 }
 
-.profile-image{
-
+.profile-image {
   min-height: 19vh;
   min-width: 9vw;
-
 }
 
-.profile-content{
+.profile-content {
   width: 95%;
+  background: #363636;
 }
-.profile-header{
- display: flex;
- padding: 2rem;
+
+.profile-section-content {
+  background: #363636;
+}
+.profile-header {
+  display: flex;
+  padding: 2rem;
   height: 25vh;
   width: 95%;
   align-content: center;
   align-items: center;
   border-radius: 5px;
 
-  background-color: #121b27;
+  background: #363636;
   justify-content: space-between;
   margin-top: 2vh;
 }
 
-.userNameText{
+.profile-section {
+  border: 1px solid rgba(173, 166, 166, 0.404);
+  border-radius: 10px 10px 0 0;
+  background: #363636;
+  margin-top: 5vh;
+}
+
+.userNameText {
   font-size: 7vh;
   margin-right: 35vw;
   margin-top: 2vh;
@@ -109,24 +130,27 @@ padding: 1rem;
   transform: scale(0.95);
 }
 
-.send-msg-bottom-text{
+.send-msg-bottom-text {
   background-color: red;
 }
 
-.anchorCustom{
+.anchorCustom {
   background-color: red;
 }
 
-.msgContainer{
-  margin-top: -vh;
+.msgContainer {
+
   margin-bottom: 2vh;
 }
 
-.bottom-text{
+.userSettings-text {
   margin-top: 2vh;
   width: 100%;
-  color: blue;
-  font-size: 2vh;
   display: flex;
-justify-content: center;
+  justify-content: center;
+}
+
+.linkText {
+  color: beige;
+  font-size: 2.5vh;
 }

@@ -1,6 +1,199 @@
-.send-msg-bottom-text{
-    width: 20%;
-    background-color: beige;
+.games-list {
+    display: flex;
+    height: 25vh;
+    align-items:center;
+    width: 100%;
+    gap: 2vh;
+    background-color: #121b27;
+  
+    border-radius: 5px;
+    padding: 1rem;
+  }
+  
+  .friends-list{
+    display: flex;
+    height: 25vh;
+    align-items:center;
+    width: 100%;
+    gap: 2vh;
+    background-color: #121b27;
+  border: 1px solid rgba(173, 166, 166, 0.404);
+  
+    padding: 1rem;
+  
+  }
+  
+  
+  .friends-sectionName{
+    padding: 2.1rem;
+    background-color: rgba(173, 166, 166, 0.404);
+    height: 4vh;
+    display: flex;
+  align-content: center;
+  align-items: center;
+  color:rgb(204, 198, 198);
+  line-height: 1rem;
+  font-size: 3vh;
+  border-radius: 10px 10px 0 0;
+  
+  }
+  
+  .profile-container{
+  margin-top: 2vh;
+  border-radius: 2px;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  
+    
+  }
+  
+  .profile-card{
+    display: flex;
+    flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  background: #363636;
+  }
+  
+  .profile-main{
+    margin-top: 7vh;
+    width: 100%;
+    display: flex;
+  justify-content: center;
+  justify-items: center;
+  padding: 1rem;
+  
+  }
+  
+  .profile-image{
+  
+    min-height: 19vh;
+    min-width: 9vw;
+  
+  }
+  
+  .profile-content{
+    width: 95%;
+    background: #363636;
+  }
+  
+  .profile-section-content{
+  
+    background: #363636;
+  }
+  .profile-header{
+   display: flex;
+   padding: 2rem;
+    height: 27vh;
+    width: 95%;
+    align-content: center;
+    align-items: center;
+    border-radius: 5px;
+  
+    background: #363636;
+    justify-content: space-between;
+    margin-top: 1vh;
+  }
+  
+  .profile-section{
+    border: 1px solid rgba(173, 166, 166, 0.404);
+    border-radius: 10px 10px 0 0;
+    background: #363636;
+    margin-top: 1vh;
+  }
+  
+  .userNameText{
+    font-size: 7vh;
+    margin-right: 35vw;
+    margin-top: 2vh;
+  }
+  
+  .apple-tv-button {
+    background-color: transparent;
+    border: 2px solid beige;
+    border-radius: 8px;
+    color: beige;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .apple-tv-button:hover {
+    background-color: #0070c9;
+    color: #fff;
+  }
+  
+  .apple-tv-button:focus {
+    outline: none;
+  }
+  
+  .apple-tv-button:active {
+    transform: scale(0.95);
+  }
+  
+  .send-msg-bottom-text{
+    background-color: red;
+  }
+  
+  .anchorCustom{
+    background-color: red;
+  }
+  
+  .msgContainer{
+    margin-top: -vh;
+    margin-bottom: 2vh;
+  }
+  
+  .userSettings-text{
+    margin-top: 2vh;
+    width: 100%;
+  display: flex;
+  justify-content: center;
+  }
+  
+  .linkText{
+    color: beige;
+    font-size: 2.5vh;
+  }
+
+  .btn-user {
+    height: 40px;
+    padding: 8px 20px;
+    font-size: 16px;
+    font-weight: bold;
     text-align: center;
-    color:black
-}
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #0096c7;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  
+  .btn-user:hover {
+    background-color: #0076a3;
+    transform: translateY(-2px);
+  }
+  
+  .btn-user:active {
+    background-color: #005b85;
+    transform: translateY(1px);
+  }
+  
+  .btn-userDetailWrapper{
+    display: flex;
+    width: 95%;
+    gap:1vh;
+    justify-content: end;
+    margin-top:-2vh;
+  }

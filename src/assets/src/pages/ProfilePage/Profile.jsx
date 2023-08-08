@@ -1,5 +1,5 @@
 import { useAuth } from "../../contexts/authContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   getFriendsInUser,
   getGamesInUser,
@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import MiniGameCard from "../../components/MiniGameCard";
 import "./Profile.css";
 import MiniUserCard from "../../components/MiniUserCard";
+import { useUserContext } from "../../contexts/UserContext";
+import { useGameContext } from "../../contexts/GameContext";
 
 const Profile = () => {
   const { user, setUser } = useAuth();
@@ -16,6 +18,31 @@ const Profile = () => {
 
   const [gamesData, setGamesData] = useState([]);
   const [friendsData, setFriendsData] = useState([]);
+  const navigate = useNavigate();
+  const { setSelectedUser } = useUserContext();
+
+  //* FUNCIÓN PARA ACCEDER A LA PÁGINA DE DETALLE DEL AMIGO
+
+  const handleSelectFriend = (friend) => {
+    console.log("amigo seleccionado>", friend);
+    setSelectedUser(friend);
+    // Redirige a la página de detalles del juego seleccionado
+    navigate(`/users/${friend._id}`);
+  };
+
+  //* FUNCIÓN PARA ALMACENAR LOS DATOS DEL JUEGO SELECCIONADO PARA USARLO EN DETAIL Y NO HACER UNA NUEVA LLAMADA
+
+  //* SACAMOS DEL CONTEXTO DE GAME PARA ALMACENAR LOS DATOS DEL JUEGO
+  const { setSelectedGame } = useGameContext();
+
+  //* Instancia de la historia del enrutador para redirigir a la página de detail
+
+  const handleSelectGame = (game) => {
+    console.log(game);
+    setSelectedGame(game);
+    // Redirige a la página de detalles del juego seleccionado
+    navigate(`/games/${game._id}`);
+  };
 
   //* USEEFFECT PARA CONTROLAR EL SERVICIO DE LOS JUEGOS DEL USUARIO
   useEffect(() => {
@@ -43,9 +70,6 @@ const Profile = () => {
       });
   }, [userID]);
 
-  console.log(gamesData);
-  console.log(friendsData);
-
   return (
     <div className="profile-main">
       <div className="profile-container">
@@ -53,62 +77,69 @@ const Profile = () => {
           <div className="profile-header">
             <img className="profile-image" src={user.image} alt="Profile" />
             <div>
-            <h2 className="userNameText">{user.user}</h2>
-            <div className="msgContainer">
-              <Link
-                to={`/messages/${userID}`}
-                className="anchorCustom-profileLink apple-tv-button"
-              >
-                VER MENSAJES
-              </Link>
-            </div>
+              <h2 className="userNameText">{user.user}</h2>
+              <div className="msgContainer">
+                <Link
+                  to={`/messages/${userID}`}
+                  className="anchorCustom-profileLink apple-tv-button"
+                >
+                  VER MENSAJES
+                </Link>
+              </div>
             </div>
           </div>
 
           <div className="profile-content">
-            
-            <div className="profile-section">
+            <div className="friends-sectionName">
               <h3 className="section-title">Friends</h3>
+            </div>
 
-              <ul className="friends-list">
-                {friendsData?.response?.data == "Games not found" && (
-                  <h1>No games in user</h1>
-                )}
-                {friendsData?.data?.length > 0 &&
-                  friendsData?.data?.map((friend, index) => (
+            <ul className="friends-list">
+              {friendsData?.response?.data == "Games not found" && (
+                <h1>No games in user</h1>
+              )}
+              {friendsData?.data?.length > 0 &&
+                friendsData?.data?.map((friend, index) => (
+                  <div
+                    key={friend._id}
+                    onClick={() => handleSelectFriend(friend)}
+                  >
                     <MiniUserCard
                       key={index}
                       title={friend.name}
                       image={friend.file}
                     />
-                  ))}
-              </ul>
-            </div>
+                  </div>
+                ))}
+            </ul>
+
             <div className="profile-section">
-              <div className="skewed"></div>
-              <h3 className="section-title">Games</h3>
-              <section></section>
+              <div className="friends-sectionName">
+                {" "}
+                <h3 className="section-title">Games</h3>
+              </div>
               <div className="games-list">
                 {gamesData?.response?.data == "Games not found" && (
                   <h1>No games in user</h1>
                 )}
                 {gamesData?.data?.length > 0 &&
                   gamesData?.data?.map((game, index) => (
-                    <MiniGameCard
-                      key={index}
-                      title={game.title}
-                      image={game.image}
-                    />
+                    <div key={game._id} onClick={() => handleSelectGame(game)}>
+                      <MiniGameCard
+                        key={index}
+                        title={game.title}
+                        image={game.image}
+                      />
+                    </div>
                   ))}
               </div>
-              <div className="bottom-text">
-                <Link to="/passwordchange" >
-                  Manage your account
-                </Link>
-              </div>
+            </div>
+            <div className="userSettings-text">
+              <Link className="linkText" to="/passwordchange">
+                Manage your account
+              </Link>
             </div>
           </div>
-          <div className="fluidContainerProfile"></div>
         </div>
 
         <style jsx>{`
@@ -119,11 +150,9 @@ const Profile = () => {
 
             justify-content: center;
             justify-items: center;
-          
           }
 
           .profile-container {
-
             display: flex;
 
             justify-content: center;
@@ -131,17 +160,16 @@ const Profile = () => {
             align-items: center;
             min-height: 70vh;
 
-
             font-family: Arial, sans-serif;
           }
 
           .profile-card {
             min-height: 50vh;
             width: 70vw;
-            background-color: #121b27;
+            background: #363636;
             border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
             color: #ffffff;
           }
 
@@ -168,18 +196,17 @@ const Profile = () => {
             margin-bottom: 20px;
           }
 
-          .profile-section {
-            margin-bottom: 20px;
-          }
+       
 
           .section-title {
-            font-size: 18px;
+            font-size: 20px;
             margin-bottom: 10px;
           }
 
           .friends-list,
           .games-list {
             list-style: none;
+            background: #363636;
           }
 
           .friends-list li,
