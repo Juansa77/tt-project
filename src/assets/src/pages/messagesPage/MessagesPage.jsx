@@ -17,6 +17,7 @@ const MessagesPage = () => {
   const { _id } = useParams();
 
   const { selectedUser, setSelectedUser } = useUserContext();
+  const [conversationName, setConversationName] = useState()
   const [newMessage, setNewMessage] = useState("");
   const [chats, setChats] = useState();
   const [newMessageSent, setNewMessageSent] = useState(false);
@@ -184,10 +185,10 @@ const MessagesPage = () => {
 
   //*---FUNCIÓN PARA CAMBIAR DE CONVERSACIÓN-------------------------------
 
-  const handleConversations = async (participant, index) => {
+  const handleConversations = async (participant, index, user) => {
     console.log(participant);
     console.log(index);
-
+setConversationName(user)
     setSelectedUser(participant);
 
     setChats(differentUserConversations[index]);
@@ -211,10 +212,11 @@ const MessagesPage = () => {
   console.log("differents", differentUserConversations);
   console.log(selectOtherUser);
   console.log(selectedUser);
+  console.log(conversationName)
   return (
     <div className="chat-main">
       <div className="headerChatText">
-      
+      <div className="headerChatOne"><h3>Mensajes</h3></div><div className="headerChatTwo"><h3>{conversationName != null && `Conversation with ${conversationName}`}</h3></div>
       </div>
       <div className="msg-page-wrapper">
         <div className="conversations-container">
@@ -228,7 +230,7 @@ const MessagesPage = () => {
               <div
                 key={index}
                 className="conversation-wrapper"
-                onClick={() => handleConversations(participant.user, index)}
+                onClick={() => handleConversations(participant.user, index, participant.name)}
                 style={{
                   backgroundColor:
                     unreadMessages.length > 0 ? "#0070c9" : "#1d1b1f4b",
@@ -240,13 +242,13 @@ const MessagesPage = () => {
                 />
                 <div className="conversation-text-wrapper">
                   <h3>{participant?.name}</h3>
-                  <p>
+                  <h5>
                     {participant.conversation.length > 0
                       ? participant.conversation[
                           participant.conversation.length - 1
                         ].text
                       : ""}
-                  </p>
+                  </h5>
                   {/* Agregar el número de mensajes no leídos a la etiqueta p */}
                   {unreadMessages.length > 0 && (
                     <span>{unreadMessages.length} mensajes no leídos</span>

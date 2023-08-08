@@ -35,16 +35,7 @@ a {
 }
 
 
-.form-wrap {
-  width: 30vw;
-  height: 70vh;
-  margin-top: 2rem;
-  background:#121b27;
-  padding: 15px 25px 30px;
-  color: beige;
-  border-radius: 5px;
-  margin-bottom: 4vh;
-}
+
 
 .form-wrap h1,
 .form-wrap p {
@@ -79,7 +70,7 @@ a {
   width: 100%;
   padding: 10px;
   margin-top: 25px;
-  background: #2f7a67;
+  background: #0070c9;
   color: beige;
   cursor: pointer;
   border: #2f7a67 1px solid;
@@ -146,7 +137,7 @@ input[type="radio"] {
 }
 
 .label-radio {
-  background: #37a08e57;
+  background:#0070c9;
   color: beige;
   padding: 10px;
   text-align: center;
@@ -154,18 +145,25 @@ input[type="radio"] {
 }
 
 input[type="radio"]:checked + .label-radio {
-  background: #2f7a67;
-  color: #fff !important;
+  background: beige;
+  color: #0070c9 !important;
 }
 
 a {
-  color: #49c1a2;
+  color: #0070c9;
+
 }
 
-.anchorCustom {
-  color: #276052;
+.anchorCustom2 {
+  background: transparent;
+  color:#0070c9;
 }
 
 .account-reminder{
   margin-bottom: 2vh;
+  color:beige;
 }
+.btn{
+  background-color: #0070c9;
+}
+

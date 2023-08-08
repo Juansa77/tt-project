@@ -195,9 +195,10 @@ const Register = () => {
             <div className="btn_container">
               <button
                 className="btn"
+        
                 type="submit"
                 disabled={send}
-                style={{ background: send ? "#49c1a388" : "#49c1a2" }}
+                style={{ background: send ? "#49c1a388" : "#0070c9" }}
               >
                 {/* SI SEND ESTÁ EN TRUE, CARGAMOS EL SPINNER DE LOADING*/}
                 {send ? <Spinner /> : "Register"}
@@ -213,14 +214,14 @@ const Register = () => {
             <p className="bottom-text">
               <small>
                 Have you forgotten the password?
-                <Link to="/forgotpassword" className="anchorCustom">
+                <Link to="/forgotpassword" className="anchorCustom2" style={{background:"0070c9"}}>
                   Change password
                 </Link>
               </small>
             </p>
           </form>
           <div className="account-reminder">
-            <p>
+            <p style={{background:"0070c9"}}>
               Already have an account? <a href="#">Login Here</a>
             </p>
           </div>

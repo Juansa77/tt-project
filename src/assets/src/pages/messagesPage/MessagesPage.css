@@ -1,15 +1,13 @@
 .msg-page-wrapper {
     display: flex;
-    width: 70%;
+    width: 50%;
  
-    justify-content: space-between;
+    justify-content: left;
     justify-items: center;
     align-items: flex-start;
-
-    border-radius: 10px;
     gap:0.5vw;
-    margin-top: 2vh;
-    border: 1px solid rgb(109, 106, 106);
+
+    border: 1px solid beige;
 
 }
 .chat-main{
@@ -22,23 +20,45 @@
     overflow: hidden;
 }
 .headerChatText{
-    margin-top: 6vh;
-    width: 70%;
-    display: flex;
+    margin-top: 7vh;
+ height: 7vh;
+ display: flex;
+    width: 50%;
+  background-color:  #363636;
     color:whitesmoke;
-    padding: 1rem;
+    border:1px solid beige;
+    border-radius: 20px 20px 0 0; 
+
+}
+
+.headerChatOne{
+    width: 31.1%;
+    height: 100%;
+    border-right: 2px solid beige;
+    padding: 2rem;
+    
+
+}
+
+.headerChatTwo{
+    
+    height: 100%;
+
+    padding: 2rem;
+    
+
 }
 
 .chatText{
     width: 50%;
 }
 .conversations-container {
-
-    background-color: rgba(29, 27, 31, 0.295);
+    background-color: rgba(0, 0, 0, 0.295);
     display: flex;
 
     flex-direction: column;
-    width: 30%;
+    width: 31%;
+    max-width: 30%;
     height: min-content;
     justify-content: left;
     color: #14171a;
@@ -48,8 +68,7 @@
     overflow-x: hidden;
 
     scrollbar-width: thin; /* Anchura del scrollbar */
- 
-  
+
 }
 
 .conversations-container::-webkit-scrollbar {
@@ -57,7 +76,7 @@
 }
 
 .conversations-container::-webkit-scrollbar-thumb {
-    background-color: #807979; /* Color del thumb */
+   
     border-radius: 4px; /* Borde redondeado del thumb */
 }
 
@@ -72,24 +91,26 @@
 
     gap: 2vw;
     cursor: pointer;
+    border-bottom: 1px solid beige;
 }
 
 .messages-container {
-    
+    border-left:2px solid beige;
     display: flex;
 
     flex-direction: column;
     width: 70%;
     height: 70vh;
     align-items: center;
-    border-left:1px solid  rgb(109, 106, 106);
- 
+
 }
 
 .conversation-text-wrapper {
     display: flex;
     flex-direction: column;
     color:whitesmoke;
+    background-color: rgba(29, 27, 31, 0.295);
+
 
 }
 
@@ -123,6 +144,7 @@
     overflow: scroll;
     overflow-x: hidden;
 
+
 }
 
 .sended-messages-wrapper::-webkit-scrollbar {
@@ -130,7 +152,7 @@
 }
 
 .sended-messages-wrapper::-webkit-scrollbar-thumb {
-    background-color: #807979; /* Color del thumb */
+    background-color: beige; /* Color del thumb */
     border-radius: 4px; /* Borde redondeado del thumb */
 }
 
@@ -141,29 +163,33 @@
 
 
 .message {
-    border-bottom: 1px solid #e1e8ed;
+    border-bottom: 1px solid #6e7072;
     padding: 1rem;
 }
 
 .input-message-wrapper {
-    margin-top: 2vh;
+
+
    
     width: 100%;
-    height: 5vh; /* Aumento de la altura para mayor comodidad */
-    gap: 1vw; /* Reducción del espacio entre los elementos */
+    height: 10%; /* Aumento de la altura para mayor comodidad */
+
     display: flex;
-    justify-items: left;
-    justify-items: left;
-    align-items: left; 
+    justify-items: center;
+    justify-items: center;
+    align-items: center; 
 
 }
 
 input {
-    flex: 1; /* El input ocupa todo el espacio disponible */
+   /* El input ocupa todo el espacio disponible */
     padding: 0.5rem; /* Añadir un poco de espacio interno */
     font-size: 2vh;
     background-color: rgb(231, 222, 222);
-    border-radius: 6px;
+    height: 100%;
+    width: 90%;
+    
+ 
 }
 
 
@@ -182,13 +208,14 @@ p {
 
 .sendmsg-btn {
     background-color: transparent;
-    border: 2px solid beige;
-    border-radius: 8px;
+
+    width: 10%;
+    height: 100%;
+
     color: beige;
     font-size: 18px;
     font-weight: bold;
     padding: 10px 20px;
-    width: 7vw;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
   }

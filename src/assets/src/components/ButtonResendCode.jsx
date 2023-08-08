@@ -40,7 +40,7 @@ const ButtonResendCode = ({setReloadPageError}) => {
       id="btnResend"
       className="btn"
       disabled={resend}
-      style={{ background: resend ? "#49c1a388" : "#49c1a2" }}
+      style={{ background: resend ? "#49c1a388" : "#0070c9" }}
       onClick={() => handleResend()}
     >
       Resend Code
