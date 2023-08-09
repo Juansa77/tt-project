@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import { useAuth } from "../../contexts/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -76,7 +77,7 @@ const Profile = () => {
         <div className="profile-card">
           <div className="profile-header">
             <img className="profile-image" src={user.image} alt="Profile" />
-            <div>
+            <div className="profile-dataUserWrap">
               <h2 className="userNameText">{user.user}</h2>
               <div className="msgContainer">
                 <Link
@@ -89,7 +90,7 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="profile-content">
+          <div className="profile-section">
             <div className="friends-sectionName">
               <h3 className="section-title">Friends</h3>
             </div>
@@ -112,7 +113,7 @@ const Profile = () => {
                   </div>
                 ))}
             </ul>
-
+            </div>
             <div className="profile-section">
               <div className="friends-sectionName">
                 {" "}
@@ -139,81 +140,10 @@ const Profile = () => {
                 Manage your account
               </Link>
             </div>
-          </div>
+    
+        
         </div>
 
-        <style jsx>{`
-          .profile-main {
-            display: flex;
-            width: 100vw;
-            justify-content: center;
-
-            justify-content: center;
-            justify-items: center;
-          }
-
-          .profile-container {
-            display: flex;
-
-            justify-content: center;
-            justify-items: center;
-            align-items: center;
-            min-height: 70vh;
-
-            font-family: Arial, sans-serif;
-          }
-
-          .profile-card {
-            min-height: 50vh;
-            width: 70vw;
-            background: #363636;
-            border-radius: 8px;
-            padding: 20px;
-
-            color: #ffffff;
-          }
-
-          .profile-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-          }
-
-          .username {
-            font-size: 24px;
-            margin-bottom: 8px;
-          }
-
-          .city {
-            font-size: 14px;
-          }
-
-          .profile-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
-          }
-
-       
-
-          .section-title {
-            font-size: 20px;
-            margin-bottom: 10px;
-          }
-
-          .friends-list,
-          .games-list {
-            list-style: none;
-            background: #363636;
-          }
-
-          .friends-list li,
-          .games-list li {
-            margin-bottom: 6px;
-          }
-        `}</style>
       </div>
     </div>
   );

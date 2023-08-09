@@ -26,6 +26,8 @@ import MessagesPage from "./assets/src/pages/messagesPage/MessagesPage.jsx";
 
 
 
+
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -72,6 +74,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             }
           />
         </Routes>
+     
         </UserContextProvider>
         </GameContextProvider>
       </AuthContextProvider>

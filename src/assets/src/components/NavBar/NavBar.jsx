@@ -1,52 +1,81 @@
 /* eslint-disable react/no-unknown-property */
 
 import Hamburger from "./Hamburger";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../contexts/authContext";
 
 const NavBar = () => {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
   const { user, logOut } = useAuth();
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false); //
+  const toggleProfileMenu = () => {
+    setProfileMenuOpen(!profileMenuOpen);
+  };
   console.log(user);
 
   const toogleHamburger = () => {
     setHamburgerOpen(!hamburgerOpen);
   };
+  useEffect(() => {
+    setProfileMenuOpen(!true);
+  }, []);
 
   return (
     <div className="navigation">
       <ul>
         <li>
-          <NavLink to="/"><h3>Home</h3></NavLink>
+          <NavLink to="/">
+            <h3>HOME</h3>
+          </NavLink>
         </li>
 
         <li>
-          <NavLink to="/games"><h3>Game search</h3></NavLink>
+          <NavLink to="/games">
+            <h3>GAME SEARCH</h3>
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/search-friends"><h3>Search friends</h3></NavLink>
+          <NavLink to="/search-friends">
+            <h3>SEARCH FRIENDS</h3>
+          </NavLink>
         </li>
+    
         <li>
-          <NavLink to="/places"><h3>Places to play</h3></NavLink>
-        </li>
-        <li>
-          <NavLink to="/register"><h3>Register</h3></NavLink>
+          {!user && (
+            <NavLink to="/register">
+              <h3>REGISTER</h3>
+            </NavLink>
+          )}
         </li>
         {user !== null ? (
           <li>
-            <NavLink to="/profile"><h3>Profile</h3></NavLink>
+            <div className="profileContainer2">
+              <img
+                className="userProfilePic"
+                src={user.image}
+                onClick={toggleProfileMenu}
+              />
+              {profileMenuOpen && (
+                <div className={`profileSubMenu ${profileMenuOpen ? "active" : ""}`}>
+                  <NavLink to="/profile" onClick={toggleProfileMenu}>Profile</NavLink>
+                  <NavLink
+                  to={`/messages/${user.id}`} onClick={toggleProfileMenu}>Messages</NavLink>
+                   <NavLink  to="/passwordchange" onClick={toggleProfileMenu}>
+                Account
+              </NavLink>
+                
+                
+                  <span className="logOutText" onClick={() => logOut()}>Log out</span>
+                </div>
+              )}
+            </div>
           </li>
         ) : (
           <li>
-            <NavLink to="/login"><h3>Login</h3></NavLink>
-          </li>
-        )}
-        {user !== null && (
-          <li>
-            <h3 className="iconNav iconLogout" onClick={() => logOut()}>
-              Log out
-            </h3>
+            <NavLink to="/login">
+              <h3>LOGIN</h3>
+            </NavLink>
           </li>
         )}
       </ul>
@@ -58,7 +87,7 @@ const NavBar = () => {
         .navigation {
         
           min-width: 100vw;
-          height: 5vh;
+          height: 7vh;
           margin-bottom: 10vh;
           color:beige;
           background: #363636;
@@ -73,10 +102,70 @@ const NavBar = () => {
         
         }
 
+.logOutText{
+  cursor:pointer;
+}
+
+.logOutText:hover {
+     
+     color:#33FCFF;
+                 }
+
+.profileSubMenu{
+  position: absolute;
+  top: 90%;
+  background-color: #363636;
+  color: beige;
+  border-radius: 0 0 5px 5px; /* Aplicar border-radius en las esquinas de abajo */
+
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  gap: 3vh;
+  width: 9vw;
+  padding:2rem;
+  opacity: 0; /* Agregamos esto para controlar la opacidad */
+  transform: translateY(10px); 
+  transition: opacity 0.9s ease, transform 0.3s ease;
+  border-left:1px solid beige;
+  border-bottom:1px solid beige;
+
+  
+ 
+}
+
+
+.profileSubMenu.active{
+  transition: opacity 0.9s ease, transform 0.9s ease;
+  opacity: 1; /* Cambiar la opacidad al estar activo */
+  transform: translateY(0); /* Cambiar la posición al estar activo */
+}
+        .userProfilePic{
+          border-radius:50%;
+          height:5vh;
+          cursor:pointer;
+          margin-left:6vw;
+          
+        
+        }
+
+
+        .profileContainer2{
+  position: relative;
+  display: inline-block;
+  margin-left:30vw;
+
+  width:9vw;
+  
+}
         .navigation ul {
           display: flex;
+          
+       
               justify-content: space-around;
               aling-content:center:
+              align-items:center;
               margin: 0 20px;
               padding: 0 25px;
               transition:  0.2s ease-in-out;
@@ -92,10 +181,13 @@ const NavBar = () => {
         .navigation li a{
           color:beige;
           text-decoration:none;
+          transition: color 0.9s ease; 
+         
         }
 
         .navigation li a:hover {
-          text-decoration: underline;
+     
+  color:#33FCFF;
               }
 
      h3{cursor:pointer;}

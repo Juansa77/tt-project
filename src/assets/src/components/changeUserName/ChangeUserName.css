@@ -1,14 +1,17 @@
 .changeName-container{
     display:flex;
-    width: 100vw;
+    width: 35vw;
     justify-content: center;
     align-items: center;
     padding-top: 10vh;
     flex-direction: column;
     min-height: 25vh;
+    border:1px solid beige;
+    border-radius: 10px;
+    margin-top:2vh;
   }
   
   .form-wrap.formProfile{
     height: 25vh;
-    margin-top: -12vh;
+    margin-top: -10vh;
   }

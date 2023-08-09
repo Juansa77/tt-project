@@ -29,8 +29,9 @@ const MessagesPage = () => {
     useState();
 
   //* ---USEEFFECT PARA SETEAR EL USUARIO A UNA NUEVA LLAMADA EN CASO DE QUE SEA NULL
-
+console.log(selectedUser)
   useEffect(() => {
+   
     setSelectOtherUser(selectedUser);
 
     if (selectedUser == null && _id != user.id) {
@@ -241,8 +242,8 @@ setConversationName(user)
                   src={participant.image}
                 />
                 <div className="conversation-text-wrapper">
-                  <h3>{participant?.name}</h3>
-                  <h5>
+                  <h4 className="conversation-userName">{participant?.name}</h4>
+                  <h5 className="conversation-userText">
                     {participant.conversation.length > 0
                       ? participant.conversation[
                           participant.conversation.length - 1

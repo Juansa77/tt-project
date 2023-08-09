@@ -81,7 +81,7 @@ const Login = () => {
               className="btn"
               type="submit"
               disabled={send}
-              style={{ background: send ? "#49c1a388" : "#49c1a2" }}
+              style={{ background: send ? "#49c1a388" : "#0070c9" }}
             >
               {send ? "Loading..." : "LOGIN"}
             </button>
@@ -89,7 +89,7 @@ const Login = () => {
           <p className="bottom-text">
             <small>
               Have you forgotten the password?
-              <Link to="/forgotpassword" className="anchorCustom">
+              <Link to="/forgotpassword" className="anchorCustomLogin">
                 Change password
               </Link>
             </small>

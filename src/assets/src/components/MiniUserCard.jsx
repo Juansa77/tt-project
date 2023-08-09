@@ -5,8 +5,8 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 const CardContainer = styled.div`
 display:flex;
 flex-direction: column;
-  width: 6.5vw;
-  height: 20vh;
+  width: 3.5vw;
+  height: 12vh;
   background-color: transparent;
   color: #fff;
  

@@ -73,6 +73,7 @@ const token = user?.token;
     <>
     <div className="passwordChange-container">
       <div className="form-wrap">
+      <div className="changePassWrap">
         <h1>Change your password ♻</h1>
         <p>Please, enter your old and new passwords</p>
         <form onSubmit={handleSubmit(formSubmit)}>
@@ -126,7 +127,9 @@ const token = user?.token;
             </button>
           </div>
         </form>
+        </div>
       </div>
+      
       <ChangeUserName/>
       <ChangeProfilePic/>
       <h3

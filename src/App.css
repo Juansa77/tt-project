@@ -2,6 +2,8 @@
   background: #363636;
   min-width: 100vw;
   height: min-content;
+  display: flex;
+  flex-direction: column;
 }
 
 .App {

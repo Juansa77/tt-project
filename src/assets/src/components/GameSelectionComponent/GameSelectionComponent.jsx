@@ -17,8 +17,9 @@ const GameSelectionComponent = ({ category, searchFunction, searchTerm, collecti
   const handleScroll = (direction) => {
     console.log("entra");
     const container = document.getElementById("gameSelectionContainer");
-    const containerWidth = container.offsetWidth / 1.2;
-    const containerScrollWidth = container.scrollWidth / 1.2;
+    const containerWidth = container.offsetWidth /3;
+    //*Aumenta el divisor para aumentar el tamaño del div de scroll con los botones
+    const containerScrollWidth = container.scrollWidth / 2.4;
     console.log(containerWidth);
     console.log(containerScrollWidth);
 
@@ -76,6 +77,7 @@ const GameSelectionComponent = ({ category, searchFunction, searchTerm, collecti
         }}
       >
         {response?.data?.map((game, index) => (
+index<=15&&
           <div className="card-container-selection" key={index}>
           <div onClick={() => handleSelectGame(game)}>
             <img

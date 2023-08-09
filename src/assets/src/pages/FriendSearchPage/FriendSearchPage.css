@@ -27,12 +27,12 @@
 
 .friendSearch-main {
   display: flex;
-  flex-direction: column;
+
   width: 100%;
   justify-content: center;
   align-content: center;
   align-items: center;
-  gap: 1vh;
+  gap: 2vh;
   min-height: 45vh;
   max-height: 45vh;
 

@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { gameByPlayingTime } from "../../services/API_USER/game.service";
 import GameSelectionComponent from "../../components/GameSelectionComponent/GameSelectionComponent";
 import CategorySplitter from "../../components/CategorySplitter";
+import Footer from "../../components/Footer/Footer";
+
 
 
 
@@ -52,6 +54,7 @@ const Home = () => {
           />
         </div>
       )}
+      <Footer/>
     </div>
   );
 };

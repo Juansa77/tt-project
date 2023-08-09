@@ -169,6 +169,7 @@ const GameSelection=({searchFunction, searchTerm, onClickAdd, onClickRemove}) =>
     <div>
     <GameSelectionContainer ref={containerRef}>
     {response?.data?.map((game, index) =>
+    index < 5 &&
         <CardContainerSelection  key={index}>
     <AddButton onClick={onClickAdd}>
         <FaPlus />
