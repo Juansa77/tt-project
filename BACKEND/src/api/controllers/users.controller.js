@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
@@ -591,6 +593,84 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
+
+
+//!-------------------------------------------
+//?-----------SEND FRIEND REQUEST------------
+//!-------------------------------------------
+
+const sendFriendRequest = async (req, res, next) => {
+  const { userId, friendId } = req.params;
+
+  try {
+    const user = await User.findById(userId);
+    const friend = await User.findById(friendId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    if (!friend) {
+      return res.status(404).json({ message: 'Friend not found' });
+    }
+
+    if (user.friendRequests.some(request => request.user.equals(friendId))) {
+      return res.status(400).json({ message: 'Friend request already sent' });
+    }
+
+    if (user.friends.includes(friendId)) {
+      return res.status(400).json({ message: 'User is already a friend' });
+    }
+
+    user.friendRequests.push({ user: friendId, isSender: true });
+    friend.friendRequests.push({ user: userId, isSender: false });
+    const { password: userPassword, ...updatedUser} = user.toObject()
+    const {password: friendPassword, ...updatedFriend} = friend.toObject()
+    await User.findByIdAndUpdate(userId, updatedUser);
+    await User.findByIdAndUpdate(friendId, updatedFriend);
+
+    return res.status(200).json({ message: 'Friend request sent' });
+  } catch (error) {
+    console.log('Error sending friend request', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+//!----------------------------------------------
+//?-----------GET FRIEND REQUESTS------------
+//!----------------------------------------------
+
+const getFriendRequests = async (req, res, next) => {
+  const { id } = req.params;
+  
+  try {
+    //* Populate para que me dé los datos que vamos a usar:imagen y nombre
+    const user = await User.findById(id).populate({
+      path: 'friendRequests',
+      populate: { path: 'user', select: 'name file' }
+    });
+
+    if (user) {
+      //* Objeto custom para que añada la imagen, el nombre y la ID del objeto
+      const friendRequests = user.friendRequests.map(request => ({
+        id: request._id,
+        user: request.user,
+        isSender: request.isSender
+      }));
+
+      return res.status(200).json(friendRequests);
+    } else {
+      return res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+
+
+
 //!-------------------------------------------
 //?-----------ADD FRIEND------------
 //!-------------------------------------------
@@ -607,15 +687,27 @@ const addFriendToUser = async (req, res, next) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    //Si no hay friend, devolvemos error
+    //*Si no hay friend, devolvemos error
     if (!friend) {
       return res.status(404).json({ message: 'Friend not found' });
     }
-    //Hacemos un includes para no meter amigos repetidos
+    //*Hacemos un includes para no meter amigos repetidos
     if (user.friends.includes(friend)) {
       return res.status(400).json({ message: 'Friend already added to user' });
-    } else {
-      //hacemos push del juego en el array del usuario y del usuario en el array owners del juego
+    }
+     //* Verificar si la solicitud de amistad existe en la lista de solicitudes pendientes
+     const friendRequest = user.friendRequests.find(request => request.user.equals(friendId));
+     if (!friendRequest) {
+       return res.status(400).json({ message: 'Friend request not found' });
+     }
+ 
+    
+    else {
+
+    //* Eliminar la solicitud de amistad pendiente de usuario y amgi. la buscamos por el indice de friendRequest
+    user.friendRequests.splice(user.friendRequests.indexOf(friendRequest), 1);
+    friend.friendRequests = friend.friendRequests.filter(request => !request.user.equals(userId));
+      //* hacemos push del juego en el array del usuario y del usuario en el array owners del juego
       user.friends.push(friendId);
       friend.friends.push(userId);
 
@@ -638,6 +730,37 @@ const {password: friendPassword, ...updatedFriend} = friend.toObject()
     }
   } catch (error) {
     console.log('Error adding friend to user', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+//!----------------------------------------------
+//?-----------REJECT FRIEND  REQUEST------------
+//!----------------------------------------------
+
+const rejectFriendRequest = async (req, res, next) => {
+  const { userId, friendId } = req.params;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const friendIndex = user.friendRequests.indexOf(friendId);
+    if (friendIndex === -1) {
+      return res.status(400).json({ message: 'Friend request not found' });
+    }
+
+    user.friendRequests.splice(friendIndex, 1);
+    const { password: userPassword, ...updatedUser} = user.toObject()
+    await User.findByIdAndUpdate(userId, updatedUser);
+
+    return res.status(200).json({ message: 'Friend request rejected' });
+  } catch (error) {
+    console.log('Error rejecting friend request', error);
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
@@ -748,4 +871,7 @@ module.exports = {
   getUserByCity,
   getGamesInUser,
   getFriendsInUser,
+  sendFriendRequest,
+  rejectFriendRequest,
+  getFriendRequests,
 }

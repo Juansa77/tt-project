@@ -207,6 +207,29 @@ export const getUserByCity = async (city) => {
 
 
 //?------------------------------------------------------
+//*-----------------SEND REQUEST-------------------------
+//?------------------------------------------------------
+
+
+export const sendFriendRequest = async (userID, friendID, token) => {
+  console.log(userID)
+  console.log(friendID)
+    const config = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  
+    const url = `http://localhost:8095/api/v1/users/${userID}/friend-request/${friendID}`;
+  
+    return APIuser.post(url, null, config)
+      .then((res) => res)
+      .catch((error) => error);
+  };
+  
+
+//?------------------------------------------------------
 //*-----------------ADD FRIEND TO USER-------------------------
 //?------------------------------------------------------
 

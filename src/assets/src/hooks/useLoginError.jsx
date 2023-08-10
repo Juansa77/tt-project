@@ -16,7 +16,8 @@ const useLoginError = (res, setLoginOk, userLogin, setRes) => {
       check: res.data.user.check,
       games:res.data.user.games,
       friends:res.data.user.friends,
-      city:res.data.user.city
+      city:res.data.user.city,
+      friendRequests:res.data.user.friendRequests
     };
 
 

@@ -9,6 +9,7 @@ import {
   getFriendsInUser,
   getGamesInUser,
   getUserById,
+  sendFriendRequest
 } from "../../services/API_USER/user.service";
 import MiniUserCard from "../MiniUserCard";
 import MiniGameCard from "../MiniGameCard";
@@ -56,7 +57,7 @@ const handleSelectGame = (game) => {
 };
 
 
-  //* FUNCIONALIDAD PARA AÑADIR Y QUITAR AMIGOS AL USUARIO
+  //* ------FUNCIONALIDAD PARA AÑADIR  AMIGOS AL USUARIO-----
 
   const handleAddUser = async (friendID) => {
     console.log(userID);
@@ -64,6 +65,7 @@ const handleSelectGame = (game) => {
       const token = user?.token;
       const responseData = await addFriendToUser(userID, friendID, token);
       setResponse(responseData);
+      console.log("responseData de add friend", responseData)
 
       //* Objeto custom para añadir la id del amigo y almacenar el usuario actualizado en el local
       const updatedUser = {
@@ -78,13 +80,35 @@ const handleSelectGame = (game) => {
     }
   };
 
+
+    //* -----FUNCIONALIDAD PARA ENVIAR SOLICITUD DE AMISTAD------
+const handleFriendRequest= async(friendID)=>{
+  try {
+    const token = user?.token;
+    const responseData = await sendFriendRequest(userID, friendID, token);
+    setResponse(responseData);
+console.log("respondata de request friend",responseData)
+    //* Objeto custom para añadir la id de la solicitud y almacenar el usuario actualizado en el local
+    const updatedUser = {
+      ...user,
+      friendRequests: [...user.friendRequests, friendID], // Agrega el nuevo juego al array de juegos
+    };
+    const dataString = JSON.stringify(updatedUser);
+    // Actualiza la variable userLogin en el contexto
+    userLogin(dataString);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+    //* -----FUNCIONALIDAD PARA QUITAR AMIGO------
   const handleRemoveUser = async (friendID) => {
     try {
-      console.log("user del usuario logeado", user);
-      console.log("friend id", friendID);
+     
       const token = user?.token;
       const responseData = await deleteFriendInUser(userID, friendID, token);
       setResponse(responseData);
+    
 
       //* Objeto custom para extraer la id del amigo  y almacenar el usuario actualizado en el local
       const updatedUser = {
@@ -174,6 +198,10 @@ const handleSelectGame = (game) => {
             </div>
           </div>
 <div className="btn-userDetailWrapper">
+<button  className=" btn-user" onClick={() => handleFriendRequest(selectedUser._id)}>
+            Send friend request
+          </button>
+
           <button  className=" btn-user" onClick={() => handleAddUser(selectedUser._id)}>
             Añadir amigo
           </button>
