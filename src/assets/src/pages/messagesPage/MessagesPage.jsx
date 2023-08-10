@@ -12,15 +12,17 @@ import "./MessagesPage.css";
 import React, { useEffect, useState } from "react";
 import { getUserById } from "../../services/API_USER/user.service";
 
+
 const MessagesPage = () => {
   const { user } = useAuth();
   const { _id } = useParams();
 
   const { selectedUser, setSelectedUser } = useUserContext();
-  const [conversationName, setConversationName] = useState()
+  const [conversationName, setConversationName] = useState();
   const [newMessage, setNewMessage] = useState("");
   const [chats, setChats] = useState();
   const [newMessageSent, setNewMessageSent] = useState(false);
+  const { totalMessages, setTotalMessages } = useUserContext();
 
   const [selectOtherUser, setSelectOtherUser] = useState();
 
@@ -29,9 +31,8 @@ const MessagesPage = () => {
     useState();
 
   //* ---USEEFFECT PARA SETEAR EL USUARIO A UNA NUEVA LLAMADA EN CASO DE QUE SEA NULL
-console.log(selectedUser)
+  console.log(selectedUser);
   useEffect(() => {
-   
     setSelectOtherUser(selectedUser);
 
     if (selectedUser == null && _id != user.id) {
@@ -184,40 +185,46 @@ console.log(selectedUser)
 
   //* USEEFFECT  1 PARA CONTROLAR QUE SI EL SELECTED USER  DEL CONTEXTO ES NULL, HAGA UN FETCH
 
-  //*---FUNCIÓN PARA CAMBIAR DE CONVERSACIÓN-------------------------------
+  //*---FUNCIÓN PARA CAMBIAR DE CONVERSACIÓN Y SETEAR A LEIDO-------------------------------
 
   const handleConversations = async (participant, index, user) => {
     console.log(participant);
     console.log(index);
-setConversationName(user)
+    setConversationName(user);
     setSelectedUser(participant);
 
     setChats(differentUserConversations[index]);
     console.log("chats en handle", chats);
-
+    //*Función para ver los mensajes que están leidos
     const messageIds = chats.conversation
       .filter(
         (element) =>
           typeof element.isRead === "boolean" &&
           !element.isRead &&
-          element.senderID !== user?.id
+          element.senderID != user?.id
       )
       .map((element) => element.id);
+    //*Seteamos a leido
 
-    const response = await markAsRead(messageIds);
-    console.log(response);
+      const response = await markAsRead(messageIds)
+      setTotalMessages(0)
+    
+
     console.log("messagesid", messageIds);
   };
-  console.log("chats final", chats);
-  console.log(selectedUser);
-  console.log("differents", differentUserConversations);
-  console.log(selectOtherUser);
-  console.log(selectedUser);
-  console.log(conversationName)
+console.log(totalMessages)
   return (
     <div className="chat-main">
       <div className="headerChatText">
-      <div className="headerChatOne"><h3>Mensajes</h3></div><div className="headerChatTwo"><h3>{conversationName != null && `Conversation with ${conversationName}`}</h3></div>
+        <div className="headerChatOne">
+          <h3>Mensajes</h3>
+        </div>
+        <div className="headerChatTwo">
+          <h3>
+            {conversationName != null &&
+              `Conversation with ${conversationName}`}
+          </h3>
+        </div>
       </div>
       <div className="msg-page-wrapper">
         <div className="conversations-container">
@@ -231,7 +238,9 @@ setConversationName(user)
               <div
                 key={index}
                 className="conversation-wrapper"
-                onClick={() => handleConversations(participant.user, index, participant.name)}
+                onClick={() =>
+                  handleConversations(participant.user, index, participant.name)
+                }
                 style={{
                   backgroundColor:
                     unreadMessages.length > 0 ? "#0070c9" : "#1d1b1f4b",

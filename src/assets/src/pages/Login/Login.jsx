@@ -8,12 +8,16 @@ import { loginUser } from "../../services/API_USER/user.service";
 import useLoginError from "../../hooks/useLoginError";
 import { useAuth } from "../../contexts/authContext";
 
+
+
 const Login = () => {
   const { userLogin, setUser } = useAuth();
   const { handleSubmit, register, getValues } = useForm();
   const [res, setRes] = useState({});
   const [send, setSend] = useState(false);
   const [loginOk, setLoginOk] = useState(false);
+
+
 
   //* 1) ------------------ FUNCION QUE GESTIONA EL FORMULARIO----------
   const formSubmit = async (formData) => {
@@ -38,7 +42,7 @@ const Login = () => {
     if (res.data.user.check == false) {
       return <Navigate to="/verifyCode" />;
     } else {
-      return <Navigate to="/profile" />;
+      return <Navigate to="/" />;
     }
   }
   return (

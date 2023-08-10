@@ -1,14 +1,49 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unknown-property */
 
 import Hamburger from "./Hamburger";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../contexts/authContext";
+import { useUserContext } from "../../contexts/UserContext";
+import { getAllChats } from "../../services/API_USER/message.service";
+import "./NavBar.css";
 
 const NavBar = () => {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
   const { user, logOut } = useAuth();
   const [profileMenuOpen, setProfileMenuOpen] = useState(false); //
+  const { totalMessages, setTotalMessages } = useUserContext();
+  const [responseChats, setResponseChats] = useState();
+
+  console.log(totalMessages);
+
+  //* ---LÓGICA PARA CONTAR EL NÚMERO DE MENSAJES SIN LEER EN CASO QUE SEA NULL--------
+
+  useEffect(() => {
+    if (totalMessages == null && user?.id) {
+      console.log("hace la llmada");
+      const fetchChats = async (user) => {
+        const responseChats = await getAllChats(user);
+        setResponseChats(responseChats);
+      };
+
+      fetchChats(user.id);
+    }
+  }, []);
+  if (totalMessages == null && user?.id) {
+    const countUnreadMessages = responseChats?.reduce((count, mensaje) => {
+      if (mensaje?.receiver === user?.id && mensaje?.isRead === false) {
+        return count + 1;
+      }
+      return count;
+    }, 0);
+
+    setTotalMessages(countUnreadMessages);
+
+console.log(responseChats)
+  }
+  console.log(totalMessages);
   const toggleProfileMenu = () => {
     setProfileMenuOpen(!profileMenuOpen);
   };
@@ -40,7 +75,7 @@ const NavBar = () => {
             <h3>SEARCH FRIENDS</h3>
           </NavLink>
         </li>
-    
+
         <li>
           {!user && (
             <NavLink to="/register">
@@ -51,22 +86,43 @@ const NavBar = () => {
         {user !== null ? (
           <li>
             <div className="profileContainer2">
-              <img
-                className="userProfilePic"
-                src={user.image}
-                onClick={toggleProfileMenu}
-              />
+              <div className="userProfileBadge">
+                <img
+                  className="userProfilePic"
+                  src={user.image}
+                  onClick={toggleProfileMenu}
+                />
+                {totalMessages > 0 && (
+                  <div className="contentBadge">
+                    <p>{totalMessages}</p>
+                  </div>
+                )}
+              </div>
               {profileMenuOpen && (
-                <div className={`profileSubMenu ${profileMenuOpen ? "active" : ""}`}>
-                  <NavLink to="/profile" onClick={toggleProfileMenu}>Profile</NavLink>
+                <div
+                  className={`profileSubMenu ${
+                    profileMenuOpen ? "active" : ""
+                  }`}
+                >
+                  <NavLink to="/profile" onClick={toggleProfileMenu}>
+                    Profile
+                  </NavLink>
                   <NavLink
-                  to={`/messages/${user.id}`} onClick={toggleProfileMenu}>Messages</NavLink>
-                   <NavLink  to="/passwordchange" onClick={toggleProfileMenu}>
-                Account
-              </NavLink>
-                
-                
-                  <span className="logOutText" onClick={() => logOut()}>Log out</span>
+                    to={`/messages/${user.id}`}
+                    onClick={toggleProfileMenu}
+                  >
+                    Messages{" "}
+                    {totalMessages > 0 && (
+                      <p className="MsgAnchorText">{totalMessages} new</p>
+                    )}
+                  </NavLink>
+                  <NavLink to="/passwordchange" onClick={toggleProfileMenu}>
+                    Account
+                  </NavLink>
+
+                  <span className="logOutText" onClick={() => logOut()}>
+                    Log out
+                  </span>
                 </div>
               )}
             </div>

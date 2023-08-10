@@ -12,6 +12,8 @@ import MiniUserCard from "../../components/MiniUserCard";
 import { useUserContext } from "../../contexts/UserContext";
 import { useGameContext } from "../../contexts/GameContext";
 
+
+
 const Profile = () => {
   const { user, setUser } = useAuth();
   const userID = user.id;
@@ -21,6 +23,11 @@ const Profile = () => {
   const [friendsData, setFriendsData] = useState([]);
   const navigate = useNavigate();
   const { setSelectedUser } = useUserContext();
+
+
+
+
+
 
   //* FUNCIÓN PARA ACCEDER A LA PÁGINA DE DETALLE DEL AMIGO
 
