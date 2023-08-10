@@ -1,26 +1,16 @@
 .games-list {
   display: flex;
-  height: 25vh;
+ min-height: 35vh;
   align-items: center;
   width: 100%;
   gap: 2vh;
-
+  flex-wrap: wrap;
 
   border-radius: 5px;
   padding: 1rem;
 }
 
-.friends-list {
-  display: flex;
-  max-height: min-content;
-  height: 18vh;
-  align-items: center;
-  width: 100%;
-  gap: 2vh;
 
-  border: 1px solid rgba(173, 166, 166, 0.404);
-
-}
 
 .friends-sectionName {
   padding: 2.1rem;
@@ -81,7 +71,8 @@
 .profile-section {
   width: 95%;
   background-color: rgba(23, 21, 27, 0.329);
-
+  max-height: min-content;
+border: 1px solid red;
 }
 
 .profile-section-content {
@@ -119,6 +110,53 @@
   background-color: rgba(23, 21, 27, 0.329);
   margin-top: 5vh;
 }
+
+.profile-section-friendRequest{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(173, 166, 166, 0.404);
+  border-radius: 10px 10px 0 0;
+  background-color: rgba(23, 21, 27, 0.329);
+  margin-top: 5vh;
+  width: 95%;
+  min-height: 30vh;
+  max-height: min-content;
+}
+
+.request-list{
+  
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  height: 25vh;
+  height: 40vh;
+  align-items: center;
+  width: 100%;
+  gap: 6vh;
+  align-items: flex-start;
+
+
+  border-radius: 5px;
+  padding: 3rem;
+
+}
+
+.requestWrap{
+  display: flex;
+  width: 100%;
+  gap:5vh;
+  justify-content: space-between;
+
+  
+}
+
+.requestPic{
+  height: 9vh;
+  border-radius: 50%;
+  border:1px solid grey
+}
+
 
 .userNameText {
   font-size: 7vh;
@@ -179,4 +217,64 @@
 .section-title{
  font-size:2.5vh;
  color:beige;
+}
+
+.request-button-add {
+  background-color: transparent;
+  border: 2px solid beige;
+  border-radius: 8px;
+  color: beige;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 20px;
+  cursor: pointer;
+  width: 7vw;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.request-button-reject{
+  background-color: transparent;
+  border: 2px solid grey;
+  border-radius: 8px;
+  color: beige;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 20px;
+  cursor: pointer;
+  width: 7vw;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+
+.request-button-reject:hover {
+  background-color: red;
+  color: #fff;
+}
+
+.request-button-add:hover {
+  background-color: #0070c9;
+  color: #fff;
+}
+
+
+.request-button:focus {
+  outline: none;
+}
+
+.request-button:active {
+  transform: scale(0.95);
+}
+
+.requestBtnWrap{
+  display: flex;
+  margin-top: 1vh;
+  gap:4vh
+}
+
+.requestDataWrap{
+  gap:1vh;
+  padding: 1rem;
+
+  width: 80%;
 }

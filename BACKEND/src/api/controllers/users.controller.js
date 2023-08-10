@@ -660,7 +660,7 @@ const getFriendRequests = async (req, res, next) => {
 
       return res.status(200).json(friendRequests);
     } else {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: 'No friend request' });
     }
   } catch (error) {
     return res.status(500).json({ message: 'Internal server error' });
@@ -748,13 +748,12 @@ const rejectFriendRequest = async (req, res, next) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-
-    const friendIndex = user.friendRequests.indexOf(friendId);
-    if (friendIndex === -1) {
+    const friendRequest = user.friendRequests.find(request => request.user.equals(friendId));
+    if (!friendRequest) {
       return res.status(400).json({ message: 'Friend request not found' });
     }
 
-    user.friendRequests.splice(friendIndex, 1);
+    user.friendRequests.splice(friendRequest, 1);
     const { password: userPassword, ...updatedUser} = user.toObject()
     await User.findByIdAndUpdate(userId, updatedUser);
 

@@ -4,6 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   getFriendsInUser,
   getGamesInUser,
+  getFriendRequests,
+  addFriendToUser,
+  rejectFriendRequest,
 } from "../../services/API_USER/user.service";
 import { useEffect, useState } from "react";
 import MiniGameCard from "../../components/MiniGameCard";
@@ -12,23 +15,86 @@ import MiniUserCard from "../../components/MiniUserCard";
 import { useUserContext } from "../../contexts/UserContext";
 import { useGameContext } from "../../contexts/GameContext";
 
-
-
 const Profile = () => {
-  const { user, setUser } = useAuth();
+  const { user, userLogin } = useAuth();
   const userID = user.id;
   console.log("user en profile", user);
 
   const [gamesData, setGamesData] = useState([]);
   const [friendsData, setFriendsData] = useState([]);
+  const [friendRequests, setFriendRequests] = useState();
+  const [addFriendResponse, setAddFriendResponse] = useState();
+  const [rejectFriendResponse, setRejectFriendResponse] = useState();
   const navigate = useNavigate();
   const { setSelectedUser } = useUserContext();
 
+  //* FUNCIÓN PARA ACEPTAR REQUEST FRIEND Y AÑADIR AMIGO
+  const handleAddUser = async (friendID) => {
+    console.log(userID);
+    try {
+      const token = user?.token;
+      const responseData = await addFriendToUser(userID, friendID, token);
+      setAddFriendResponse(responseData);
+      console.log("responseData de add friend", responseData);
+
+      //* Objeto custom para añadir la id del amigo y almacenar el usuario actualizado en el local
+      const updatedUser = {
+        ...user,
+        friends: [...user.friends, friendID], // Agrega el nuevo juego al array de juegos
+      };
+      const dataString = JSON.stringify(updatedUser);
+      // Actualiza la variable userLogin en el contexto
+      userLogin(dataString);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //* -----FUNCIONALIDAD PARA RECHAZAR SOLICITUD DE AMISTAD------
+  const handleRejectRequest = async (friendID) => {
+    try {
+      const token = user?.token;
+      const responseData = await rejectFriendRequest(userID, friendID, token);
+      setRejectFriendResponse(responseData);
+      console.log("respondata de request friend", responseData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log("rejectresponse", rejectFriendResponse)
+
+  //* USEEFFECT PARA CARGAR LAS FRIENDS REQUESTS DEL USUARIO----
+  useEffect(() => {
+    // Llamada al servicio para obtener los juegos del usuario
+    getFriendRequests(userID)
+      .then((data) => {
+        // Almacenar los datos en el estado local
+        setFriendRequests(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching friend requests:", error);
+      });
+  }, [userID, addFriendResponse]);
+
+  
 
 
+  
+  //* USEEFFECT PARA CARGAR LAS FRIENDS REQUESTS DEL USUARIO----
+  useEffect(() => {
+    // Llamada al servicio para obtener los juegos del usuario
+    getFriendRequests(userID)
+      .then((data) => {
+        // Almacenar los datos en el estado local
+        setFriendRequests(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching friend requests:", error);
+      });
+  }, [rejectFriendResponse]);
 
-
-
+  console.log(rejectFriendResponse);
   //* FUNCIÓN PARA ACCEDER A LA PÁGINA DE DETALLE DEL AMIGO
 
   const handleSelectFriend = (friend) => {
@@ -76,7 +142,9 @@ const Profile = () => {
       .catch((error) => {
         console.error("Error fetching friends:", error);
       });
-  }, [userID]);
+  }, [addFriendResponse ]);
+
+ 
 
   return (
     <div className="profile-main">
@@ -120,37 +188,72 @@ const Profile = () => {
                   </div>
                 ))}
             </ul>
+          </div>
+          <div className="profile-section">
+            <div className="friends-sectionName">
+              {" "}
+              <h3 className="section-title">Games</h3>
             </div>
-            <div className="profile-section">
-              <div className="friends-sectionName">
-                {" "}
-                <h3 className="section-title">Games</h3>
-              </div>
-              <div className="games-list">
-                {gamesData?.response?.data == "Games not found" && (
-                  <h1>No games in user</h1>
+            <div className="games-list">
+              {gamesData?.response?.data == "Games not found" && (
+                <h1>No games in user</h1>
+              )}
+              {gamesData?.data?.length > 0 &&
+                gamesData?.data?.map((game, index) => (
+                  <div key={game._id} onClick={() => handleSelectGame(game)}>
+                    <MiniGameCard
+                      key={index}
+                      title={game.title}
+                      image={game.image}
+                    />
+                  </div>
+                ))}
+            </div>
+          </div>
+          <div className="profile-section-friendRequest">
+            <div className="friends-sectionName">
+              <h3 className="section-title">Friend requests</h3>
+            </div>
+            <div className="request-list">
+              {friendRequests?.response?.data == "No friend requests" && (
+                <h1>No friend requests</h1>
+              )}
+              {friendRequests?.data?.length > 0 &&
+                friendRequests?.data?.map(
+                  (request) =>
+                    request.isSender == false && (
+                      <div className="requestWrap" key={request.id}>
+                        <img className="requestPic" src={request.user.file} />{" "}
+                        <div className="requestDataWrap">
+                          <p>{request.user.name}</p>
+                          <div className="requestBtnWrap">
+                            <button
+                              className="request-button-add"
+                              onClick={() => handleAddUser(request.user._id)}
+                            >
+                              Add
+                            </button>
+                            <button
+                              className="request-button-reject"
+                              onClick={() =>
+                                handleRejectRequest(request.user._id)
+                              }
+                            >
+                              Reject
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )
                 )}
-                {gamesData?.data?.length > 0 &&
-                  gamesData?.data?.map((game, index) => (
-                    <div key={game._id} onClick={() => handleSelectGame(game)}>
-                      <MiniGameCard
-                        key={index}
-                        title={game.title}
-                        image={game.image}
-                      />
-                    </div>
-                  ))}
-              </div>
             </div>
-            <div className="userSettings-text">
-              <Link className="linkText" to="/passwordchange">
-                Manage your account
-              </Link>
-            </div>
-    
-        
+          </div>
+          <div className="userSettings-text">
+            <Link className="linkText" to="/passwordchange">
+              Manage your account
+            </Link>
+          </div>
         </div>
-
       </div>
     </div>
   );
