@@ -70,9 +70,8 @@ const friendRequestsCount= user?.friendRequests.reduce((count, request) => {
 
   }
 
-  console.log(user.friendRequests.length)
-  console.log(totalRequests)
-console.log("user en home", user)
+
+
 
   return (
     <div id="homeDiv" className="home">

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGameContext } from "../contexts/GameContext";
 import "./DetailGame.css";
+import { FaClock } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
 
 import { useAuth } from "../contexts/authContext";
 import {
@@ -9,10 +11,12 @@ import {
   removeGameInUser,
   gameByID,
   gameByCity,
+  gameByType,
 } from "../services/API_USER/game.service";
 import MiniUserCard from "./MiniUserCard";
 import { useUserContext } from "../contexts/UserContext";
 import Swal from "sweetalert2";
+import MiniGameCard from "./MiniGameCard";
 
 const DetailGame = () => {
   const { _id } = useParams();
@@ -22,7 +26,24 @@ const DetailGame = () => {
   const { user, userLogin } = useAuth();
   const userHasGame = user?.games?.includes(_id);
   const [response, setResponse] = useState([]);
+  const [responseType, setResponseType] = useState();
+  const [isLoadingResponse, setIsLoadingResponse] = useState(true);
   const userID = user?.id;
+
+  //* --Game by category------
+  const gameLikeCatan = "Strategy,Negotiation,Economic,Family";
+  const gamesStarWars = "Movies: Star Wars";
+
+  const handleGameByType = async (type) => {
+    console.log(type);
+    try {
+      const responseData = await gameByType(type);
+      setResponseType(responseData);
+      setIsLoadingResponse(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //*--------------FUNCIONALIDAD PARA AGREGAR EL JUEGO AL USUARIO-----
 
@@ -41,8 +62,6 @@ const DetailGame = () => {
       clearInterval(interval);
     };
   }, [blurCount]);
-
-
 
   //* ---LÒGICA PARA AÑADIR JUEGO AL USUARIO ---------
   const handleAddGame = async (gameId) => {
@@ -114,7 +133,6 @@ const DetailGame = () => {
     }
   };
 
- 
   //* USEEFFECT  1 PARA CONTROLAR QUE SI EL GAME DEL CONTEXTO ES NULL, HAGA UN FETCH
   useEffect(() => {
     const fetchUserData = async () => {
@@ -149,6 +167,8 @@ const DetailGame = () => {
     fetchGameUsers();
   }, [selectedGame]);
 
+  console.log(selectedGame);
+
   //* LÓGICA PARA NAVIGATE A PÁGINA DE DETALLE DEL USUARIO
 
   const { setSelectedUser } = useUserContext();
@@ -162,7 +182,9 @@ const DetailGame = () => {
     // Redirige a la página de detalles del juego seleccionado
     navigate(`/users/${friend._id}`);
   };
-
+  console.log("responseType", responseType);
+  console.log(responseType?.length);
+  console.log(user);
   return (
     <div
       className="game-detail"
@@ -182,7 +204,7 @@ const DetailGame = () => {
           </div>
           <div className="btn-detail-container">
             <>
-              {userHasGame == false ? (
+              {user === null ? null : userHasGame === false ? ( // No renderizar nada si el usuario es null
                 <button
                   className="btn-game"
                   onClick={() => handleAddGame(selectedGame._id)}
@@ -201,18 +223,18 @@ const DetailGame = () => {
           </div>
           <div className="game-data-detail">
             <div className="gameDetailBasics">
-              <p className="playtime-detail">
-                Tiempo de juego: {selectedGame?.playTime}
-              </p>
-              <p className="playtime-detail">
-                Jugadores/as: {selectedGame?.players}
-              </p>
+              <div className="playtime-detail">
+                <FaClock size={"25px"} /> {selectedGame?.playTime}
+              </div>
+              <div className="playtime-detail">
+                <FaUsers size={"25px"} /> {selectedGame?.players}
+              </div>
+              <div className="playtime-detail">{selectedGame?.age}</div>
             </div>
-            <div className="detail-category-container">
-              <p className="detail-category-text">
-                Categorias: {selectedGame?.typesList}
-              </p>
+            <div className="game-description-container">
+              <h1>{selectedGame?.description}</h1>
             </div>
+           
           </div>
         </div>
         <div className="detailGame-userWrap">
@@ -235,6 +257,32 @@ const DetailGame = () => {
               </div>
             </>
           )}
+        </div>
+        <div className="detail-category-container">
+        <h1>Tags:</h1>
+              <div className="detail-category-text">
+                {selectedGame?.typesList.map(
+                  (type, index) =>
+                    index < 8 && (
+                      <p className="tagGameTxt" onClick={() => handleGameByType(type)} key={type}>
+                        {type}
+                      </p>
+                    )
+                )}
+              </div>
+            </div>
+        <div className="game-tags-selection">
+      
+          {!isLoadingResponse &&
+            responseType?.data?.length > 0 &&
+            responseType.data.map(
+              (game, index) =>
+                index < 11 && (
+                  <div key={game.id}>
+                    <MiniGameCard title={game.title} image={game.image} />
+                  </div>
+                )
+            )}
         </div>
       </div>
     </div>

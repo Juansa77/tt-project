@@ -15,7 +15,7 @@ top:0; /* Desplaza el contenedor hacia abajo para evitar la barra de navegación
 
 /* Estilo para el contenedor interno con desenfoque */
 .game-detail-container {
-  margin-left: 6vw;
+  padding: 4vw;
  
   margin-top: 9vh;
   display: grid;
@@ -27,7 +27,7 @@ top:0; /* Desplaza el contenedor hacia abajo para evitar la barra de navegación
   
 /* Desenfoque del contenedor */
 
-  padding: 20px;
+
   z-index:10;
 
 }
@@ -133,18 +133,34 @@ padding-top: 2rem;
 
   padding: 10px;
   border-radius: 4px;
-  width: 90%;
+  width: 92%;
   height: 120%;
   padding-top: 2rem;
   color:beige;
+
 }
 
 .detail-wrapper{
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  justify-items: center;
+align-content: center;
+align-items: center;
 }
 
 
+
+.detail-category-text{
+  margin-top: 1vh;
+  display: flex;
+  flex-wrap: wrap;
+  gap:2vh;
+
+
+}
 .detailGame-userWrap{
   margin-top: 1vh;
   display: flex;
@@ -159,6 +175,16 @@ padding-top: 2rem;
   gap:4vh;
 }
 
+
+.gameDetailBasics{
+
+  display: flex;
+  gap:4vh;
+  height: 2vh;
+  align-content:start;
+
+}
+
 .game-detail::before{
   content: "";
   position: absolute;
@@ -168,4 +194,33 @@ padding-top: 2rem;
   height: 100%;
   background-image: linear-gradient(to right, rgba(0, 0, 0, 1.2) 0%, rgba(0, 0, 0, 0) 100%);
   z-index: 0;
+}
+.game-tags-selection{
+
+
+  height:20vh;
+  display: flex;
+  width: 92%;
+  
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.tagGameTxt{
+  border: 1px solid beige;
+  text-align: center;
+  height: 70px;
+  width: 10%;
+  cursor:pointer;
+  font-size: 16px;
+  padding: 8px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.tagGameTxt:hover{
+  background-color: #0076a3;
+  transform: translateY(-2px);
 }
