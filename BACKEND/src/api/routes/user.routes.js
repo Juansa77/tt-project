@@ -18,7 +18,9 @@ const {
   getGamesInUser,
   getFriendsInUser,
   sendFriendRequest,
-  rejectFriendRequest, getFriendRequests,
+  rejectFriendRequest,
+  getFriendRequests,
+  cancelFriendRequest,
 } = require("../controllers/users.controller");
 const { isAuth } = require("../../middlewares/auth.midddleware");
 
@@ -73,13 +75,21 @@ UserRoutes.post(
 //?-----GET FRIENDS REQUESTS--------
 UserRoutes.get("/get-friend-request/:id", [isAuth], getFriendRequests);
 
-
 //?------Ruta REJECT FRIEND REQUEST--------
 UserRoutes.post(
   "/:userId/reject-request/:friendId",
   [isAuth],
   rejectFriendRequest
 );
+
+//?------Ruta CANCEL FRIEND REQUEST--------
+UserRoutes.post(
+  "/:userId/cancel-request/:friendId",
+  [isAuth],
+  cancelFriendRequest
+);
+
+
 
 //?------Ruta ADD FRIEND TO USER--------
 UserRoutes.post("/:userId/add-friend/:friendId", [isAuth], addFriendToUser);

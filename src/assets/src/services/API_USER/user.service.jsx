@@ -255,7 +255,7 @@ export const getFriendRequests = async (id) => {
 };
 
 //?------------------------------------------------------
-//*-----------------SEND REJECT REQUEST-------------------------
+//*----------------- REJECT REQUEST-------------------------
 //?------------------------------------------------------
 
 export const rejectFriendRequest = async (userID, friendID, token) => {
@@ -269,6 +269,28 @@ export const rejectFriendRequest = async (userID, friendID, token) => {
   };
 
   const url = `http://localhost:8095/api/v1/users/${userID}/reject-request/${friendID}`;
+
+  return APIuser.post(url, null, config)
+    .then((res) => res)
+    .catch((error) => error);
+};
+
+
+//?------------------------------------------------------
+//*----------------- CANCEL REQUEST-------------------------
+//?------------------------------------------------------
+
+export const cancelFriendRequest = async (userID, friendID, token) => {
+  console.log(userID);
+  console.log(friendID);
+  const config = {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const url = `http://localhost:8095/api/v1/users/${userID}/cancel-request/${friendID}`;
 
   return APIuser.post(url, null, config)
     .then((res) => res)

@@ -1,23 +1,22 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import "./DetailUser.css";
-import { useContext, useState, useEffect} from "react";
+import { useContext, useState, useEffect } from "react";
 import { useUserContext } from "../../contexts/UserContext";
 import { useAuth } from "../../contexts/authContext";
 import {
-  addFriendToUser,
   deleteFriendInUser,
   getFriendsInUser,
   getGamesInUser,
   getUserById,
-  sendFriendRequest
+  sendFriendRequest,
+  cancelFriendRequest,
 } from "../../services/API_USER/user.service";
 import MiniUserCard from "../MiniUserCard";
 import MiniGameCard from "../MiniGameCard";
 import { useGameContext } from "../../contexts/GameContext";
 
-
 const DetailUser = () => {
-  const navigate= useNavigate()
+  const navigate = useNavigate();
   //* Sacamos la ID del usuario con useParams
   const { _id } = useParams();
   const { selectedUser, setSelectedUser } = useUserContext();
@@ -28,49 +27,45 @@ const DetailUser = () => {
 
   const [response, setResponse] = useState([]);
 
+  //* FUNCIÓN PARA ACCEDER A LA PÁGINA DE DETALLE DEL AMIGO
 
-//* FUNCIÓN PARA ACCEDER A LA PÁGINA DE DETALLE DEL AMIGO
+  const handleSelectFriend = (friend) => {
+    console.log("amigo seleccionado>", friend);
+    setSelectedUser(friend);
+    // Redirige a la página de detalles del juego seleccionado
+    navigate(`/users/${friend._id}`);
+  };
 
-const handleSelectFriend = (friend) => {
-  console.log("amigo seleccionado>", friend);
-  setSelectedUser(friend);
-  // Redirige a la página de detalles del juego seleccionado
-  navigate(`/users/${friend._id}`);
-};
-
-
-//* FUNCIÓN PARA ALMACENAR LOS DATOS DEL JUEGO SELECCIONADO PARA USARLO EN DETAIL Y NO HACER UNA NUEVA LLAMADA
+  //* FUNCIÓN PARA ALMACENAR LOS DATOS DEL JUEGO SELECCIONADO PARA USARLO EN DETAIL Y NO HACER UNA NUEVA LLAMADA
 
   //* SACAMOS DEL CONTEXTO DE GAME PARA ALMACENAR LOS DATOS DEL JUEGO
   const { setSelectedGame } = useGameContext();
 
+  //* Instancia de la historia del enrutador para redirigir a la página de detail
 
-//* Instancia de la historia del enrutador para redirigir a la página de detail
+  const handleSelectGame = (game) => {
+    console.log(game);
+    setSelectedGame(game);
+    // Redirige a la página de detalles del juego seleccionado
+    navigate(`/games/${game._id}`);
+  };
 
+  console.log("userlogin en detailuser", user);
 
-const handleSelectGame = (game) => {
-  console.log(game)
-  setSelectedGame(game);
-  // Redirige a la página de detalles del juego seleccionado
-  navigate(`/games/${game._id}`);
-
-};
-
-
-  //* ------FUNCIONALIDAD PARA AÑADIR  AMIGOS AL USUARIO-----
-
-  const handleAddUser = async (friendID) => {
-    console.log(userID);
+  //* -----FUNCIONALIDAD PARA ENVIAR SOLICITUD DE AMISTAD------
+  const handleFriendRequest = async (friendID) => {
     try {
       const token = user?.token;
-      const responseData = await addFriendToUser(userID, friendID, token);
+      const responseData = await sendFriendRequest(userID, friendID, token);
       setResponse(responseData);
-      console.log("responseData de add friend", responseData)
-
-      //* Objeto custom para añadir la id del amigo y almacenar el usuario actualizado en el local
+      console.log("respondata de request friend", responseData);
+      //* Objeto custom para añadir la id de la solicitud y almacenar el usuario actualizado en el local
       const updatedUser = {
         ...user,
-        friends: [...user.friends, friendID], // Agrega el nuevo juego al array de juegos
+        friendRequests: [
+          ...user.friendRequests,
+          { user: friendID, isSender: true },
+        ], // Agrega el nuevo juego al array de juegos
       };
       const dataString = JSON.stringify(updatedUser);
       // Actualiza la variable userLogin en el contexto
@@ -80,40 +75,42 @@ const handleSelectGame = (game) => {
     }
   };
 
-
-    //* -----FUNCIONALIDAD PARA ENVIAR SOLICITUD DE AMISTAD------
-const handleFriendRequest= async(friendID)=>{
-  try {
-    const token = user?.token;
-    const responseData = await sendFriendRequest(userID, friendID, token);
-    setResponse(responseData);
-console.log("respondata de request friend",responseData)
-    //* Objeto custom para añadir la id de la solicitud y almacenar el usuario actualizado en el local
-    const updatedUser = {
-      ...user,
-      friendRequests: [...user.friendRequests, friendID], // Agrega el nuevo juego al array de juegos
-    };
-    const dataString = JSON.stringify(updatedUser);
-    // Actualiza la variable userLogin en el contexto
-    userLogin(dataString);
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-    //* -----FUNCIONALIDAD PARA QUITAR AMIGO------
+  //* -----FUNCIONALIDAD PARA QUITAR AMIGO------
   const handleRemoveUser = async (friendID) => {
     try {
-     
       const token = user?.token;
       const responseData = await deleteFriendInUser(userID, friendID, token);
       setResponse(responseData);
-    
 
       //* Objeto custom para extraer la id del amigo  y almacenar el usuario actualizado en el local
       const updatedUser = {
         ...user,
         friends: user.friends.filter((friend) => friend !== friendID), // Elimina la ID del amigo del array de amigos
+      };
+      const dataString = JSON.stringify(updatedUser);
+      userLogin(dataString);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //* -----FUNCIONALIDAD PARA CANCELAR  REQUEST------
+  const handleCancelFriendRequest = async (friendID) => {
+    try {
+      const token = user?.token;
+      const responseData = await cancelFriendRequest(userID, friendID, token);
+      setResponse(responseData);
+
+      const updatedFriendRequests = user.friendRequests.filter(
+        (friendRequest) => {
+          return !(friendRequest.isSender && friendRequest.user === friendID);
+        }
+      );
+
+      //* Objeto custom para extraer la id del amigo  y almacenar el usuario actualizado en el local
+      const updatedUser = {
+        ...user,
+        friendRequests: updatedFriendRequests, // Elimina la ID del amigo del array de amigos
       };
       const dataString = JSON.stringify(updatedUser);
       userLogin(dataString);
@@ -175,6 +172,8 @@ console.log("respondata de request friend",responseData)
       });
   }, [_id]);
 
+  const friendRequestSended =user.friendRequests.some((request) => request.user == _id);
+console.log(friendRequestSended)
   return (
     <div className="profile-main">
       <div className="profile-container">
@@ -186,68 +185,85 @@ console.log("respondata de request friend",responseData)
               alt="Profile"
             />
             <div>
-            <h2 className="userNameText">{selectedUser?.name}</h2>
-            <div className="msgContainer">
-              <Link
-                to={`/messages/${_id}`}
-                className="anchorCustom-profileLink apple-tv-button"
-              >
-                ENVIAR MENSAJE
-              </Link>
-            </div>
+              <h2 className="userNameText">{selectedUser?.name}</h2>
+              <div className="msgContainer">
+                <Link
+                  to={`/messages/${_id}`}
+                  className="anchorCustom-profileLink apple-tv-button"
+                >
+                  ENVIAR MENSAJE
+                </Link>
+              </div>
             </div>
           </div>
-<div className="btn-userDetailWrapper">
-<button  className=" btn-user" onClick={() => handleFriendRequest(selectedUser._id)}>
-            Send friend request
-          </button>
-
-          <button  className=" btn-user" onClick={() => handleAddUser(selectedUser._id)}>
-            Añadir amigo
-          </button>
-          <button className=" btn-user"  onClick={() => handleRemoveUser(selectedUser._id)}>
-            Quitar amigo
-          </button>
+          <div className="btn-userDetailWrapper">
+            {!user.friends.includes(_id) ? !friendRequestSended ? (
+              <button
+                className=" btn-user"
+                onClick={() => handleFriendRequest(selectedUser._id)}
+              >
+                Send friend request
+              </button>
+            ) : (
+              <button
+                className=" btn-user"
+                onClick={() => handleCancelFriendRequest(selectedUser._id)}
+              >
+                Cancel request
+              </button>
+            ) : (
+              <button
+                className=" btn-user"
+                onClick={() => handleRemoveUser(selectedUser._id)}
+              >
+                Quitar amigo
+              </button>
+            )}
           </div>
           <div className="profile-content">
             <div className="profile-section">
-            <div>
-            <div className="friends-sectionName">
-              <h3 className="section-title">Friends</h3></div>
+              <div>
+                <div className="friends-sectionName">
+                  <h3 className="section-title">Friends</h3>
+                </div>
 
-              <ul className="friends-list">
-                {friendsData?.response?.data == "Games not found" && (
-                  <h1>No games in user</h1>
-                )}
-                {friendsData?.data?.length > 0 &&
-                  friendsData?.data?.map((friend, index) => (
-                    <div key={friend._id}
-                    onClick={() => handleSelectFriend(friend)}>
-                    <MiniUserCard
-                      key={index}
-                      title={friend.name}
-                      image={friend.file}
-                    />
-                    </div>
-                  ))}
-              </ul>
+                <ul className="friends-list">
+                  {friendsData?.response?.data == "Games not found" && (
+                    <h1>No games in user</h1>
+                  )}
+                  {friendsData?.data?.length > 0 &&
+                    friendsData?.data?.map((friend, index) => (
+                      <div
+                        key={friend._id}
+                        onClick={() => handleSelectFriend(friend)}
+                      >
+                        <MiniUserCard
+                          key={index}
+                          title={friend.name}
+                          image={friend.file}
+                        />
+                      </div>
+                    ))}
+                </ul>
               </div>
             </div>
             <div className="profile-section">
-            <div className="friends-sectionName"> <h3 className="section-title">Games</h3></div>    
+              <div className="friends-sectionName">
+                {" "}
+                <h3 className="section-title">Games</h3>
+              </div>
               <div className="games-list">
                 {gamesData?.response?.data == "Games not found" && (
                   <h1>No games in user</h1>
                 )}
                 {gamesData?.data?.length > 0 &&
                   gamesData?.data?.map((game, index) => (
-                    <div key={game._id}
-                onClick={() => handleSelectGame(game)}>
-                    <MiniGameCard
-                      key={index}
-                      title={game.title}
-                      image={game.image}
-                    />
+                    <div key={game._id} onClick={() => handleSelectGame(game)}>
+                      <MiniGameCard
+                        key={index}
+                        title={game.title}
+                        image={game.image}
+                      />
                     </div>
                   ))}
               </div>
@@ -257,25 +273,22 @@ console.log("respondata de request friend",responseData)
         </div>
 
         <style jsx>{`
-        .profile-main {
+          .profile-main {
             display: flex;
             width: 100vw;
             justify-content: center;
 
             justify-content: center;
             justify-items: center;
-          
           }
 
           .profile-container {
-
             display: flex;
 
             justify-content: center;
             justify-items: center;
             align-items: center;
             min-height: 70vh;
-
 
             font-family: Arial, sans-serif;
           }
@@ -286,12 +299,11 @@ console.log("respondata de request friend",responseData)
             background: #363636;
             border-radius: 8px;
             padding: 20px;
-     
+
             color: #ffffff;
           }
 
           .profile-header {
-          
           }
 
           .username {

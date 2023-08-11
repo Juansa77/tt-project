@@ -18,6 +18,7 @@ const Home = () => {
 
   const { user, userLogin } = useAuth();
   const { totalMessages, setTotalMessages } = useUserContext();
+  const {totalRequests, setTotalRequests} = useUserContext();
   const [responseChats, setResponseChats] = useState();
   const id = user?.id;
 
@@ -58,10 +59,13 @@ const Home = () => {
     }, 0);
 
     setTotalMessages(countUnreadMessages);
-    
-  console.log(totalMessages);
+    setTotalRequests(user.friendRequests.length)
+
   }
-console.log(responseChats)
+
+  console.log(user.friendRequests.length)
+  console.log(totalRequests)
+console.log("user en home", user)
 
   return (
     <div id="homeDiv" className="home">

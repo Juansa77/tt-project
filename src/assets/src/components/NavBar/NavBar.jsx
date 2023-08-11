@@ -13,10 +13,11 @@ const NavBar = () => {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
   const { user, logOut } = useAuth();
   const [profileMenuOpen, setProfileMenuOpen] = useState(false); //
-  const { totalMessages, setTotalMessages } = useUserContext();
+  const { totalMessages, setTotalMessages, totalRequests, setTotalRequests } = useUserContext();
   const [responseChats, setResponseChats] = useState();
 
   console.log(totalMessages);
+  console.log(totalRequests)
 
   //* ---LÓGICA PARA CONTAR EL NÚMERO DE MENSAJES SIN LEER EN CASO QUE SEA NULL--------
 
@@ -40,6 +41,11 @@ const NavBar = () => {
     }, 0);
 
     setTotalMessages(countUnreadMessages);
+
+if(user && totalRequests==null){
+  setTotalRequests(user?.friendRequests.length)
+}
+
 
 console.log(responseChats)
   }
@@ -93,8 +99,13 @@ console.log(responseChats)
                   onClick={toggleProfileMenu}
                 />
                 {totalMessages > 0 && (
-                  <div className="contentBadge">
+                  <div className="contentBadgeMessages">
                     <p>{totalMessages}</p>
+                  </div>
+                )}
+                {totalRequests > 0 && (
+                  <div className="contentBadgeRequest">
+                    <p>{totalRequests}</p>
                   </div>
                 )}
               </div>
@@ -106,7 +117,11 @@ console.log(responseChats)
                 >
                   <NavLink to="/profile" onClick={toggleProfileMenu}>
                     Profile
+                    {totalRequests > 0 && (
+                      <p className="MsgAnchorText">{totalRequests} new friend request</p>
+                    )}
                   </NavLink>
+                 
                   <NavLink
                     to={`/messages/${user.id}`}
                     onClick={toggleProfileMenu}

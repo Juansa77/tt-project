@@ -26,7 +26,7 @@ const Profile = () => {
   const [addFriendResponse, setAddFriendResponse] = useState();
   const [rejectFriendResponse, setRejectFriendResponse] = useState();
   const navigate = useNavigate();
-  const { setSelectedUser } = useUserContext();
+  const { setSelectedUser, totalRequests, setTotalRequests } = useUserContext();
 
   //* FUNCIÓN PARA ACEPTAR REQUEST FRIEND Y AÑADIR AMIGO
   const handleAddUser = async (friendID) => {
@@ -36,15 +36,23 @@ const Profile = () => {
       const responseData = await addFriendToUser(userID, friendID, token);
       setAddFriendResponse(responseData);
       console.log("responseData de add friend", responseData);
+      const updatedFriendRequests = user.friendRequests.filter(
+        (friendRequest) => {
+          return friendRequest.isSender && friendRequest.user === friendID;
+        }
+      );
 
       //* Objeto custom para añadir la id del amigo y almacenar el usuario actualizado en el local
       const updatedUser = {
         ...user,
-        friends: [...user.friends, friendID], // Agrega el nuevo juego al array de juegos
+        friends: [...user.friends, friendID],
+        friendRequests: updatedFriendRequests,
+         // Agrega el nuevo juego al array de juegos
       };
       const dataString = JSON.stringify(updatedUser);
       // Actualiza la variable userLogin en el contexto
       userLogin(dataString);
+      setTotalRequests(user?.friendRequests?.length)
     } catch (error) {
       console.log(error);
     }
@@ -57,12 +65,25 @@ const Profile = () => {
       const responseData = await rejectFriendRequest(userID, friendID, token);
       setRejectFriendResponse(responseData);
       console.log("respondata de request friend", responseData);
+      const updatedFriendRequests = user.friendRequests.filter(
+        (friendRequest) => {
+          return friendRequest.isSender && friendRequest.user === friendID;
+        }
+      );
+      //* Objeto custom para extraer la id del amigo  y almacenar el usuario actualizado en el local
+      const updatedUser = {
+        ...user,
+        friendRequests: updatedFriendRequests, // Elimina la ID del amigo del array de amigos
+      };
+      const dataString = JSON.stringify(updatedUser);
+      userLogin(dataString);
+      setTotalRequests(user?.friendRequests?.length)
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log("rejectresponse", rejectFriendResponse)
+  console.log("rejectresponse", rejectFriendResponse);
 
   //* USEEFFECT PARA CARGAR LAS FRIENDS REQUESTS DEL USUARIO----
   useEffect(() => {
@@ -77,10 +98,6 @@ const Profile = () => {
       });
   }, [userID, addFriendResponse]);
 
-  
-
-
-  
   //* USEEFFECT PARA CARGAR LAS FRIENDS REQUESTS DEL USUARIO----
   useEffect(() => {
     // Llamada al servicio para obtener los juegos del usuario
@@ -142,9 +159,7 @@ const Profile = () => {
       .catch((error) => {
         console.error("Error fetching friends:", error);
       });
-  }, [addFriendResponse ]);
-
- 
+  }, [addFriendResponse]);
 
   return (
     <div className="profile-main">
