@@ -1,4 +1,5 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
 import "./DetailUser.css";
 import { useContext, useState, useEffect } from "react";
 import { useUserContext } from "../../contexts/UserContext";
@@ -59,6 +60,11 @@ const DetailUser = () => {
       const responseData = await sendFriendRequest(userID, friendID, token);
       setResponse(responseData);
       console.log("respondata de request friend", responseData);
+      if(responseData?.status ==200){
+        Swal.fire(
+          'Friend request sended!',     
+        )
+      }
       //* Objeto custom para añadir la id de la solicitud y almacenar el usuario actualizado en el local
       const updatedUser = {
         ...user,
@@ -81,6 +87,11 @@ const DetailUser = () => {
       const token = user?.token;
       const responseData = await deleteFriendInUser(userID, friendID, token);
       setResponse(responseData);
+      if(responseData?.status ==200){
+        Swal.fire(
+          'Friend deleted!',     
+        )
+      }
 
       //* Objeto custom para extraer la id del amigo  y almacenar el usuario actualizado en el local
       const updatedUser = {
@@ -100,6 +111,11 @@ const DetailUser = () => {
       const token = user?.token;
       const responseData = await cancelFriendRequest(userID, friendID, token);
       setResponse(responseData);
+      if(responseData?.status ==200){
+        Swal.fire(
+          'Request cancel!',     
+        )
+      }
 
       const updatedFriendRequests = user.friendRequests.filter(
         (friendRequest) => {

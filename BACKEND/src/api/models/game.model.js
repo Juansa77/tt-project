@@ -13,6 +13,8 @@ const GameSchema = new Schema(
     playTime: { type: String, required: true },
     age: { type: String, required: true },
     weight: { type: String, required: false },
+    description: { type: String, required: false },
+    url: { type: String, required: false },
     typesList: [{ type: String, required: false }],
     owners: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
     avaliable: [{ type: mongoose.Types.ObjectId, ref: 'Place' }],

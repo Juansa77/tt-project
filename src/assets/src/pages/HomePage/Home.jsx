@@ -58,8 +58,15 @@ const Home = () => {
       return count;
     }, 0);
 
+const friendRequestsCount= user?.friendRequests.reduce((count, request) => {
+  if (request?.isSender == false) {
+    return count + 1;
+  }
+  return count;
+}, 0);
+
     setTotalMessages(countUnreadMessages);
-    setTotalRequests(user.friendRequests.length)
+    setTotalRequests(friendRequestsCount)
 
   }
 

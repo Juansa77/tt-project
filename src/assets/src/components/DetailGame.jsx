@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGameContext } from "../contexts/GameContext";
 import "./DetailGame.css";
 
-
 import { useAuth } from "../contexts/authContext";
 import {
   addGameToUser,
@@ -13,21 +12,19 @@ import {
 } from "../services/API_USER/game.service";
 import MiniUserCard from "./MiniUserCard";
 import { useUserContext } from "../contexts/UserContext";
+import Swal from "sweetalert2";
 
 const DetailGame = () => {
   const { _id } = useParams();
   const { selectedGame, setSelectedGame } = useGameContext();
   const [gameUsers, setGameUsers] = useState(null);
-  console.log(_id);
-
   const [blurCount, setBlurCount] = useState(40);
-  console.log(selectedGame);
-
-  //*--------------FUNCIONALIDAD PARA AGREGAR EL JUEGO AL USUARIO-----
-
   const { user, userLogin } = useAuth();
+  const userHasGame = user?.games?.includes(_id);
   const [response, setResponse] = useState([]);
   const userID = user?.id;
+
+  //*--------------FUNCIONALIDAD PARA AGREGAR EL JUEGO AL USUARIO-----
 
   //* USEEFFECT PARA EL BLUR DE LA IMAGEN DE FONDO----
 
@@ -45,7 +42,7 @@ const DetailGame = () => {
     };
   }, [blurCount]);
 
-  console.log(blurCount);
+
 
   //* ---LÒGICA PARA AÑADIR JUEGO AL USUARIO ---------
   const handleAddGame = async (gameId) => {
@@ -55,6 +52,20 @@ const DetailGame = () => {
       const token = user?.token;
       const responseData = await addGameToUser(userID, gameId, token);
       setResponse(responseData);
+      if (responseData?.status == 200) {
+        Swal.fire({
+          title: "Game added to your profile",
+          icon: "success",
+          confirmButtonText: "OK",
+          background: "#363636",
+          confirmButtonColor: {
+            background: "beige", // Cambia el color de fondo del botón de confirmación
+            text: "#363636", // Cambia el color del texto del botón de confirmación
+          },
+          color: `beige`, // Cambia el color de fondo del cuadro de alerta
+          // Aplica un fondo personalizado como backdrop
+        });
+      }
 
       const updatedUser = {
         ...user,
@@ -71,17 +82,39 @@ const DetailGame = () => {
   //* ---LÒGICA PARA QUITAR JUEGO AL USUARIO -------------------
   const handleRemoveGame = async (gameId) => {
     try {
-      const userID = user?._id;
       const token = user?.token;
       const responseData = await removeGameInUser(userID, gameId, token);
       setResponse(responseData);
+      console.log(responseData);
+      if (responseData?.status == 200) {
+        Swal.fire({
+          title: "Game deleted in your profile",
+          icon: "success",
+          confirmButtonText: "OK",
+          background: "#363636",
+          confirmButtonColor: {
+            background: "beige", // Cambia el color de fondo del botón de confirmación
+            text: "#363636", // Cambia el color del texto del botón de confirmación
+          },
+          color: `beige`, // Cambia el color de fondo del cuadro de alerta
+          // Aplica un fondo personalizado como backdrop
+        });
+      }
+
+      const updatedGames = user.games.filter((game) => game !== gameId);
+
+      const updatedUser = {
+        ...user,
+        games: updatedGames,
+      };
+      const dataString = JSON.stringify(updatedUser);
+      userLogin(dataString);
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log(selectedGame?.title);
-  console.log("user en detail", user?.city);
+ 
   //* USEEFFECT  1 PARA CONTROLAR QUE SI EL GAME DEL CONTEXTO ES NULL, HAGA UN FETCH
   useEffect(() => {
     const fetchUserData = async () => {
@@ -100,7 +133,6 @@ const DetailGame = () => {
     fetchUserData();
   }, [_id]);
 
-
   //* ---USEFFECT PARA CONTROLAR LA CARGA DE LOS USUARIOS QUE TIENEN EL JUEGO
   useEffect(() => {
     const fetchGameUsers = async () => {
@@ -117,23 +149,20 @@ const DetailGame = () => {
     fetchGameUsers();
   }, [selectedGame]);
 
-//* LÓGICA PARA NAVIGATE A PÁGINA DE DETALLE DEL USUARIO
+  //* LÓGICA PARA NAVIGATE A PÁGINA DE DETALLE DEL USUARIO
 
-const { setSelectedUser } = useUserContext();
+  const { setSelectedUser } = useUserContext();
 
-// Instancia de la historia del enrutador para redirigir a la página de detalles
-const navigate = useNavigate();
+  // Instancia de la historia del enrutador para redirigir a la página de detalles
+  const navigate = useNavigate();
 
-const handleSelectFriend = (friend) => {
-  console.log("amigo seleccionado>", friend);
-  setSelectedUser(friend);
-  // Redirige a la página de detalles del juego seleccionado
-  navigate(`/users/${friend._id}`);
-};
+  const handleSelectFriend = (friend) => {
+    console.log("amigo seleccionado>", friend);
+    setSelectedUser(friend);
+    // Redirige a la página de detalles del juego seleccionado
+    navigate(`/users/${friend._id}`);
+  };
 
-
-
-  console.log("gameusers", gameUsers);
   return (
     <div
       className="game-detail"
@@ -152,18 +181,23 @@ const handleSelectFriend = (friend) => {
             </div>
           </div>
           <div className="btn-detail-container">
-            <button
-              className="btn-game"
-              onClick={() => handleAddGame(selectedGame._id)}
-            >
-              + ADD GAME
-            </button>
-            <button
-              className="btn-game"
-              onClick={() => handleRemoveGame(selectedGame._id)}
-            >
-              - DELETE GAME
-            </button>
+            <>
+              {userHasGame == false ? (
+                <button
+                  className="btn-game"
+                  onClick={() => handleAddGame(selectedGame._id)}
+                >
+                  + ADD GAME
+                </button>
+              ) : (
+                <button
+                  className="btn-game"
+                  onClick={() => handleRemoveGame(selectedGame._id)}
+                >
+                  - DELETE GAME
+                </button>
+              )}
+            </>
           </div>
           <div className="game-data-detail">
             <div className="gameDetailBasics">
@@ -190,12 +224,12 @@ const handleSelectFriend = (friend) => {
               <div className="usersGameDetailWrapper">
                 {gameUsers?.length > 0 &&
                   gameUsers?.map((friend, index) => (
-                    <div key={index}  onClick={()=>handleSelectFriend(friend)}>
-                    <MiniUserCard
-                      key={index}
-                      title={friend.name}
-                      image={friend.file}
-                    />
+                    <div key={index} onClick={() => handleSelectFriend(friend)}>
+                      <MiniUserCard
+                        key={index}
+                        title={friend.name}
+                        image={friend.file}
+                      />
                     </div>
                   ))}
               </div>

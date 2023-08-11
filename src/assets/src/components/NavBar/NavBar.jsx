@@ -43,7 +43,13 @@ const NavBar = () => {
     setTotalMessages(countUnreadMessages);
 
 if(user && totalRequests==null){
-  setTotalRequests(user?.friendRequests.length)
+  const friendRequestsCount= user?.friendRequests.reduce((count, request) => {
+    if (request?.isSender == false) {
+      return count + 1;
+    }
+    return count;
+  }, 0);
+  setTotalRequests(friendRequestsCount)
 }
 
 
