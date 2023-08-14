@@ -102,13 +102,13 @@ const GameRecomendationComponent = () => {
                     <>
                       <div onClick={() => handleSelectGame(game)}>
                         <img
-                          className="image-selection"
+                          className="image-recomendation"
                           src={game.image}
                           alt={`${game.title} cover`}
                         />
                       </div>
-                      <div className="title-container-selection">
-                        <h2 className="title-selection">{game.title}</h2>
+                      <div className="title-container-recomendation">
+                        <h2 className="title-recomendation">{game.title}</h2>
                       </div>
                     </>
                   </div>

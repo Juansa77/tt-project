@@ -89,6 +89,20 @@ const Home = () => {
       <div className="hero">
         <SliderGallery slides={SliderData} />
       </div>
+
+      {user && user?.games?.length > 0 && (
+          <div className="RecomendationsContainer">
+          <h1 className="recomendationsHeaderText">Recomendacionas personalizadas</h1>
+          <div
+            className={`gameContainerRecomendation ${
+              verticalScrollPosition >= 0 ? "visible" : ""
+            }`}
+          >
+            <GameRecomendationComponent />
+          </div>
+          </div>
+        )}
+
       <CategorySplitter
         title={"Para partidas rápidas..."}
         text={"Si te apetecen juegos de 20 minutos"}
@@ -204,32 +218,12 @@ const Home = () => {
         />
       </div>
 
-    
-    
-    <>
-    <CategorySplitter
-        title={"Juegos para cuatro jugadores"}
-        text={"Para jugar en grupo"}
-      />
-    
-        {user?.games?.length > 0 &&
+      
+      
 
-          <div
-        className={`gameContainer ${
-          verticalScrollPosition >= 1500 ? "visible" : ""
-        }`}
-      >
-        
+     
       
-      
-         <GameRecomendationComponent />
-       
-         </div>
 
-         }
-      
-         </>  
-      
       <Footer />
     </div>
   );

@@ -14,6 +14,7 @@ const CategoryTextContainer = styled.div`
   justify-content:center;
   margin-bottom:-15vh;
 
+
   
   
 

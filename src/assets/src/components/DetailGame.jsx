@@ -29,13 +29,12 @@ const DetailGame = () => {
   const [responseType, setResponseType] = useState();
   const [isLoadingResponse, setIsLoadingResponse] = useState(true);
   const userID = user?.id;
-  const [types, setTypes] =useState()
-  const [playTime, setPlayTime] =useState()
-  const [players, setPlayers] = useState()
-  const [rating, setRating] =useState()
+  const [types, setTypes] = useState();
+  const [playTime, setPlayTime] = useState();
+  const [players, setPlayers] = useState();
+  const [rating, setRating] = useState();
 
   //* --Game by category------
-
 
   const handleGameByType = async (type) => {
     console.log(type);
@@ -67,7 +66,13 @@ const DetailGame = () => {
   }, [blurCount]);
 
   //* ---LÒGICA PARA AÑADIR JUEGO AL USUARIO ---------
-  const handleAddGame = async (gameId) => {
+  const handleAddGame = async (
+    gameId,
+    rating,
+    playTime,
+    players,
+    typesList
+  ) => {
     try {
       console.log("esto es user", user);
 
@@ -91,7 +96,16 @@ const DetailGame = () => {
 
       const updatedUser = {
         ...user,
-        games: [...user.games, gameId], // Agrega el nuevo juego al array de juegos
+        games: [
+          ...user.games,
+          {
+            id: gameId,
+            rating: rating,
+            playTime: playTime,
+            players: players,
+            typesList: typesList,
+          },
+        ], // Agrega el nuevo juego al array de juegos
       };
       const dataString = JSON.stringify(updatedUser);
       // Actualiza la variable userLogin en el contexto
@@ -102,7 +116,13 @@ const DetailGame = () => {
   };
 
   //* ---LÒGICA PARA QUITAR JUEGO AL USUARIO -------------------
-  const handleRemoveGame = async (gameId) => {
+  const handleRemoveGame = async (
+    gameId,
+    rating,
+    playTime,
+    players,
+    typesList
+  ) => {
     try {
       const token = user?.token;
       const responseData = await removeGameInUser(userID, gameId, token);
@@ -156,10 +176,10 @@ const DetailGame = () => {
 
   //* ---USEFFECT PARA CONTROLAR LA CARGA DE LOS USUARIOS QUE TIENEN EL JUEGO
   useEffect(() => {
-    setTypes(selectedGame?.typesList?.slice(0,3))
-    setPlayers(selectedGame?.players)
-    setRating(selectedGame?.rating)
-    setPlayTime(selectedGame?.playTime)
+    setTypes(selectedGame?.typesList?.slice(0, 3));
+    setPlayers(selectedGame?.players);
+    setRating(selectedGame?.rating);
+    setPlayTime(selectedGame?.playTime);
 
     const fetchGameUsers = async () => {
       try {
@@ -175,8 +195,6 @@ const DetailGame = () => {
     fetchGameUsers();
   }, [selectedGame]);
 
-
-
   //* LÓGICA PARA NAVIGATE A PÁGINA DE DETALLE DEL USUARIO
 
   const { setSelectedUser } = useUserContext();
@@ -191,9 +209,8 @@ const DetailGame = () => {
     navigate(`/users/${friend._id}`);
   };
 
-
-console.log(types, playTime, players, rating)
- console.log(selectedGame)
+  console.log(types, playTime, players, rating);
+  console.log(selectedGame);
   return (
     <div
       className="game-detail"
@@ -205,44 +222,50 @@ console.log(types, playTime, players, rating)
       >
         <div className="game-detail-container">
           <div className="detailGameMain">
-           
             <div className="detailMainTextWrapper">
               <h1 className="game-name-detail">{selectedGame?.title}</h1>
               <h1 className="detailRating">{selectedGame?.rating}</h1>
               <div className="btn-detail-container">
-            <>
-              {user === null ? null : userHasGame === false ? ( // No renderizar nada si el usuario es null
-                <button
-                  className="btn-game"
-                  onClick={() => handleAddGame(selectedGame._id)}
-                >
-                  + ADD GAME
-                </button>
-              ) : (
-                <button
-                  className="btn-game"
-                  onClick={() => handleRemoveGame(selectedGame._id)}
-                >
-                  - DELETE GAME
-                </button>
-              )}
-            </>
-          </div>
-          <div className="gameDetailBasics">
-              <div className="playtime-detail">
-                <FaClock size={"25px"} /> {selectedGame?.playTime}
+                <>
+                  {user === null ? null : userHasGame === false ? ( // No renderizar nada si el usuario es null
+                    <button
+                      className="btn-game"
+                      onClick={() =>
+                        handleAddGame(
+                          selectedGame._id,
+                          selectedGame.rating,
+                          selectedGame.playTime,
+                          selectedGame.players,
+                          selectedGame.typesList
+                        )
+                      }
+                    >
+                      + ADD GAME
+                    </button>
+                  ) : (
+                    <button
+                      className="btn-game"
+                      onClick={() => handleRemoveGame(selectedGame._id)}
+                    >
+                      - DELETE GAME
+                    </button>
+                  )}
+                </>
               </div>
-              <div className="playtime-detail">
-                <FaUsers size={"25px"} /> {selectedGame?.players}
+              <div className="gameDetailBasics">
+                <div className="playtime-detail">
+                  <FaClock size={"25px"} /> {selectedGame?.playTime}
+                </div>
+                <div className="playtime-detail">
+                  <FaUsers size={"25px"} /> {selectedGame?.players}
+                </div>
+                <div className="playtime-detail">{selectedGame?.age}</div>
               </div>
-              <div className="playtime-detail">{selectedGame?.age}</div>
-            </div>
             </div>
             <img className="game-cover-detail" src={selectedGame?.image} />
           </div>
-          
+
           <div className="game-data-detail">
-           
             <div className="game-description-container">
               <h1>{selectedGame?.description}</h1>
             </div>

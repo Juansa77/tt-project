@@ -2,35 +2,65 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap:2vh;
+  gap: 2vh;
   max-width: 100%;
-
 }
 
-.hero{
+.hero {
   min-width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.gameContainer{
+.gameContainer {
   position: relative;
   display: flex;
   max-width: 90%;
   min-height: 30vh;
-  
+
   justify-content: space-between;
   overflow-x: hidden;
-  transition:  opacity 2s ease;
-  opacity: 0; 
+  transition: opacity 2s ease;
+  opacity: 0;
+}
 
-  }
+.gameContainer.visible {
+  opacity: 1; /* Cuando se agrega la clase 'visible', la opacidad se establece en 1 mostrando el componente */
+}
+
+.RecomendationsContainer {
+
+  flex-direction: column;
+  justify-content: space-between;
+  display: flex;
+  max-width: 90%;
+  min-height: 30vh;
+}
+
+.gameContainerRecomendation {
+
+  position: relative;
+  display: flex;
+  max-width: 100%;
+  min-height: 40vh;
+  max-height: 35vh;;
 
 
-  
-  .gameContainer.visible {
-    opacity: 1; /* Cuando se agrega la clase 'visible', la opacidad se establece en 1 mostrando el componente */
-  }
+  overflow-x: hidden;
+  transition: opacity 2s ease;
+  opacity: 0;
+}
 
-  
+.gameContainerRecomendation.visible {
+  opacity: 1; /* Cuando se agrega la clase 'visible', la opacidad se establece en 1 mostrando el componente */
+}
+
+.recomendationsHeaderText{
+  font-family: "SF Pro Text", "Helvetica Neue", sans-serif;
+  height: 4vh;
+
+  margin-bottom: -4vh;
+  color:beige;
+  padding-left: 1vw;
+}

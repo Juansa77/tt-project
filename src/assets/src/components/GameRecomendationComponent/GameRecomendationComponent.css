@@ -12,7 +12,6 @@
   overflow-y: hidden;
 
 
-
 }
 
 
@@ -33,7 +32,7 @@
 }
 
 
-.card-container-selection:hover {
+.card-container-recomendation:hover {
  
 
 
@@ -43,7 +42,7 @@
 }
 
 /* Estilos para la imagen */
-.image-selection {
+.image-recomendation {
   min-width: 20vw;
   max-width: 20vw;
   height: 27vh;
@@ -55,13 +54,13 @@
   transition: 0.2s ease-in-out;
   object-position: 100% 20%;
 }
-.image-selection:hover{
+.image-recomendation:hover{
   opacity: 100%;
   border: 1px solid beige;
  
 }
 /* Estilos para el título */
-.title-container-selection {
+.title-container-recomendation {
   position: absolute;
   bottom: -50px;
   height: 5vh;
@@ -76,7 +75,7 @@
   box-shadow: 5px 2px 20px black;
 }
 
-.title-selection {
+.title-recomendation {
   font-size: 1.6vh;
   text-align: left;
   margin: 0;
@@ -155,4 +154,6 @@
 .recomendationWrapper{
   display: flex;
   gap:2vh;
+  width: 100%;
+
 }
