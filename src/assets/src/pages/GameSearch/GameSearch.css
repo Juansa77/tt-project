@@ -61,7 +61,8 @@ font-size: 3.4vh;
 .gamesearchSelection-container p {
   font-size: 1rem;
 }
-#gameShort {
+
+#gameShort, #gameLong, #gameBest, #gamesStarWars, #gameLikeCatan,#gameOneplayer,#gameTwoplayer, #gameFourplayer {
   background: linear-gradient(45deg, #3f51b5, #2196f3);
   color: beige;
   border: 2px solid #2196f3;
@@ -69,77 +70,11 @@ font-size: 3.4vh;
   padding: 10px;
   box-shadow: 0 5px 50px black;
   transition: border-color 0.3s ease-in-out;
+  font-family: "SF Pro Text", "Helvetica Neue", sans-serif;
 }
 
-#gameLong {
-  background: linear-gradient(45deg, #3f51b5, #2196f3);
-  color: beige;
-  border: 2px solid #2196f3;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 5px 50px black;
-  transition: border-color 0.3s ease-in-out;
-}
 
-#gameBest {
-  background: linear-gradient(45deg, #3f51b5, #2196f3);
-  color: beige;
-  border: 2px solid #2196f3;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 5px 50px black;
-  transition: border-color 0.3s ease-in-out;
-}
 
-#gameLikeCatan {
-  background: linear-gradient(45deg, #3f51b5, #2196f3);
-  color: beige;
-  border: 2px solid #2196f3;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 5px 50px black;
-  transition: border-color 0.3s ease-in-out;
-}
-
-#gamesStarWars {
-  background: linear-gradient(45deg, #3f51b5, #2196f3);
-  color: beige;
-  border: 2px solid #2196f3;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 5px 50px black;
-  transition: border-color 0.3s ease-in-out;
-}
-
-#gameOneplayer {
-  background: linear-gradient(45deg, #3f51b5, #2196f3);
-  color: beige;
-  border: 2px solid #2196f3;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 5px 50px black;
-  transition: border-color 0.3s ease-in-out;
-}
-
-#gameTwoplayer {
-  background: linear-gradient(45deg, #3f51b5, #2196f3);
-  color: beige;
-  border: 2px solid #2196f3;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 5px 50px black;
-  transition: border-color 0.3s ease-in-out;
-}
-
-#gameFourplayer {
-  background: linear-gradient(45deg, #3f51b5, #2196f3);
-  color: beige;
-  border: 2px solid #2196f3;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 5px 50px black;
-  transition: border-color 0.3s ease-in-out;
-}
 
 /* Estilos para aplicar el marco beige al hacer hover */
 #gameShort:hover,

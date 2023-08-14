@@ -176,6 +176,7 @@ console.log(responseChats)
           z-index:1;
           padding:1vh;
           font-size:1.5vh;
+          font-family: "SF Pro Text", "Helvetica Neue", sans-serif;
         
         }
 

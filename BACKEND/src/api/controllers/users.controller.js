@@ -193,7 +193,7 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
     console.log("req.body", req.body);
     //buscamos el usuario
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).populate("games");
     console.log("user pass", user.password);
     //si no hay user, devolvemos un 404
     console.log(bcrypt.compareSync(password, user.password));
@@ -383,7 +383,7 @@ const getUserByID = async (req, res, next) => {
   console.log(id);
 
   try {
-    const userID = await User.findById(id);
+    const userID = await User.findById(id).populate("games");
     console.log(userID);
 
     if (userID) {

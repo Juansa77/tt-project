@@ -1,4 +1,4 @@
-.game-selection-container {
+.game-recomendation-container {
   display: flex;
   position: relative;
   min-height: 40vh;
@@ -12,14 +12,15 @@
   overflow-y: hidden;
 
 
+
 }
 
 
-.card-container-selection {
+.card-container-recomendation {
   min-width: 20vw;
   max-width: 20vw;
   height: 29vh;
-    max-height: 29vh;
+
   background-color: #141414;
   color: #fff;
   border-radius: 10px;
@@ -151,7 +152,7 @@
 }
 
 
-.GameSelectionWrapper{
-
-
+.recomendationWrapper{
+  display: flex;
+  gap:2vh;
 }

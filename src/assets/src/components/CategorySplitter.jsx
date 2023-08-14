@@ -11,8 +11,6 @@ const CategoryTextContainer = styled.div`
  color:beige;
   display:flex;
   flex-direction:column;
-  margin-top:5vh;
-
   justify-content:center;
   margin-bottom:-15vh;
 
@@ -23,24 +21,22 @@ const CategoryTextContainer = styled.div`
 
 const CategoryText = styled.h2`
   font-size: 2.9vh;
-  min-width:100%;
-
-  color:beige;
-  text-align:left;
-  margin-left:6vw;
-  height:4vh;
-
-
+  min-width: 100%;
+  font-family: "SF Pro Text", "Helvetica Neue", sans-serif;
+  color: beige; /* Color de texto utilizado por Apple */
+  text-align: left;
+  margin-left: 6vw;
+  height: 4vh;
 `;
 
 const CategorySubText = styled.h4`
   font-size: 1.6vh;
-  min-width:100%;
-
-  color:beige;
-  text-align:left;
-  margin-left:6vw;
-  height:4vh;
+  min-width: 100%;
+  font-family: "SF Pro Text", "Helvetica Neue", sans-serif;
+  color: grey; /* Color de texto utilizado por Apple */
+  text-align: left;
+  margin-left: 6vw;
+  height: 4vh;
 
 
 `;

@@ -12,6 +12,7 @@ gap:3vw;
 align-content:center;
 align-items:center;
 overflow:hidden;
+
 `
 
 
@@ -27,6 +28,7 @@ max-height:40vh;
   transition:  0.2s ease-in-out;
   cursor:pointer;
   box-shadow: 5px 2px 20px black;
+  
   
 
   @media (max-width: 768px) {
@@ -169,7 +171,7 @@ const GameSelection=({searchFunction, searchTerm, onClickAdd, onClickRemove}) =>
     <div>
     <GameSelectionContainer ref={containerRef}>
     {response?.data?.map((game, index) =>
-    index < 5 &&
+   
         <CardContainerSelection  key={index}>
     <AddButton onClick={onClickAdd}>
         <FaPlus />

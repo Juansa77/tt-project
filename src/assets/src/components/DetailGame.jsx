@@ -29,10 +29,13 @@ const DetailGame = () => {
   const [responseType, setResponseType] = useState();
   const [isLoadingResponse, setIsLoadingResponse] = useState(true);
   const userID = user?.id;
+  const [types, setTypes] =useState()
+  const [playTime, setPlayTime] =useState()
+  const [players, setPlayers] = useState()
+  const [rating, setRating] =useState()
 
   //* --Game by category------
-  const gameLikeCatan = "Strategy,Negotiation,Economic,Family";
-  const gamesStarWars = "Movies: Star Wars";
+
 
   const handleGameByType = async (type) => {
     console.log(type);
@@ -153,6 +156,11 @@ const DetailGame = () => {
 
   //* ---USEFFECT PARA CONTROLAR LA CARGA DE LOS USUARIOS QUE TIENEN EL JUEGO
   useEffect(() => {
+    setTypes(selectedGame?.typesList?.slice(0,3))
+    setPlayers(selectedGame?.players)
+    setRating(selectedGame?.rating)
+    setPlayTime(selectedGame?.playTime)
+
     const fetchGameUsers = async () => {
       try {
         console.log("el juego en contexto es null y entra en el useeeffect");
@@ -167,7 +175,7 @@ const DetailGame = () => {
     fetchGameUsers();
   }, [selectedGame]);
 
-  console.log(selectedGame);
+
 
   //* LÓGICA PARA NAVIGATE A PÁGINA DE DETALLE DEL USUARIO
 
@@ -182,9 +190,10 @@ const DetailGame = () => {
     // Redirige a la página de detalles del juego seleccionado
     navigate(`/users/${friend._id}`);
   };
-  console.log("responseType", responseType);
-  console.log(responseType?.length);
-  console.log(user);
+
+
+console.log(types, playTime, players, rating)
+ console.log(selectedGame)
   return (
     <div
       className="game-detail"
@@ -196,13 +205,11 @@ const DetailGame = () => {
       >
         <div className="game-detail-container">
           <div className="detailGameMain">
-            <img className="game-cover-detail" src={selectedGame?.image} />
+           
             <div className="detailMainTextWrapper">
               <h1 className="game-name-detail">{selectedGame?.title}</h1>
               <h1 className="detailRating">{selectedGame?.rating}</h1>
-            </div>
-          </div>
-          <div className="btn-detail-container">
+              <div className="btn-detail-container">
             <>
               {user === null ? null : userHasGame === false ? ( // No renderizar nada si el usuario es null
                 <button
@@ -221,8 +228,7 @@ const DetailGame = () => {
               )}
             </>
           </div>
-          <div className="game-data-detail">
-            <div className="gameDetailBasics">
+          <div className="gameDetailBasics">
               <div className="playtime-detail">
                 <FaClock size={"25px"} /> {selectedGame?.playTime}
               </div>
@@ -231,10 +237,15 @@ const DetailGame = () => {
               </div>
               <div className="playtime-detail">{selectedGame?.age}</div>
             </div>
+            </div>
+            <img className="game-cover-detail" src={selectedGame?.image} />
+          </div>
+          
+          <div className="game-data-detail">
+           
             <div className="game-description-container">
               <h1>{selectedGame?.description}</h1>
             </div>
-           
           </div>
         </div>
         <div className="detailGame-userWrap">
@@ -259,20 +270,23 @@ const DetailGame = () => {
           )}
         </div>
         <div className="detail-category-container">
-        <h1>Tags:</h1>
-              <div className="detail-category-text">
-                {selectedGame?.typesList.map(
-                  (type, index) =>
-                    index < 8 && (
-                      <p className="tagGameTxt" onClick={() => handleGameByType(type)} key={type}>
-                        {type}
-                      </p>
-                    )
-                )}
-              </div>
-            </div>
+          <h1>Tags:</h1>
+          <div className="detail-category-text">
+            {selectedGame?.typesList.map(
+              (type, index) =>
+                index < 8 && (
+                  <p
+                    className="tagGameTxt"
+                    onClick={() => handleGameByType(type)}
+                    key={type}
+                  >
+                    {type}
+                  </p>
+                )
+            )}
+          </div>
+        </div>
         <div className="game-tags-selection">
-      
           {!isLoadingResponse &&
             responseType?.data?.length > 0 &&
             responseType.data.map(
