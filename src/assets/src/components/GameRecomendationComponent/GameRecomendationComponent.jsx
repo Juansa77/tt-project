@@ -26,7 +26,7 @@ const GameRecomendationComponent = () => {
       playTime: game?.playTime,
     })
   );
-  console.log(userGamesData);
+
 
   //*-----LÓGICA PARA EL SCROLL HORIZONTAL-----
   const handleScroll = (direction) => {
@@ -79,6 +79,7 @@ const GameRecomendationComponent = () => {
     setSelectedGame(game);
     // Redirige a la página de detalles del juego seleccionado
     navigate(`/games/${game._id}`);
+    window.scrollTo(0, 0);
   };
 
   return (

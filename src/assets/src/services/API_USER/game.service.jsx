@@ -196,7 +196,7 @@ export const gameByType = async (type) => {
 
 export const gameByMultiQuery = async (types, rating, players, playTime) => {
 
-  console.log(types)
+  console.log(players)
       //*Creamos un objeto de configuración con los headers de la solicitud
       const config = {
         headers: {

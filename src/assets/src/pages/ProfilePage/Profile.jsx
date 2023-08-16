@@ -83,7 +83,7 @@ const Profile = () => {
     }
   };
 
-  console.log("rejectresponse", rejectFriendResponse);
+
 
   //* USEEFFECT PARA CARGAR LAS FRIENDS REQUESTS DEL USUARIO----
   useEffect(() => {
@@ -129,7 +129,7 @@ const Profile = () => {
   //* Instancia de la historia del enrutador para redirigir a la página de detail
 
   const handleSelectGame = (game) => {
-    console.log(game);
+  
     setSelectedGame(game);
     // Redirige a la página de detalles del juego seleccionado
     navigate(`/games/${game._id}`);

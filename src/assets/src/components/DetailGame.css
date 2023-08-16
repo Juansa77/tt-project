@@ -5,12 +5,15 @@
   left: 0;
   right: 0;
   bottom: 0;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   background-size: cover;
-  grid-template-columns: 1fr;
+  align-content: center;
   justify-content: center;
+  justify-items: center;
   align-items: center;
-  height: 100%;
+  max-height: min-content;
+
 }
 
 /* Estilo para el contenedor interno con desenfoque */
@@ -21,9 +24,10 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
-  width: 100%;
+
   height: min-content;
-  max-width: 100%; /* Limita el ancho del contenedor interno */
+  max-width: 100%;
+  min-width: 100%; /* Limita el ancho del contenedor interno */
 
   /* Desenfoque del contenedor */
 
@@ -36,10 +40,11 @@
   align-items: center;
   gap: 20px;
   z-index: 10;
-  width: 90%;
+  width: 95%;
   height: 45vh;
 
   justify-content: space-between;
+
 }
 
 .detailMainTextWrapper {
@@ -49,18 +54,20 @@
   height: 100%;
   width: 100%;
   margin-left: 1vh;
-  
 
   align-items: start;
   z-index: 10;
 }
 
 .detailRating {
-  border: 3px solid beige;
-  padding: 1rem;
+  border: 2px solid beige;
+  border-radius: 10px;
+  width: 4vw;
+  text-align: center;
   font-weight: bold;
   font-size: 4.7vh;
-  border-radius: 2px;
+  height: 10vh;
+
   z-index: 10;
 }
 .game-cover-detail {
@@ -73,9 +80,8 @@
 .game-name-detail {
   font-size: 7vh;
 
-margin-top: -48px;
+  margin-top: -48px;
   font-weight: bold;
- 
 }
 
 /* Estilos para los botones de acción */
@@ -88,7 +94,8 @@ margin-top: -48px;
 }
 
 .btn-game {
-  height: 40px;
+  height: 60px;
+  width: 200px;
   padding: 8px 20px;
   font-size: 16px;
   font-weight: bold;
@@ -115,13 +122,16 @@ margin-top: -48px;
 
 /* Estilos para la sección de detalles adicionales */
 .game-data-detail {
+
   display: flex;
+  height: 10vh;
   flex-direction: column;
   gap: 5px; /* Reducimos el espacio entre los elementos */
   margin-top: 20px;
   width: 100%;
   padding-top: 2rem;
   color: beige;
+  margin-bottom: -10vh;
 }
 
 .playtime-detail,
@@ -136,7 +146,7 @@ margin-top: -48px;
 .detail-category-container {
   padding: 10px;
   border-radius: 4px;
-  width: 92%;
+  width: 95%;
   height: 120%;
   padding-top: 2rem;
   color: beige;
@@ -163,10 +173,11 @@ margin-top: -48px;
   margin-top: 1vh;
   display: flex;
   flex-direction: column;
-  margin-left: 6vw;
-  padding: 8px 20px;
+  align-content: flex-start;
+  padding: 4vw;
 
   width: 100%;
+
 }
 
 .usersGameDetailWrapper {
@@ -197,23 +208,26 @@ margin-top: -48px;
   z-index: 0;
 }
 .game-tags-selection {
-  height: 20vh;
+  height: 31vh;
   display: flex;
-  width: 92%;
+  width: 100%;
 
-  justify-content: space-between;
-  padding: 1rem;
+  justify-content: space-evenly;
+
+
 }
 
 .tagGameTxt {
   border: 1px solid beige;
+  border-radius: 10px;
   text-align: center;
-  height: 70px;
-  width: 10%;
+  height: 5vh;
+  width: 19%;
+
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1.5vh;
   padding: 8px 20px;
-  font-size: 16px;
+
   font-weight: bold;
   transition: background-color 0.2s ease, transform 0.2s ease;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -222,4 +236,75 @@ margin-top: -48px;
 .tagGameTxt:hover {
   background-color: #0076a3;
   transform: translateY(-2px);
+}
+
+.card-detail-recomendation {
+  min-width: 12vw;
+  max-width: 12vw;
+  height: 25vh;
+
+  background-color: transparent;
+  color: #fff;
+
+  position: relative;
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+
+  scroll-behavior: smooth;
+}
+
+.title-detail-recomendation {
+  position: absolute;
+height: 5vh;
+
+  width: 100%;
+  padding: 10px;
+  line-height: 3vh;
+
+  font-family: "SF Pro Text", "Helvetica Neue", sans-serif;
+  font-size: 0.8vh;
+  color: #141414;
+  background-color: beige;
+  opacity: 90%;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 2px 20px black;
+}
+
+.image-detailSimilar {
+  width: 100%;
+
+  height: 21vh;
+  border-radius: 10px;
+  overflow: hidden;
+
+  object-fit: cover;
+  opacity: 80%;
+  transition: 0.2s ease-in-out;
+  object-position: 100% 20%;
+}
+.image-detailSimilar:hover {
+  opacity: 100%;
+  border: 1px solid beige;
+}
+
+.similarGamesWrap {
+  margin-top: 2vh;
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  height: 30vh;
+  gap: 3vh;
+  width: 95%;
+
+
+  overflow-x: hidden;
+  justify-content: left;
+}
+
+
+.similarGamesHeaderText{
+  width: 91%;
+  font-family: "SF Pro Text", "Helvetica Neue", sans-serif;
+  color:beige;
 }

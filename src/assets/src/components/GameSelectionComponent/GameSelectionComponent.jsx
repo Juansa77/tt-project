@@ -177,6 +177,7 @@ const GameSelectionComponent = ({
     setSelectedGame(game);
     // Redirige a la página de detalles del juego seleccionado
     navigate(`/games/${game._id}`);
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -195,7 +196,7 @@ const GameSelectionComponent = ({
       >
         {response?.data?.map(
           (game, index) =>
-            index <= 15 && (
+            index <=18 && (
               <div className="card-container-selection" key={index}>
                 <div onClick={() => handleSelectGame(game)}>
                   <img
