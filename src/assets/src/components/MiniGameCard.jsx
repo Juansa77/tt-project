@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 
 const CardContainer = styled.div`
-   width: 4.5vw;
+   width: 5.5vw;
   height: 12vh;
   background-color: #141414;
   color: #fff;
@@ -46,7 +46,7 @@ const Image = styled.img`
 
 const TitleContainer = styled.div`
   position: absolute;
-  bottom: 0;
+  bottom: -200px;
   left: 0;
   width: 100%;
   padding: 10px;
@@ -87,19 +87,12 @@ const RemoveButton = styled.button`
 
 
 
-const MiniGameCard=({image, title, onClickAdd, onClickRemove}) => {
+const MiniGameCard=({image, title}) => {
   return (
     <CardContainer>
-    <AddButton onClick={onClickAdd}>
-        <FaPlus />
-      </AddButton>
-      <RemoveButton onClick={onClickRemove}>
-        <FaMinus />
-      </RemoveButton>
+
       <Image src={image} alt="Imagen" />
-      <TitleContainer>
-        <Title>{title}</Title>
-      </TitleContainer>
+
     </CardContainer>
   );
 }

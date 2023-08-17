@@ -1,75 +1,68 @@
-/* eslint-disable react/prop-types */
+
+
 import styled from 'styled-components';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 
 const CardContainer = styled.div`
   width: 9vw;
-  border-radius: 50%;
-  height: 20vh;
+  height: 27vh;
+  border-radius:10px;
   background-color: transparent;
+  border:1px solid rgba(195, 198, 211, 0.315);
   color: #fff;
-  margin-top:4vh;
-
-
+  margin-top: 4vh;
   position: relative;
-  transition:  0.2s ease-in-out;
-  cursor:pointer;
-
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 0px 5px grey;
 
   @media (max-width: 768px) {
     width: 35vw;
-    height:20vh;
-    font-size:1px:
+    height: 20vh;
+    font-size: 1px;
   }
 
-  
   &:hover {
- 
     border: 3px solid beige;
     box-shadow: 0 5px 50px black;
-
-    overflow:hidden;
-    
+    overflow: hidden;
   }
 `;
 
 const Image = styled.img`
-  width: 100%;
-  height: 100%;
+  width:100%;
+  height: 19vh;
   object-fit: cover;
-  border-radius: 50%;
+
   opacity: 80%;
-  transition:  0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+
   &:hover {
     opacity: 100%;
-  
-
   }
 `;
 
 const TitleContainer = styled.div`
+padding:0.5rem;
   display: flex;
-  text-align: center;
-  width: 100%;
-  height: 100%;
-  align-content: center;
+  justify-content: center; /* Cambio aquí para centrar horizontalmente */
   align-items: center;
+  width: 100%;
+  height: 20%; /* Cambio aquí para determinar la altura del título */
   background-color: transparent;
-  margin-top:-7vh;
-
+  
 `;
 
 const Title = styled.h2`
-  font-size: 2.3vh;
-  text-align: center;
+  font-size: 1.7vh;
+  text-align: left; /* Cambio aquí para centrar el texto */
   margin: 0;
-  margin-bottom:2vh;
-  width:100%;
-
-
-
+  width: 100%;
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Agrega puntos suspensivos si el texto es demasiado largo */
 `;
-
 
 const AddButton = styled.button`
   position: absolute;
@@ -93,9 +86,7 @@ const RemoveButton = styled.button`
   color: #fff;
 `;
 
-
-
-const UserCard=({image, title, onClickAdd, onClickRemove}) => {
+const UserCard = ({ image, title, onClickAdd, onClickRemove }) => {
   return (
     <CardContainer>
       <Image src={image} alt="Imagen" />
@@ -104,6 +95,6 @@ const UserCard=({image, title, onClickAdd, onClickRemove}) => {
       </TitleContainer>
     </CardContainer>
   );
-}
+};
 
 export default UserCard;

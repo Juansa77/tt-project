@@ -147,6 +147,7 @@
   text-align:left;
   margin-left:2vw;
   height:7vh;
+  text-overflow: ellipsis; 
 
 }
 

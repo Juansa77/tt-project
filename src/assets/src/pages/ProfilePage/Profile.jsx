@@ -119,6 +119,7 @@ const Profile = () => {
     setSelectedUser(friend);
     // Redirige a la página de detalles del juego seleccionado
     navigate(`/users/${friend._id}`);
+    window.scrollTo(0, 0);
   };
 
   //* FUNCIÓN PARA ALMACENAR LOS DATOS DEL JUEGO SELECCIONADO PARA USARLO EN DETAIL Y NO HACER UNA NUEVA LLAMADA
@@ -133,6 +134,7 @@ const Profile = () => {
     setSelectedGame(game);
     // Redirige a la página de detalles del juego seleccionado
     navigate(`/games/${game._id}`);
+    window.scrollTo(0, 0);
   };
 
   //* USEEFFECT PARA CONTROLAR EL SERVICIO DE LOS JUEGOS DEL USUARIO
@@ -164,7 +166,7 @@ const Profile = () => {
   return (
     <div className="profile-main">
       <div className="profile-container">
-        <div className="profile-card">
+        <div className="profile-card-user">
           <div className="profile-header">
             <img className="profile-image" src={user.image} alt="Profile" />
             <div className="profile-dataUserWrap">
@@ -209,7 +211,7 @@ const Profile = () => {
               {" "}
               <h3 className="section-title">Games</h3>
             </div>
-            <div className="games-list">
+            <div className="games-list-user">
               {gamesData?.response?.data == "Games not found" && (
                 <h1>No games in user</h1>
               )}

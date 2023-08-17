@@ -32,7 +32,11 @@ const NavBar = () => {
       fetchChats(user.id);
     }
   }, []);
+
+  
   if (totalMessages == null && user?.id) {
+    
+
     const countUnreadMessages = responseChats?.reduce((count, mensaje) => {
       if (mensaje?.receiver === user?.id && mensaje?.isRead === false) {
         return count + 1;
@@ -55,6 +59,9 @@ if(user && totalRequests==null){
 
 console.log(responseChats)
   }
+
+
+
   console.log(totalMessages);
   const toggleProfileMenu = () => {
     setProfileMenuOpen(!profileMenuOpen);

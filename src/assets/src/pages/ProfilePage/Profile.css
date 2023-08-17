@@ -1,13 +1,15 @@
-.games-list {
+.games-list-user {
   display: flex;
  min-height: 35vh;
+ max-height: min-content;
   align-items: center;
   width: 100%;
   gap: 2vh;
   flex-wrap: wrap;
 
-  border-radius: 5px;
+
   padding: 1rem;
+  background-color: #2b2a2a;
 }
 
 
@@ -22,7 +24,8 @@
   color: rgb(204, 198, 198);
   line-height: 1rem;
   font-size: 3vh;
-  border-radius: 10px 10px 0 0;
+  border-radius: 50px 10px 10px 10px;
+
 }
 
 .profile-container {
@@ -32,10 +35,11 @@
   display: flex;
   justify-content: center;
   justify-items: center;
+
   
 }
 
-.profile-card {
+.profile-card-user {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -44,8 +48,10 @@
   align-items: center;
   width: 100%;
   padding: 1rem;
-  border:1px solid beige;
+  
   border-radius: 10px;
+
+  background: #363636;
 
   
 
@@ -58,7 +64,8 @@
   justify-content: center;
   justify-items: center;
   padding: 1rem;
-  background-color: rgba(23, 21, 27, 0.329);
+  background-color: #363636;
+
 }
 
 .profile-image {
@@ -69,27 +76,32 @@
 }
 
 .profile-section {
-  width: 95%;
-  background-color: rgba(23, 21, 27, 0.329);
+
+  width: 90%;
+  margin-top:7vh;
+  max-width: 90%;
+
   max-height: min-content;
-border: 1px solid red;
+  background-color: #2b2a2a;
+
 }
 
 .profile-section-content {
-  background-color: rgba(23, 21, 27, 0.329);
+
 }
 .profile-header {
   display: flex;
   padding: 2rem;
   height: 25vh;
-  width: 95%;
+  width: 90%;
   align-content: center;
   align-items: center;
   border-radius: 5px;
-
-  background-color: rgba(23, 21, 27, 0.329);
+border: 1px solid beige;
   justify-content: space-between;
   margin-top: 2vh;
+  background: linear-gradient(20deg, #3f51b5, #2196f3);
+
 
 }
 
@@ -105,20 +117,21 @@ border: 1px solid red;
 
 
 .profile-section {
-  border: 1px solid rgba(173, 166, 166, 0.404);
+
   border-radius: 10px 10px 0 0;
-  background-color: rgba(23, 21, 27, 0.329);
   margin-top: 5vh;
+ 
 }
 
 .profile-section-friendRequest{
+
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(173, 166, 166, 0.404);
+  border: 1px solid rgba(201, 78, 78, 0.404);
   border-radius: 10px 10px 0 0;
   background-color: rgba(23, 21, 27, 0.329);
-  margin-top: 5vh;
-  width: 95%;
+  margin-top: 3vh;
+  width: 90%;
   min-height: 30vh;
   max-height: min-content;
 }

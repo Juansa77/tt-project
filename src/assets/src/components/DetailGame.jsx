@@ -34,7 +34,7 @@ const DetailGame = () => {
   //* --Game by category------
 
   const handleGameByType = async (type) => {
-    console.log(type);
+
     try {
       const responseData = await gameByType(type);
       setResponseType(responseData);
@@ -80,7 +80,7 @@ const DetailGame = () => {
     typesList
   ) => {
     try {
-      console.log("esto es user", user);
+     
 
       const token = user?.token;
       const responseData = await addGameToUser(userID, gameId, token);

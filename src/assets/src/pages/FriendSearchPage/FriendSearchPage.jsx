@@ -92,8 +92,15 @@ const FriendSearchPage = () => {
   return (
     <div className="friendSearch" >
       <div className="search-result-container">
-        <div className="btn-wrap">
-          <div>
+      <div className="friendSearchAdvice">
+              <div className="adviceTextWrapper">
+                <h1>Busca amigos en tu ciudad</h1>
+                <p>
+                  Selecciona tu ciudad y encuentra amigos y amigas para jugar
+                </p>
+              </div>
+              <div className="btn-wrap">
+        
             <FriendSearcher setSelectedCity={handleCitySelect} />
             <button
               className="btn-citySearch"
@@ -103,6 +110,10 @@ const FriendSearchPage = () => {
               <FaSearch size="20px" />
             </button>
           </div>
+            </div>
+            
+          <div>
+        
         </div>
         <div className="friendSearch-main">
           {response?.data?.length > 0 ? (
@@ -121,22 +132,15 @@ const FriendSearchPage = () => {
                   </div>
                 )
             )
-          ) : response?.response?.data == "User not found" ? (
+          ) : response?.response?.data == "User not found" && (
             <div className="friendSearchAdvice">
               <div className="adviceTextWrapper">
                 <h3>No users in the city </h3>
               </div>
             </div>
-          ) : (
-            <div className="friendSearchAdvice">
-              <div className="adviceTextWrapper">
-                <h1>Busca amigos en tu ciudad</h1>
-                <p>
-                  Selecciona tu ciudad y encuentra amigos y amigas para jugar
-                </p>
-              </div>
-            </div>
-          )}
+          )  
+            
+          }
         </div>
       </div>
     </div>

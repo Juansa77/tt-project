@@ -2,18 +2,17 @@
   display: flex;
   flex-direction: column;
 
+
   align-items: center;
-  align-items: center;
-  justify-content: center;
-  justify-items: center;
 
   width: 100%;
   color: beige;
+  
 }
 
 .btn-wrap {
   display: flex;
-  flex-direction: column;
+
   width: 100%;
   justify-content: center;
   align-content: center;
@@ -26,15 +25,22 @@
 }
 
 .friendSearch-main {
+  margin-top: 2vh;
+  border:1px solid rgba(195, 198, 211, 0.315);
   display: flex;
+  flex-wrap: wrap;
+  padding-left: 2rem;
 
   width: 100%;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
+  justify-content: left;
+align-content: start;
+
   gap: 2vh;
   min-height: 45vh;
-  max-height: 45vh;
+  max-height: min-content;
+  background-image: 
+  linear-gradient(45deg, rgba(121, 124, 143, 0.5), rgba(33, 150, 243, 0.7));
+  border-radius: 5px;
 
 }
 .btn-citySearch {
@@ -55,25 +61,27 @@
 
 .search-result-container {
   display: flex;
+  flex-direction: column;
   width: 90%;
+  padding: 4vh;
   margin-top: 10vh;
   min-height: 70vh;
   max-height: min-content;
   justify-content: center;
   justify-items: center;
-  padding: 2vh;
-  gap: 2vh;
   flex-wrap: wrap;
   align-items: center;
   align-content: center;
   border-radius: 10px;
 
-  background-image: 
-  linear-gradient(45deg, rgba(63, 81, 181, 0.9), rgba(33, 150, 243, 0.9)), /* Linear gradiente */
+background-image: 
+  linear-gradient(45deg, rgba(63, 81, 181, 0.9), rgba(33, 150, 243, 0.9)),
+   /* Linear gradiente */
     url('https://cdn.thewirecutter.com/wp-content/media/2021/07/boardgames-2048px-2233-2x1-1.jpg?auto=webp&quality=75&crop=2:1&width=980&dpr=2'); /* Imagen de fondo */
   background-size: cover; /* Ajustar la imagen al contenedor */
   background-position: center; 
-  box-shadow: 0 5px 50px black;/* Centrar la imagen *//* Centrar la imagen */
+  box-shadow: 0 5px 50px black;
+
 }
 
 
@@ -82,30 +90,28 @@
 /* Styling for UserCard component */
 .friendSearchAdvice {
   display: flex;
-  align-content: center;
-  align-items: center;
+  justify-content: center;
   flex-direction: column;
   width: 70%;
-  min-height: 45vh;
-  max-height: 45vh;
-  left: 25%;
-  text-align: center;
+  min-height: 20vh;
+  max-height: 20vh;
+ text-align: center;
   background: transparent;
-
   color: beige;
-
   border-radius: 8px;
   padding: 10px;
 
-  align-content: flex-start;
 }
 
 .adviceTextWrapper {
-  padding: 6rem;
-  display: flex;
-  flex-direction: column;
-  font-size: 3.2vh;
 
-  min-height: 40vh;
-  max-height: 40vh;
+  display: flex;
+
+  align-content: center;
+  flex-direction: column;
+  font-size: 2.2vh;
+height: 15vh;
+  min-height: min-content;
+  max-height: min-content;
+ 
 }
