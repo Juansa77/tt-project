@@ -3,11 +3,9 @@
  min-height: 35vh;
  max-height: min-content;
   align-items: center;
-  width: 100%;
+  width: 35vw;
   gap: 2vh;
   flex-wrap: wrap;
-
-
   padding: 1rem;
   background-color: #2b2a2a;
 }
@@ -16,17 +14,33 @@
 
 .friends-sectionName {
   padding: 2.1rem;
-
+  background-color: rgba(173, 166, 166, 0.404);
   height: 4vh;
   display: flex;
-  align-content: center;
-  align-items: center;
-  color: rgb(204, 198, 198);
-  line-height: 1rem;
-  font-size: 3vh;
-  border-radius: 50px 10px 10px 10px;
+align-content: center;
+align-items: center;
+color:rgb(204, 198, 198);
+line-height: 1rem;
+font-size: 3vh;
+border-radius: 10px 10px 0 0;
 
 }
+
+
+.friends-list{
+  display: flex;
+  height: 25vh;
+  align-items:center;
+  width: 100%;
+  gap: 2vh;
+  background-color: #2b2a2a;
+border: 1px solid rgba(173, 166, 166, 0.404);
+
+  padding: 1rem;
+
+
+}
+
 
 .profile-container {
   margin-top: 3vh;
@@ -66,12 +80,14 @@
   padding: 1rem;
   background-color: #363636;
 
+
 }
 
 .profile-image {
   height: 19vh;
   min-width: 9vw;
   border-radius: 50%;
+z-index: 1;
   
 }
 
@@ -79,39 +95,42 @@
 
   width: 90%;
   margin-top:7vh;
-  max-width: 90%;
+  width: 35vw;
+  border-radius: 20px;
 
   max-height: min-content;
   background-color: #2b2a2a;
 
 }
 
-.profile-section-content {
 
-}
 .profile-header {
   display: flex;
   padding: 2rem;
   height: 25vh;
+  position: relative;
   width: 90%;
+  
   align-content: center;
   align-items: center;
-  border-radius: 5px;
-border: 1px solid beige;
+
+border-radius: 10px;
   justify-content: space-between;
   margin-top: 2vh;
   background: linear-gradient(20deg, #3f51b5, #2196f3);
 
-
 }
+
+
 
 .profile-dataUserWrap{
   margin-left: 2vh;
   display: flex;
   flex-direction: column;
   height: 100%;
- 
+  width: 26vw;
   justify-content: flex-end;
+  z-index: 3;
  
 }
 
@@ -127,11 +146,11 @@ border: 1px solid beige;
 
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(201, 78, 78, 0.404);
+  border: 1px solid rgba(131, 122, 122, 0.404);
   border-radius: 10px 10px 0 0;
   background-color: rgba(23, 21, 27, 0.329);
   margin-top: 3vh;
-  width: 90%;
+  width: 35vw;
   min-height: 30vh;
   max-height: min-content;
 }
@@ -167,7 +186,7 @@ border: 1px solid beige;
 .requestPic{
   height: 9vh;
   border-radius: 50%;
-  border:1px solid grey
+  border:1px solid rgb(88, 86, 86)
 }
 
 
@@ -233,7 +252,7 @@ border: 1px solid beige;
 }
 
 .request-button-add {
-  background-color: transparent;
+  background-color: #0070c9;
   border: 2px solid beige;
   border-radius: 8px;
   color: beige;
@@ -266,7 +285,7 @@ border: 1px solid beige;
 }
 
 .request-button-add:hover {
-  background-color: #0070c9;
+  background-color: #02a582;
   color: #fff;
 }
 
@@ -282,7 +301,7 @@ border: 1px solid beige;
 .requestBtnWrap{
   display: flex;
   margin-top: 1vh;
-  gap:4vh
+  gap:2vh
 }
 
 .requestDataWrap{

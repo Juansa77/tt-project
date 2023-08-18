@@ -1,16 +1,25 @@
-.games-list {
-    display: flex;
-    height: 25vh;
-    align-items:center;
-    width: 100%;
-    gap: 2vh;
-    background-color: #2b2a2a;
+.profileDetail-main{
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   
-    border-radius: 5px;
-    padding: 1rem;
+}
+
+.games-list-detail {
+  display: flex;
+  min-height: 25vh;
+  max-height: min-content;
+   align-items: center;
+   width: 100%;
+   gap: 2vh;
+   flex-wrap: wrap;
+   padding: 1rem;
+   background-color: #2b2a2a;
+
   }
   
-  .friends-list{
+  .friends-list-detail{
     display: flex;
     height: 25vh;
     align-items:center;
@@ -21,10 +30,12 @@
   
     padding: 1rem;
   
+ 
+  
   }
   
   
-  .friends-sectionName{
+  .friends-sectionName-detail{
     padding: 2.1rem;
     background-color: rgba(173, 166, 166, 0.404);
     height: 4vh;
@@ -38,18 +49,20 @@
   
   }
   
-  .profile-container{
+  .profile-container-detail{
   margin-top: 2vh;
   border-radius: 2px;
   padding: 1rem;
   display: flex;
+  width: 50%;
   justify-content: center;
   justify-items: center;
+  margin-top:15vh;
   
     
   }
   
-  .profile-card{
+  .profile-card-detail{
     display: flex;
     flex-direction: column;
   justify-content: center;
@@ -59,9 +72,10 @@
   width: 100%;
   padding: 1rem;
   background: #363636;
+  border: 1px solid red;
   }
   
-  .profile-main{
+  .profile-main-detail{
     margin-top: 7vh;
     width: 100%;
     display: flex;
@@ -87,31 +101,46 @@
   
     background: #363636;
   }
-  .profile-header{
+  .profile-header-detail{
    display: flex;
    padding: 2rem;
     height: 27vh;
-    width: 90%;
+    width: 95%;
+    gap:7vh;
     align-content: center;
     align-items: center;
     border-radius: 10px;
   
     background: linear-gradient(20deg, #3f51b5, #2196f3);
-    justify-content: space-between;
+    
     margin-top: 1vh;
   }
   
-  .profile-section{
+  .profile-section-detail{
     border: 1px solid rgba(173, 166, 166, 0.404);
     border-radius: 10px 10px 0 0;
     background-color: #2b2a2a;
     margin-top: 2vh;
+    width: 100%;
   }
   
-  .userNameText{
-    font-size: 5vh;
-    margin-right: 15vw;
-    margin-top: 2vh;
+.text-btn-detail-wrap{
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+ 
+}
+
+  .userNameTextDetail{
+    font-size: 2vw; /* Usar vw para el tamaño de la fuente */
+    margin-right: 1em; /* Ajustar el margen derecho */
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    white-space: nowrap; /* Evitar que el texto se divida en varias líneas */
+    overflow: hidden; /* Ocultar cualquier desbordamiento de texto */
+    text-overflow: ellipsis; /
   }
   
   .apple-tv-button {
@@ -195,5 +224,5 @@
     width: 95%;
     gap:1vh;
     justify-content: end;
-    margin-top:-2vh;
+    margin-top:3vh;
   }

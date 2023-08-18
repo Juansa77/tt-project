@@ -1,6 +1,7 @@
 .msg-page-wrapper {
     display: flex;
     width: 50%;
+    height: 70vh;
  
     justify-content: left;
     justify-items: center;
@@ -20,11 +21,11 @@
     overflow: hidden;
 }
 .headerChatText{
-    margin-top: 7vh;
+    margin-top: 15vh;
  height: 7vh;
  display: flex;
     width: 50%;
-  background-color:  #363636;
+  background-color:  #444242;
     color:whitesmoke;
     border:1px solid beige;
     border-radius: 20px 20px 0 0; 
@@ -53,18 +54,18 @@
     width: 50%;
 }
 .conversations-container {
-    background-color: rgba(0, 0, 0, 0.295);
+    background-color:  #444242;
     display: flex;
 
     flex-direction: column;
     width: 31%;
     max-width: 31%;
-    height: min-content;
+    height: 100%;
     justify-content: left;
     color: #14171a;
-    padding: 2rem;
+ 
     margin-right: 0;
-    gap: 2vw;
+
     overflow: scroll;
     overflow-x: hidden;
 
@@ -92,12 +93,12 @@
     padding: 1rem;
     align-content: center;
     align-items: top;
-    height: 7vh;
-
-
+    height: 8vh;
+    width: 100%;
     gap: 2vw;
     cursor: pointer;
     border-bottom: 1px solid rgba(229, 226, 236, 0.363);
+
 
 
 }
@@ -112,6 +113,7 @@
     height: 70vh;
     align-items: center;
 
+
 }
 
 .conversation-text-wrapper {
@@ -119,7 +121,7 @@
     max-height: 1vh;
     flex-direction: column;
     color:whitesmoke;
-    background-color: rgba(29, 27, 31, 0.295);
+
     padding: 0.2rem;
   
 
@@ -132,11 +134,13 @@
 }
 
 .conversation-userName{
-    font-size: 1.1vh;;
+    font-size: 1.1vh;
+
 }
 
 .conversation-userText{
 font-size: 0.9vh;
+
 }
 
 .header-messages {
@@ -158,7 +162,7 @@ font-size: 0.9vh;
     height: 100%;
     width: 100%;
     overflow: scroll;
-    background-color: rgba(29, 27, 31, 0.295);
+    background-color: #444242;
     color: whitesmoke;
     padding: 1rem;
     overflow: scroll;

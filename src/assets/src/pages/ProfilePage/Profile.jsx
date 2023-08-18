@@ -25,6 +25,7 @@ const Profile = () => {
   const [friendRequests, setFriendRequests] = useState();
   const [addFriendResponse, setAddFriendResponse] = useState();
   const [rejectFriendResponse, setRejectFriendResponse] = useState();
+  const [userCover, setUserCover] = useState(null)
   const navigate = useNavigate();
   const { setSelectedUser, totalRequests, setTotalRequests } = useUserContext();
 
@@ -87,7 +88,7 @@ const Profile = () => {
 
   //* USEEFFECT PARA CARGAR LAS FRIENDS REQUESTS DEL USUARIO----
   useEffect(() => {
-    // Llamada al servicio para obtener los juegos del usuario
+    // Llamada al servicio para obtener los request del usuario
     getFriendRequests(userID)
       .then((data) => {
         // Almacenar los datos en el estado local
@@ -98,6 +99,7 @@ const Profile = () => {
       });
   }, [userID, addFriendResponse]);
 
+  console.log(friendRequests)
   //* USEEFFECT PARA CARGAR LAS FRIENDS REQUESTS DEL USUARIO----
   useEffect(() => {
     // Llamada al servicio para obtener los juegos del usuario
@@ -122,6 +124,18 @@ const Profile = () => {
     window.scrollTo(0, 0);
   };
 
+
+ //* FUNCIÓN PARA ACCEDER A LA PÁGINA DE DETALLE DEL AMIGO
+
+ const handleSelectFriendRequestUser = (request) => {
+  console.log("amigo seleccionado>", request);
+  setSelectedUser(request);
+  // Redirige a la página de detalles del juego seleccionado
+  navigate(`/users/${request.user._id}`);
+  window.scrollTo(0, 0);
+};
+
+
   //* FUNCIÓN PARA ALMACENAR LOS DATOS DEL JUEGO SELECCIONADO PARA USARLO EN DETAIL Y NO HACER UNA NUEVA LLAMADA
 
   //* SACAMOS DEL CONTEXTO DE GAME PARA ALMACENAR LOS DATOS DEL JUEGO
@@ -144,6 +158,7 @@ const Profile = () => {
       .then((data) => {
         // Almacenar los datos en el estado local
         setGamesData(data);
+        setUserCover(data.data[0].image)
       })
       .catch((error) => {
         console.error("Error fetching games:", error);
@@ -163,11 +178,15 @@ const Profile = () => {
       });
   }, [addFriendResponse]);
 
+console.log(gamesData)
+console.log(userCover)
+
   return (
     <div className="profile-main">
       <div className="profile-container">
         <div className="profile-card-user">
           <div className="profile-header">
+          <div className="gradient-overlay"></div>
             <img className="profile-image" src={user.image} alt="Profile" />
             <div className="profile-dataUserWrap">
               <h2 className="userNameText">{user.user}</h2>

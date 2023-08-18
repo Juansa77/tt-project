@@ -180,7 +180,7 @@ console.log(responseChats)
           font-weight: 900;
           top:0;
           margin-bottom: 5%;
-          z-index:1;
+          z-index:4;
           padding:1vh;
           font-size:1.5vh;
           font-family: "SF Pro Text", "Helvetica Neue", sans-serif;

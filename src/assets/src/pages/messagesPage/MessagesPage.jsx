@@ -243,7 +243,7 @@ console.log(totalMessages)
                 }
                 style={{
                   backgroundColor:
-                    unreadMessages.length > 0 ? "#0070c9" : "#1d1b1f4b",
+                    unreadMessages.length > 0 ? "#0070c9" : "#444242",
                 }}
               >
                 <img
