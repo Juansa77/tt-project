@@ -150,8 +150,58 @@
 
 }
 
+@media (max-width: 767px){
+  .game-selection-container {
+    display: flex;
+    position: relative;
+    min-height: 40vh;
+    max-height: 40vh;
+    width: 50%;
+    align-content: center;
+    align-items: center;
+    scroll-behavior: smooth;
+    gap: 3vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  
+  
+  }
 
-.GameSelectionWrapper{
+  .card-container-selection {
+    min-width: 40vw;
+    max-width: 40vw;
+    height: 29vh;
+      max-height: 29vh;
+    background-color: #141414;
+    color: #fff;
+    border-radius: 10px;
+     position: relative;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    box-shadow: 5px 2px 20px black;
+    scroll-behavior: smooth;
+  
+  }
+  
+  .image-selection {
+    min-width: 40vw;
+    max-width: 40vw;
+    height: 27vh;
+    border-radius: 10px;
+    overflow: hidden;
+  
+    object-fit: cover;
+    opacity: 80%;
+    transition: 0.2s ease-in-out;
+    object-position: 100% 20%;
+  }
 
+  .title-selection {
+    font-size: 1.2vh;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 2vh;
+    color: #363636; /* Color de texto utilizado por Apple */
+  }
 
 }

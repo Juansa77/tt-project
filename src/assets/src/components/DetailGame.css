@@ -62,11 +62,14 @@
 .detailRating {
   border: 2px solid beige;
   border-radius: 10px;
-  width: 4vw;
+  min-width: min-content;
+
+  max-height: min-content;
   text-align: center;
   font-weight: bold;
   font-size: 4.7vh;
-  height: 10vh;
+  padding: 0.3rem;
+
 
   z-index: 10;
 }
@@ -227,7 +230,7 @@
   cursor: pointer;
   font-size: 1.9vh;
   padding: 8px 20px;
-  text-overflow: ellipsis; /
+  text-overflow: ellipsis; 
 
   font-weight: bold;
   transition: background-color 0.2s ease, transform 0.2s ease;
@@ -314,4 +317,112 @@ overflow-x: hidden;
   width: 94%;
   font-family: "SF Pro Text", "Helvetica Neue", sans-serif;
   color:beige;
+}
+
+@media (max-width: 767px){
+
+  .game-detail-container {
+    padding: 4vw;
+    min-height: 170vh;
+    max-height: min-content;
+  
+    margin-top: 12vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+  
+    height: min-content;
+    max-width: 100%;
+    min-width: 100%; /* Limita el ancho del contenedor interno */
+  
+    /* Desenfoque del contenedor */
+  
+    z-index: 10;
+  }
+  .detailGameMain {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    gap: 20px;
+    z-index: 10;
+    width: 95%;
+    height: 120vh;
+  
+ 
+  
+  }
+
+  .game-cover-detail{
+    height: 120vh;
+
+    width: 100%;
+  }
+  
+  .detailMainTextWrapper {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-between;
+    height: min-content;
+    width: 100%;
+    margin-left: 1vh;
+    gap:5vh;
+  
+    align-items: start;
+    z-index: 10;
+  }
+
+  .game-name-detail{font-size: 5vh;}
+
+  .btn-detail-container {
+
+    margin-top: 45vh;
+  }
+
+  .tagGameTxt {
+    border: 1px solid beige;
+    border-radius: 10px;
+    text-align: center;
+    min-height: 10vh;
+    max-height: min-content;
+    width: 45%;
+  
+    cursor: pointer;
+    font-size: 1.9vh;
+    padding: 8px 20px;
+    text-overflow: ellipsis; 
+  
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-detail-recomendation {
+    min-width: 37vw;
+    max-width: 37vw;
+    height: 25vh;
+  
+    background-color: transparent;
+    color: #fff;
+  
+    position: relative;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+  
+    scroll-behavior: smooth;
+  }
+  .similarGamesWrap {
+    margin-top: 2vh;
+    padding: 1rem;
+    display: flex;
+    height: 100vh;
+    flex-wrap: wrap;
+overflow: hidden;
+    gap: 3vh;
+    width: 90%;
+
+    justify-content: center;
+  }
+  
 }

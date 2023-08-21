@@ -5,6 +5,20 @@
   z-index: 1;
 }
 
+.iconWrapNav {
+  display: flex;
+  align-items: center;
+  gap: 1vh;
+}
+
+.profileContainer2 {
+  right: -400px;
+}
+@media (max-width: 767px) {
+  .userProfileBadge {
+    right: 0;
+  }
+}
 .contentBadgeMessages {
   position: absolute;
   top: -10px;
@@ -27,11 +41,9 @@
   font-size: 1.8vh;
 }
 
-
-.MsgAnchorText{
-    font-size:1.3vh;
+.MsgAnchorText {
+  font-size: 1.3vh;
 }
-
 
 .contentBadgeRequest {
   z-index: 0;
@@ -56,7 +68,6 @@
   font-size: 1.8vh;
 }
 
-
-.MsgAnchorText{
-    font-size:1.3vh;
+.MsgAnchorText {
+  font-size: 1.3vh;
 }

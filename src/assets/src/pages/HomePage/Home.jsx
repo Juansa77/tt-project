@@ -27,10 +27,7 @@ const Home = () => {
   const { totalRequests, setTotalRequests } = useUserContext();
   const [responseChats, setResponseChats] = useState();
   const id = user?.id;
-  const [types, setTypes] = useState();
-  const [playTime, setPlayTime] = useState();
-  const [players, setPlayers] = useState();
-  const [rating, setRating] = useState();
+
   console.log("user en home", user);
 
   //* ---LÓGICA PARA CALCULAR EL DESPLAZAMIENTO VERTICAL----
@@ -92,7 +89,9 @@ const Home = () => {
 
       {user && user?.games?.length > 0 && (
           <div className="RecomendationsContainer">
-          <h1 className="recomendationsHeaderText">Recomendacionas personalizadas</h1>
+          <div className="recomendationTextWrapper">
+          <h2 className="recomendationsHeaderText">Recomendaciones personalizadas</h2>
+          <h4 className="recomendationsSubtext">Basado en tus juegos preferidos</h4></div>
           <div
             className={`gameContainerRecomendation ${
               verticalScrollPosition >= 0 ? "visible" : ""

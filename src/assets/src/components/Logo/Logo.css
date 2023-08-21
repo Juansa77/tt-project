@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bungee+Shade&family=Nosifer&family=Permanent+Marker&family=Raleway:ital,wght@0,400;0,600;0,700;1,400&family=Rampart+One&family=Tourney:wght@700&display=swap');
+
+.logo-Wrap{
+    display: flex;
+    width: min-content;
+    max-width: min-content;
+    align-items: center;
+    height: 4vh;
+
+}
+
+
+h1{
+font-size: 4vh;
+}
+
+.logoWordOne{
+    font-family: 'Anton', sans-serif;
+}
+
+.logoWordTwo{
+    color:#0096c7;
+    font-family: 'Anton', sans-serif;
+}

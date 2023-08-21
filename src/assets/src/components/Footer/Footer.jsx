@@ -3,12 +3,15 @@ import "./Footer.css";
 import { FaHeart } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FaLinkedin } from 'react-icons/fa';
+import Logo from "../Logo/Logo";
+
 
 const Footer = () => {
 
     const emailAddress = 'juansalvador.garcia.ramirez@gmail.com';
   return (
     <div className="footerWrap">
+    <Logo/>
       <div className="footer-text-wrap">
         <h3 className="footerText">
           Coded with <FaHeart /> and caffeine by Juansa García

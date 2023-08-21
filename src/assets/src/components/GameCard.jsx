@@ -15,7 +15,7 @@ const CardContainer = styled.div`
   box-shadow: 5px 2px 20px black;
 
   @media (max-width: 768px) {
-    width: 35vw;
+    width: 44vw;
     height:20vh;
     font-size:1px:
   }
@@ -90,12 +90,7 @@ const RemoveButton = styled.button`
 const GameCard=({image, title, onClickAdd, onClickRemove}) => {
   return (
     <CardContainer>
-    <AddButton onClick={onClickAdd}>
-        <FaPlus />
-      </AddButton>
-      <RemoveButton onClick={onClickRemove}>
-        <FaMinus />
-      </RemoveButton>
+ 
       <Image src={image} alt="Imagen" />
       <TitleContainer>
         <Title>{title}</Title>

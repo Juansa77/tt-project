@@ -31,10 +31,11 @@ const CategoryText = styled.h2`
 `;
 
 const CategorySubText = styled.h4`
-  font-size: 1.6vh;
+ 
   min-width: 100%;
   font-family: "SF Pro Text", "Helvetica Neue", sans-serif;
-  color: grey; /* Color de texto utilizado por Apple */
+  color:#0096c7;
+  font-size: 1.9vh;
   text-align: left;
   margin-left: 6vw;
   height: 4vh;

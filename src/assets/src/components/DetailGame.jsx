@@ -149,7 +149,7 @@ const DetailGame = () => {
         });
       }
 
-      const updatedGames = user.games.filter((game) => game !== gameId);
+      const updatedGames = user.games.filter((game) => game._id !== gameId);
 
       const updatedUser = {
         ...user,

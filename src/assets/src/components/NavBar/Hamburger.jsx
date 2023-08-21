@@ -24,9 +24,10 @@ const Hamburger = ({ isOpen }) => {
             width: 10rem;
             height: 0.3rem;
             border-radius: 10px;
-            background-color: black;
+            background-color: #0096c7;
             transform-origin: 1px;
             transition: all 0.3s linear;
+            
           }
 
           .burger1 {

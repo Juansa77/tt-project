@@ -158,3 +158,24 @@
   width: 100%;
 
 }
+
+@media (max-width: 767px){
+  
+.card-container-recomendation {
+  min-width: 40vw;
+  max-width: 40vw;
+
+
+}
+
+.image-recomendation {
+  min-width: 40vw;
+  max-width: 40vw;
+}
+
+.title-recomendation {
+  font-size: 1.2vh;
+  text-align: center;
+
+}
+}

@@ -59,8 +59,32 @@
 .recomendationsHeaderText{
   font-family: "SF Pro Text", "Helvetica Neue", sans-serif;
   height: 4vh;
+  font-size: 3vh;
 
-  margin-bottom: -4vh;
+
   color:beige;
+
+}
+
+.recomendationTextWrapper{
+  bottom: 0;
+  left: 0;
+  min-width: 100%;
+  overflow:hidden;
+  height:7vh;
+ color:beige;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
   padding-left: 1vw;
+  margin-bottom: -5vh;
+
+
+
+}
+
+
+.recomendationsSubtext{
+  color:#0096c7;
+  font-size: 1.9vh;
 }

@@ -184,10 +184,9 @@ const handleReset = () => {
               >
                 <GameCard
                   key={index}
-                  title={game.title}
+      
                   image={game.image}
-                  onClickAdd={() => handleAddGame(game._id)}
-                  onClickRemove={() => handleRemoveGame(game._id)}
+                
                 />
               </div>
             ))
