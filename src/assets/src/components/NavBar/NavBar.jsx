@@ -52,6 +52,7 @@ const NavBar = () => {
 
     setTotalMessages(countUnreadMessages);
 
+    //* Lógoca para las friends requests 
     if (user && totalRequests == null) {
       const friendRequestsCount = user?.friendRequests.reduce(
         (count, request) => {
@@ -69,6 +70,8 @@ const NavBar = () => {
   }
 
   console.log(totalMessages);
+
+  //* Lógica para el toogle de los menús 
   const toggleProfileMenu = () => {
     setProfileMenuOpen(!profileMenuOpen);
   };
@@ -251,6 +254,13 @@ const NavBar = () => {
 
   
  
+}
+
+@media (max-width: 767px){
+  .profileSubMenu{
+    max-width: 30vw;
+  }
+
 }
 
 

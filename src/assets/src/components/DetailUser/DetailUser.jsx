@@ -11,6 +11,8 @@ import {
   getUserById,
   sendFriendRequest,
   cancelFriendRequest,
+  getFriendRequests,
+  addFriendToUser, rejectFriendRequest
 } from "../../services/API_USER/user.service";
 import MiniUserCard from "../MiniUserCard";
 import MiniGameCard from "../MiniGameCard";
@@ -20,15 +22,71 @@ const DetailUser = () => {
   const navigate = useNavigate();
   //* Sacamos la ID del usuario con useParams
   const { _id } = useParams();
-  const { selectedUser, setSelectedUser } = useUserContext();
+  const { selectedUser, setSelectedUser, totalRequests, setTotalRequests } =
+    useUserContext();
+  const { user, userLogin } = useAuth();
+  const userID = user?.id;
+  const [friendRequests, setFriendRequests] = useState();
+  const [addFriendResponse, setAddFriendResponse] = useState();
+  const [friendSendRequest, setFriendSendRequest] = useState(false);
+  const [rejectFriendResponse, setRejectFriendResponse] = useState();
 
   //* Nos traemos el user desde el contexto del usuario
 
-  const { user, userLogin } = useAuth();
-
   const [response, setResponse] = useState([]);
 
-  //* FUNCIÓN PARA ACCEDER A LA PÁGINA DE DETALLE DEL AMIGO
+  //* USEEFFECT PARA CARGAR LAS FRIENDS REQUESTS DEL USUARIO----
+  useEffect(() => {
+    // Llamada al servicio para obtener los request del usuario
+    getFriendRequests(userID)
+      .then((data) => {
+        setFriendRequests(data);
+        setFriendSendRequest(
+          friendRequests?.data?.some((item) => item.user._id == _id)
+        );
+      })
+      .catch((error) => {
+        console.error("Error fetching friend requests:", error);
+      });
+  }, [_id]);
+  console.log(friendSendRequest);
+  console.log("friendrequest en detail", friendRequests);
+
+  const friendSendARequest = friendRequests?.data?.some(
+    (item) => item.user._id == _id
+  );
+
+  //* FUNCIÓN PARA ACEPTAR REQUEST FRIEND Y AÑADIR AMIGO-----
+  const handleAddUser = async (friendID) => {
+    console.log(userID);
+    try {
+      const token = user?.token;
+      const responseData = await addFriendToUser(userID, friendID, token);
+      setAddFriendResponse(responseData);
+      console.log("responseData de add friend", responseData);
+      const updatedFriendRequests = user.friendRequests.filter(
+        (friendRequest) => {
+          return friendRequest.isSender && friendRequest.user === friendID;
+        }
+      );
+
+      //* Objeto custom para añadir la id del amigo y almacenar el usuario actualizado en el local
+      const updatedUser = {
+        ...user,
+        friends: [...user.friends, friendID],
+        friendRequests: updatedFriendRequests,
+        // Agrega el nuevo juego al array de juegos
+      };
+      const dataString = JSON.stringify(updatedUser);
+      // Actualiza la variable userLogin en el contexto
+      userLogin(dataString);
+      setTotalRequests(user?.friendRequests?.length);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //* FUNCIÓN PARA ACCEDER A LA PÁGINA DE DETALLE DEL AMIGO-------------
 
   const handleSelectFriend = (friend) => {
     console.log("amigo seleccionado>", friend);
@@ -133,6 +191,35 @@ const DetailUser = () => {
     }
   };
 
+
+  //* -----FUNCIONALIDAD PARA RECHAZAR SOLICITUD DE AMISTAD------
+  const handleRejectRequest = async (friendID) => {
+    try {
+      const token = user?.token;
+      const responseData = await rejectFriendRequest(userID, friendID, token);
+      setRejectFriendResponse(responseData);
+      console.log("respondata de request friend", responseData);
+      const updatedFriendRequests = user.friendRequests.filter(
+        (friendRequest) => {
+          return friendRequest.isSender && friendRequest.user === friendID;
+        }
+      );
+      //* Objeto custom para extraer la id del amigo  y almacenar el usuario actualizado en el local
+      const updatedUser = {
+        ...user,
+        friendRequests: updatedFriendRequests, // Elimina la ID del amigo del array de amigos
+      };
+      const dataString = JSON.stringify(updatedUser);
+      userLogin(dataString);
+      setTotalRequests(user?.friendRequests?.length)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
+
   //* USEEFFECT  1 PARA CONTROLAR QUE SI EL USER DEL CONTEXTO ES NULL, HAGA UN FETCH
 
   useEffect(() => {
@@ -154,8 +241,6 @@ const DetailUser = () => {
   }, [_id]);
 
   //* FUNCIONALIDAD PARA OBTENER LOS JUEGOS Y AMIGOS DEL USUARIO
-
-  const userID = user?.id;
 
   const [gamesData, setGamesData] = useState([]);
   const [friendsData, setFriendsData] = useState([]);
@@ -190,6 +275,8 @@ const DetailUser = () => {
     (request) => request.user == _id
   );
 
+  console.log(friendSendARequest);
+
   return (
     <div className="profileDetail-main">
       <div className="profile-container-detail">
@@ -203,10 +290,7 @@ const DetailUser = () => {
             <div className="text-btn-detail-wrap">
               <h2 className="userNameTextDetail">{selectedUser?.name}</h2>
               <div className="msgContainer">
-                <Link
-                  to={`/messages/${_id}`}
-                  id="msg-buttom"
-                >
+                <Link to={`/messages/${_id}`} id="msg-buttom">
                   ENVIAR MENSAJE
                 </Link>
               </div>
@@ -219,6 +303,24 @@ const DetailUser = () => {
                     >
                       Send friend request
                     </button>
+                  ) : friendSendARequest == true ? (
+                    <>
+                      <button
+                        className=" btn-user"
+                        onClick={() => handleAddUser(selectedUser._id)}
+                      >
+                        Add friend
+                      </button>
+
+                      <button
+                        className=" btn-user"
+                        onClick={() =>
+                          handleRejectRequest(selectedUser._id)
+                        }
+                      >
+                        Cancel request
+                      </button>
+                    </>
                   ) : (
                     <button
                       className=" btn-user"

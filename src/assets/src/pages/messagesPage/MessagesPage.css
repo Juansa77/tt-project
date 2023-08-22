@@ -19,12 +19,14 @@
     justify-content: left;
     margin-top: 2vh;
     overflow: hidden;
+
 }
 .headerChatText{
     margin-top: 15vh;
  height: 7vh;
  display: flex;
-    width: 50%;
+ min-width: 50%;
+ max-width: 90%;
   background-color:  #444242;
     color:whitesmoke;
     border:1px solid beige;
@@ -250,3 +252,23 @@ p {
     color: #fff;
   }
   
+
+  @media (max-width: 767px){
+    .headerChatText{
+
+        width: 90%;
+    }
+.msg-page-wrapper{
+ 
+    width: 90%;
+}
+
+.input-message-wrapper{
+  
+    width: 90%;
+}
+
+.sendmsg-btn{
+    font-size: 1.6vh;
+}
+  }

@@ -135,6 +135,7 @@ border-radius: 10px;
   width: 26vw;
   justify-content: flex-end;
   z-index: 3;
+
  
 }
 
@@ -195,9 +196,10 @@ border-radius: 10px;
 
 
 .userNameText {
-  font-size: 7vh;
-  margin-right: 35vw;
-  margin-top: 2vh;
+  font-size: 3.5vh;
+  line-height: 1.2;
+
+  margin-bottom: 2vh;
 }
 
 #msg-buttom{
@@ -331,5 +333,9 @@ justify-content: center;
 
   .profile-section-friendRequest{
     width: 90vw;
+  }
+
+  .profile-dataUserWrap{
+    width: 90%;
   }
 }

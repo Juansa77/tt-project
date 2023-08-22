@@ -210,8 +210,7 @@ export const getUserByCity = async (city) => {
 //?------------------------------------------------------
 
 export const sendFriendRequest = async (userID, friendID, token) => {
-  console.log(userID);
-  console.log(friendID);
+ 
   const config = {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -231,7 +230,7 @@ export const sendFriendRequest = async (userID, friendID, token) => {
 //?------------------------------------------------------
 
 export const getFriendRequests = async (id) => {
-  console.log(id);
+
   //*Creamos un objeto de configuración con los headers de la solicitud
   const config = {
     headers: {
