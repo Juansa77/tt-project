@@ -115,3 +115,36 @@ height: 15vh;
   max-height: min-content;
  
 }
+
+
+@media (max-width: 767px){
+
+   .adviceTextWrapper{
+    line-height: 1.2;
+
+   }
+
+  .adviceTextWrapper>h1{
+
+
+  
+
+    font-size: 3vh;
+    width: 50vw;
+
+  }
+  
+
+  
+  .btn-wrap{
+    margin-top: 4vh;
+    height: 50vh;
+    width: 100%;
+
+  }
+
+
+  .friendSearch-main{
+    margin-top: 9vh;
+  }
+}

@@ -347,7 +347,9 @@ overflow-x: hidden;
     gap: 20px;
     z-index: 10;
     width: 95%;
-    height: 120vh;
+    min-height: 150vh;
+    max-height: min-content;
+
   
  
   
@@ -373,11 +375,14 @@ overflow-x: hidden;
     z-index: 10;
   }
 
-  .game-name-detail{font-size: 5vh;}
+  .game-name-detail{font-size: 5vh
+  ;
+margin-top: 0.5vh;
+}
 
   .btn-detail-container {
 
-    margin-top: 45vh;
+   
   }
 
   .tagGameTxt {
@@ -406,23 +411,31 @@ overflow-x: hidden;
     background-color: transparent;
     color: #fff;
   
-    position: relative;
+ 
     transition: 0.2s ease-in-out;
     cursor: pointer;
   
     scroll-behavior: smooth;
   }
   .similarGamesWrap {
+
     margin-top: 2vh;
     padding: 1rem;
     display: flex;
-    height: 100vh;
+    justify-content: left;
+ justify-items: left;
+    height: min-content;
     flex-wrap: wrap;
 overflow: hidden;
     gap: 3vh;
     width: 90%;
 
-    justify-content: center;
+  }
+
+  .game-data-detail{
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    height: min-content;
   }
   
 }

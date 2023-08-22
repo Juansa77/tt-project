@@ -3,17 +3,25 @@
   position: relative;
   min-height: 40vh;
   max-height: 40vh;
-  width: 50%;
+  width: 100%;
   align-content: center;
   align-items: center;
   scroll-behavior: smooth;
   gap: 3vh;
   overflow-x: hidden;
   overflow-y: hidden;
+  padding: 1rem;
+
 
 
 }
 
+.GameRecomendationWrapper{
+ 
+  width: 100vw;
+  display: flex;
+  justify-items: left;
+}
 
 .card-container-recomendation {
   min-width: 20vw;

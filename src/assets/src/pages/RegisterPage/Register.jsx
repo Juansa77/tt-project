@@ -10,7 +10,8 @@ import Spinner from "../../components/Spinner/Spinner";
 import { useForm, Controller } from "react-hook-form";
 import useRegisterError from "../../hooks/useRegisterError";
 import { useAuth } from "../../contexts/authContext";
-import DropDownMenu from "../../components/DropDownMenu";
+import Logo from "../../components/Logo/Logo";
+
 
 const Register = () => {
   //* MÉTODOS DE REACT HOOK FORM
@@ -95,6 +96,7 @@ const Register = () => {
   return (
     <>
       <div className="register-container">
+      <Logo/>
         <div className="form-wrap">
           <h1>Create your account</h1>
           <p>It’s free</p>

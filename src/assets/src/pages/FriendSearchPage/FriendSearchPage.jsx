@@ -11,6 +11,7 @@ import { useAuth } from "../../contexts/authContext";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
 import { FaSearch } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const FriendSearchPage = () => {
   const [selectedCitySearchUser, setSelectedCitySearchUser] = useState("");
@@ -83,24 +84,34 @@ const FriendSearchPage = () => {
   const navigate = useNavigate();
 
   const handleSelectFriend = (friend) => {
-    console.log("amigo seleccionado>", friend);
+
+    if(user){console.log("amigo seleccionado>", friend);
     setSelectedUser(friend);
     // Redirige a la página de detalles del juego seleccionado
-    navigate(`/users/${friend._id}`);
+    navigate(`/users/${friend._id}`);}else{ Swal.fire({
+      title: "You must have an account in order to see a profile",
+      icon: "warning",
+      confirmButtonText: "OK",
+      background: "#363636",
+      confirmButtonColor: {
+        background: "beige", // Cambia el color de fondo del botón de confirmación
+        text: "#363636", // Cambia el color del texto del botón de confirmación
+      },
+      color: `beige`, // Cambia el color de fondo del cuadro de alerta
+      // Aplica un fondo personalizado como backdrop
+    });}
+    
   };
 
   return (
-    <div className="friendSearch" >
+    <div className="friendSearch">
       <div className="search-result-container">
-      <div className="friendSearchAdvice">
-              <div className="adviceTextWrapper">
-                <h1>Busca amigos en tu ciudad</h1>
-                <p>
-                  Selecciona tu ciudad y encuentra amigos y amigas para jugar
-                </p>
-              </div>
-              <div className="btn-wrap">
-        
+        <div className="friendSearchAdvice">
+          <div className="adviceTextWrapper">
+            <h1>Busca amigos en tu ciudad</h1>
+            <p>Selecciona tu ciudad y encuentra amigos y amigas para jugar</p>
+          </div>
+          <div className="btn-wrap">
             <FriendSearcher setSelectedCity={handleCitySelect} />
             <button
               className="btn-citySearch"
@@ -110,37 +121,33 @@ const FriendSearchPage = () => {
               <FaSearch size="20px" />
             </button>
           </div>
-            </div>
-            
-          <div>
-        
         </div>
+
+        <div></div>
         <div className="friendSearch-main">
-          {response?.data?.length > 0 ? (
-            response.data.map(
-              (friend, index) =>
-                friend._id != userID && (
-                  <div
-                    key={friend._id}
-                    onClick={() => handleSelectFriend(friend)}
-                  >
-                    <UserCard
-                      key={index}
-                      title={friend.name}
-                      image={friend.file}
-                    />
+          {response?.data?.length > 0
+            ? response.data.map(
+                (friend, index) =>
+                  friend._id != userID && (
+                    <div
+                      key={friend._id}
+                      onClick={() => handleSelectFriend(friend)}
+                    >
+                      <UserCard
+                        key={index}
+                        title={friend.name}
+                        image={friend.file}
+                      />
+                    </div>
+                  )
+              )
+            : response?.response?.data == "User not found" && (
+                <div className="friendSearchAdvice">
+                  <div className="adviceTextWrapper">
+                    <h3>No users in the city </h3>
                   </div>
-                )
-            )
-          ) : response?.response?.data == "User not found" && (
-            <div className="friendSearchAdvice">
-              <div className="adviceTextWrapper">
-                <h3>No users in the city </h3>
-              </div>
-            </div>
-          )  
-            
-          }
+                </div>
+              )}
         </div>
       </div>
     </div>

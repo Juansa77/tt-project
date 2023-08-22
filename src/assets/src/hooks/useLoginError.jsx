@@ -27,10 +27,14 @@ const useLoginError = (res, setLoginOk, userLogin, setRes) => {
     setLoginOk(() => true);
     Swal.fire({
       icon: "success",
-      title: "Welcome to my Page",
-      text: "Login ok",
+      title: "WELCOME TO DICELINK",
+      text: "You are in",
       showConfirmButton: false,
-      timer: 1500,
+      timer: 1500,   background: "#363636",
+      confirmButtonColor: {
+        background: "beige", // Cambia el color de fondo del botón de confirmación
+        text: "#363636", // Cambia el color del texto del botón de confirmación
+      }
     });
  
   }

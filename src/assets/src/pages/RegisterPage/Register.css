@@ -26,12 +26,14 @@ a {
 }
 
 .register-container{
+  margin-top: 5vh;
   display:flex;
   width: 100vw;
   justify-content: center;
   align-items: center;
   padding-top: 10vh;
   flex-direction: column;
+  padding: 2rem;
 }
 
 
@@ -167,3 +169,8 @@ a {
   background-color: #0070c9;
 }
 
+@media (max-width: 767px){
+  .form-wrap{
+
+  }
+}

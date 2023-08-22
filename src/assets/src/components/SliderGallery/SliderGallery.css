@@ -1,14 +1,15 @@
 .slider {
     position: relative;
-    height: 45vh;
+    height: 55vh;
     display: flex;
-    width: 89vw;
+    width: 100vw;
     justify-content: center;
     align-items: center;
     transition: 0.2s ease-in-out;
   cursor: pointer;
   box-shadow: 5px 2px 20px black;
-  margin-top: 10vh;
+
+  overflow: hidden;
   }
   
 .slider:hover {
@@ -17,8 +18,9 @@
   }
 
   .image {
-    width: 89vw;
-    height: 45vh;
+    width: 100vw;
+   
+    height: 55vh;
     border-radius: 10px;
     object-fit: cover;
     transition:  0.2s ease-in-out;
@@ -88,13 +90,13 @@
 
   .slideTextWrapper{
     position:absolute;
-    top:10%;
+    top:21%;
     left:5%;
-    z-index:6;
+    z-index:4;
   }
   
 
   .slideText{
-    font-size: 6vh;
+    font-size: 5vh;
     z-index:6;
   }

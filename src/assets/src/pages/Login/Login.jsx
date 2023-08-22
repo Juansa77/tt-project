@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { loginUser } from "../../services/API_USER/user.service";
 import useLoginError from "../../hooks/useLoginError";
 import { useAuth } from "../../contexts/authContext";
+import Logo from "../../components/Logo/Logo";
 
 
 
@@ -48,6 +49,7 @@ const Login = () => {
   return (
     <>
     <div className="login-container">
+    <Logo/>
       <div className="form-wrap-login">
         <h1>Sign In</h1>
         <p>We are happy to see you again</p>

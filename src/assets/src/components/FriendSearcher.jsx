@@ -6,6 +6,10 @@ import styled from 'styled-components';
 const DropdownContainer = styled.div`
   position: relative;
   display: inline-block;
+
+  @media (max-width: 767px){
+    width:100%;
+  }
 `;
 
 const DropdownButton = styled.button`
@@ -17,12 +21,18 @@ const DropdownButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
   width:14vw;
+
+  @media (max-width: 767px){
+    width:100%;
+   
+  }
 `;
 
 const DropdownContent = styled.div`
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 160px;
+ 
+  width:100%;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 `;

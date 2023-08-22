@@ -27,7 +27,7 @@ const DetailUser = () => {
   const { user, userLogin } = useAuth();
 
   const [response, setResponse] = useState([]);
-  console.log(user.id);
+
   //* FUNCIÓN PARA ACCEDER A LA PÁGINA DE DETALLE DEL AMIGO
 
   const handleSelectFriend = (friend) => {
@@ -155,7 +155,7 @@ const DetailUser = () => {
 
   //* FUNCIONALIDAD PARA OBTENER LOS JUEGOS Y AMIGOS DEL USUARIO
 
-  const userID = user.id;
+  const userID = user?.id;
 
   const [gamesData, setGamesData] = useState([]);
   const [friendsData, setFriendsData] = useState([]);
@@ -190,7 +190,6 @@ const DetailUser = () => {
     (request) => request.user == _id
   );
 
-  console.log(selectedUser);
   return (
     <div className="profileDetail-main">
       <div className="profile-container-detail">
@@ -206,7 +205,7 @@ const DetailUser = () => {
               <div className="msgContainer">
                 <Link
                   to={`/messages/${_id}`}
-                  className="anchorCustom-profileLink apple-tv-button"
+                  id="msg-buttom"
                 >
                   ENVIAR MENSAJE
                 </Link>

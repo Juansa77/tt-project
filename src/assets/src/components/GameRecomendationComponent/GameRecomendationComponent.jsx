@@ -14,7 +14,7 @@ const GameRecomendationComponent = () => {
   const { setSelectedGame } = useGameContext();
   const navigate = useNavigate();
   const { user } = useAuth();
-  console.log("user en component", user);
+
   //*-------------LÓGICA PARA RECOMENDADOR DE JUEGOS
   const userGamesData = [];
   user?.games?.map((game, index) =>
@@ -71,11 +71,11 @@ const GameRecomendationComponent = () => {
     fetchData();
   }, []);
 
-  console.log("response en component", response);
+
   //** -----LÓGICA PARA NAVIGATE Y LLEVAR A DETAIL
 
   const handleSelectGame = (game) => {
-    console.log(game);
+
     setSelectedGame(game);
     // Redirige a la página de detalles del juego seleccionado
     navigate(`/games/${game._id}`);

@@ -196,20 +196,20 @@ const NavBar = () => {
 
       <style jsx>{`
         .navigation {
-      
+          backdrop-filter: blur(3px);
           min-width: 100vw;
           height: 7vh;
           margin-bottom: 10vh;
           color:beige;
           display:flex;
           justify-content: space-between;
-          background: #363636;
+          background: transparent;
           -webkit-backdrop-filter: blur(5px);
           position:fixed;
           font-weight: 900;
           top:0;
           margin-bottom: 5%;
-          z-index:4;
+          z-index:200;
           padding:1vh;
           font-size:1.5vh;
           font-family: "SF Pro Text", "Helvetica Neue", sans-serif;
@@ -226,24 +226,28 @@ const NavBar = () => {
                  }
 
 .profileSubMenu{
+
   position: absolute;
   top: 90%;
-  background-color: #363636;
+
+  
   color: beige;
   border-radius: 0 0 5px 5px; /* Aplicar border-radius en las esquinas de abajo */
 
-  z-index: 10;
+  z-index: 200;
   display: flex;
   flex-direction: column;
   padding: 15px;
   gap: 3vh;
-  width: 9vw;
+  width: 30vw;
   padding:2rem;
-  opacity: 0; /* Agregamos esto para controlar la opacidad */
+
   transform: translateY(10px); 
   transition: opacity 0.9s ease, transform 0.3s ease;
   border-left:1px solid beige;
   border-bottom:1px solid beige;
+  backdrop-filter: blur(100px);
+
 
   
  
@@ -254,6 +258,7 @@ const NavBar = () => {
   transition: opacity 0.9s ease, transform 0.9s ease;
   opacity: 1; /* Cambiar la opacidad al estar activo */
   transform: translateY(0); /* Cambiar la posición al estar activo */
+  backdrop-filter: blur(100px);
 }
         .userProfilePic{
           border-radius:50%;
@@ -268,9 +273,11 @@ const NavBar = () => {
         .profileContainer2{
   position: relative;
   display: inline-block;
+  
   margin-left:30vw;
+ 
 
-  width:9vw;
+  width:12vw;
   
 }
         .navigation ul {

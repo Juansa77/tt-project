@@ -11,13 +11,28 @@
 
 .form-wrap-login{
     width: 30vw;
-    height: 35vh;
+    height: 45vh;
     margin-top: 2rem;
     background: #f7fffa;
     padding: 15px 25px 30px;
     color: #333;
     border-radius: 5px;
     margin-bottom: 4vh;
+}
+
+@media (max-width: 767px){
+
+  .form-wrap-login{
+    width: 90vw;
+    height: 45vh;
+    margin-top: 2rem;
+    background: #f7fffa;
+    padding: 15px 25px 30px;
+    color: #333;
+    border-radius: 5px;
+    margin-bottom: 4vh;
+}
+
 }
 
 .form-wrap-login h1,

@@ -99,7 +99,7 @@ const Profile = () => {
       });
   }, [userID, addFriendResponse]);
 
-  console.log(friendRequests)
+
   //* USEEFFECT PARA CARGAR LAS FRIENDS REQUESTS DEL USUARIO----
   useEffect(() => {
     // Llamada al servicio para obtener los juegos del usuario
@@ -186,14 +186,14 @@ console.log(userCover)
       <div className="profile-container">
         <div className="profile-card-user">
           <div className="profile-header">
-          <div className="gradient-overlay"></div>
+     
             <img className="profile-image" src={user.image} alt="Profile" />
             <div className="profile-dataUserWrap">
               <h2 className="userNameText">{user.user}</h2>
               <div className="msgContainer">
                 <Link
                   to={`/messages/${userID}`}
-                  className="anchorCustom-profileLink apple-tv-button"
+                  id="msg-buttom"
                 >
                   VER MENSAJES
                 </Link>

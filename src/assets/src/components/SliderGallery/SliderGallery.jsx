@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SliderData } from "./SliderData";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "./SliderGallery.css";
@@ -16,6 +16,9 @@ const SliderGallery = ({ slides }) => {
   const [selectedElement, setSelectedElement] = useState(null);
   const { setSelectedGame } = useGameContext();
 
+
+
+
   //* Si la imagen actual es la última, no hagas nada, si no, añade 1
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
@@ -25,9 +28,13 @@ const SliderGallery = ({ slides }) => {
     setCurrent(current === 0 ? length - 1 : current - 1);
   };
 
-  if (!Array.isArray(slides) || slides.length <= 0) {
-    return null;
-  }
+  //* Lçogica para que la imagen cambie cada tres segundos y medio
+  useEffect(() => {
+    const interval = setInterval(() => nextSlide(), 3500);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [current]);
 
   //* ---lógica de navigate----
   const handleSelectElement = async (slide, event) => {

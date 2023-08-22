@@ -207,6 +207,7 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.2s ease;
+    border: 1px solid beige;
   }
   
   .btn-user:hover {
@@ -225,4 +226,56 @@
     gap:1vh;
     justify-content: end;
     margin-top:3vh;
+  }
+
+  @media (max-width: 767px) {
+
+    .profile-header-detail{
+      width: 90vw;
+      margin-top: 2vh;
+     
+     }
+
+     .userNameTextDetail{
+      font-size: 3vw; /* Usar vw para el tamaño de la fuente */
+ /* Ajustar el margen derecho */
+    
+    }
+    
+    .profile-image{
+  
+      min-height: 15vh;
+      max-height: 17vh;
+      min-width: 25vw;
+    
+    }
+    
+
+    .text-btn-detail-wrap{
+      border: 1px solid red;
+      width: 80vw;
+      align-items: flex-end;
+    }
+
+    #msg-buttom{
+      max-height: 1vh;
+    font-size: 1.8vh;
+    padding: 0.5rem;
+    }
+
+    .games-list-detai{
+
+       width: 90vw;
+
+    
+
+    }
+
+    .profile-section-detail{
+     
+    }
+
+    .profile-content{
+      width: 90vw;
+    }
   }

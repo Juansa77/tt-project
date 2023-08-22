@@ -2,12 +2,15 @@
   display: flex;
  min-height: 35vh;
  max-height: min-content;
-  align-items: center;
+  align-items: flex-start;
   width: 35vw;
   gap: 2vh;
   flex-wrap: wrap;
   padding: 1rem;
   background-color: #2b2a2a;
+
+  border: 1px solid rgba(173, 166, 166, 0.404);
+
 }
 
 
@@ -23,6 +26,7 @@ color:rgb(204, 198, 198);
 line-height: 1rem;
 font-size: 3vh;
 border-radius: 10px 10px 0 0;
+
 
 }
 
@@ -146,7 +150,7 @@ border-radius: 10px;
 
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(131, 122, 122, 0.404);
+  border: 2px solid rgba(131, 122, 122, 0.404);
   border-radius: 10px 10px 0 0;
   background-color: rgba(23, 21, 27, 0.329);
   margin-top: 3vh;
@@ -196,38 +200,20 @@ border-radius: 10px;
   margin-top: 2vh;
 }
 
-.apple-tv-button {
-  background-color: transparent;
-  border: 2px solid beige;
-  border-radius: 8px;
-  color: beige;
-  font-size: 18px;
-  font-weight: bold;
-  padding: 10px 20px;
-  cursor: pointer;
+#msg-buttom{
+
+  border: 1px solid beige;
+  color:beige;
+  padding: 1rem;
+  border-radius: 10px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.apple-tv-button:hover {
-  background-color: #0070c9;
-  color: #fff;
+#msg-buttom:hover{
+  border: 2px solid beige;
+  background-color: #3e97e0;
 }
 
-.apple-tv-button:focus {
-  outline: none;
-}
-
-.apple-tv-button:active {
-  transform: scale(0.95);
-}
-
-.send-msg-bottom-text {
-  background-color: red;
-}
-
-.anchorCustom {
-  background-color: red;
-}
 
 .msgContainer {
 
@@ -309,4 +295,41 @@ border-radius: 10px;
   padding: 1rem;
 
   width: 80%;
+}
+
+@media (max-width: 767px) {
+  .profile-header {
+   width: 90vw;
+    margin-top: 2vh;
+   
+  
+  }
+  .userNameText {
+    font-size: 4vh;
+ 
+  }
+
+  .games-list-user {
+    display: flex;
+   min-height: 35vh;
+   max-height: min-content;
+justify-content: center;
+    width: 90vw;
+    gap: 2vh;
+    flex-wrap: wrap;
+    padding: 1rem;
+ 
+ 
+  }
+  
+
+  
+  .profile-section{
+  
+    width: 90vw;
+  }
+
+  .profile-section-friendRequest{
+    width: 90vw;
+  }
 }

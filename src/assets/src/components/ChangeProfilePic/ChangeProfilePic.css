@@ -1,6 +1,7 @@
 .changePic-container{
     display:flex;
-    width: 35vw;
+    min-width: 35vw;
+    max-width: 89vw;
     justify-content: center;
     align-items: center;
     padding-top: 10vh;
@@ -8,12 +9,14 @@
     margin-top:2vh;
     border:1px solid beige;
     border-radius: 10px;
-    height: 40vh;
+    min-height: 40vh;
+    max-height: min-content;
 
   }
   
   .form-wrap.formProfile-pic{
    min-height: 50vh;
+   min-height: min-content;
     
     padding:2rem;
   }
