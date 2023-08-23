@@ -11,23 +11,29 @@
   gap: 1vh;
 }
 
-.profileContainer2 {
-  right: -400px;
-}
+
 @media (max-width: 767px) {
   .userProfileBadge {
     right: 0;
   }
+
+  .contentBadgeMessages{
+    display: none;
+  } 
+
+  .contentBadgeRequest{
+    display: none;
+  }
 }
 .contentBadgeMessages {
   position: absolute;
-  top: -10px;
+  top:-7px;
   right: -17px;
   background-color: red;
-  border-radius: 100%;
+  border-radius: 50%;
 
-  width: 1.2vw;
-  height: 2.2vh;
+  width: 30px;
+  height: 25px;
   text-align: center;
 
   line-height: 1;
@@ -38,23 +44,23 @@
 }
 
 .contentBadgeMessages > p {
-  font-size: 1.8vh;
+  font-size: 20px;
 }
 
 .MsgAnchorText {
-  font-size: 1.3vh;
+  font-size: 20px;
 }
 
 .contentBadgeRequest {
   z-index: 0;
   position: absolute;
-  top: 42px;
+  top: 39px;
   right: -17px;
   background-color: rgb(125, 149, 228);
   border-radius: 50%;
 
-  width: 1.2vw;
-  height: 2.2vh;
+  width: 30px;
+  height: 25px;
   text-align: center;
 
   line-height: 1;

@@ -293,7 +293,7 @@ const NavBar = () => {
         .navigation ul {
           display: flex;
           
-       margin-left:-17vw;
+     
               justify-content: space-around;
               aling-content:flex-start:
               align-items:flex-start;
@@ -387,7 +387,7 @@ left:-138px;;
             color: beige;
             z-index:10;
             height: 100vh;
-            width: 70vw;
+            width: 50vw;
             margin-left:10px;
             margin-top: 56px;
             position: fixed;

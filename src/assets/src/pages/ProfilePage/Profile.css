@@ -1,9 +1,12 @@
+
+
+
 .games-list-user {
   display: flex;
  min-height: 35vh;
  max-height: min-content;
   align-items: flex-start;
-  width: 35vw;
+  width: 100%;
   gap: 2vh;
   flex-wrap: wrap;
   padding: 1rem;
@@ -97,9 +100,9 @@ z-index: 1;
 
 .profile-section {
 
-  width: 90%;
+  width: 100%;
   margin-top:7vh;
-  width: 35vw;
+
   border-radius: 20px;
 
   max-height: min-content;
@@ -113,7 +116,7 @@ z-index: 1;
   padding: 2rem;
   height: 25vh;
   position: relative;
-  width: 90%;
+  width: 100%;
   
   align-content: center;
   align-items: center;
@@ -155,7 +158,7 @@ border-radius: 10px;
   border-radius: 10px 10px 0 0;
   background-color: rgba(23, 21, 27, 0.329);
   margin-top: 3vh;
-  width: 35vw;
+  width: 100%;
   min-height: 30vh;
   max-height: min-content;
 }
@@ -332,7 +335,7 @@ justify-content: center;
   }
 
   .profile-section-friendRequest{
-    width: 90vw;
+    width: 100%;
   }
 
   .profile-dataUserWrap{
