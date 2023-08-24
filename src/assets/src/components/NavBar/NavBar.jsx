@@ -273,6 +273,7 @@ const NavBar = () => {
         .userProfilePic{
           border-radius:50%;
           height:5vh;
+          z-index:6;
           cursor:pointer;
           margin-left:6vw;
           
@@ -403,7 +404,7 @@ left:-138px;;
 
           .burger{
 
-            width:${hamburgerOpen ? "2.4rem" : "3.1rem"};
+            width:${hamburgerOpen ? "2.8rem" : "3.1rem"};
             transition:  0.2s ease-in-out;
 
 

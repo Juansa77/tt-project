@@ -6,7 +6,7 @@ export const SliderData = [
     text: "Lo último de Pandemic Legacy",
     link: "",
     type:"game",
-    _id:"6479a4c83f628e6a6d8369b0"
+    _id:"64d62de781d6997859c73b05"
   },
 
   {
@@ -15,7 +15,7 @@ export const SliderData = [
     text: "Alien, pero sin pagar derechos de autor",
     link: "",
     type:"game",
-    _id:"6479a4c83f628e6a6d8369c1"
+    _id:"64d62de781d6997859c73b16"
   },
   {
     image:

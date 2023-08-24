@@ -7,7 +7,7 @@ const CardContainer = styled.div`
   height: 12vh;
   background-color: #141414;
   color: #fff;
-  border-radius: 8px;
+
   overflow: hidden;
   position: relative;
   transition:  0.2s ease-in-out;

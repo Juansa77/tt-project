@@ -1,0 +1,8 @@
+.notFound-wrapper{
+    margin-top: 30vh;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

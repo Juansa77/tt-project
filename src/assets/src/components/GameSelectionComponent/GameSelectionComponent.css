@@ -45,18 +45,18 @@
 .image-selection {
   min-width: 20vw;
   max-width: 20vw;
-  height: 27vh;
+  height: 29vh;
   border-radius: 10px;
   overflow: hidden;
 
   object-fit: cover;
-  opacity: 80%;
+  opacity: 70%;
   transition: 0.2s ease-in-out;
   object-position: 100% 20%;
 }
 .image-selection:hover{
   opacity: 100%;
-  border: 1px solid beige;
+  border: 5px solid beige;
  
 }
 /* Estilos para el título */
@@ -68,19 +68,18 @@
   width: 100%;
   padding: 10px;
   font-family: "SF Pro Text", "Helvetica Neue", sans-serif;
-  background-color: beige;
+  background-color: transparent;
   opacity: 90%;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  box-shadow: 5px 2px 20px black;
+color: beige;
 }
 
 .title-selection {
-  font-size: 1.6vh;
+  font-size: 1.8vh;
   text-align: left;
+  font-weight: 600;
   margin: 0;
-  margin-bottom: 2vh;
-  color: #363636; /* Color de texto utilizado por Apple */
+
+
 }
 /* Estilos para los botones de agregar y remover */
 .add-button,

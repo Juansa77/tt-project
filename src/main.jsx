@@ -22,60 +22,68 @@ import { GameContextProvider } from "./assets/src/contexts/GameContext.jsx";
 import DetailUser from "./assets/src/components/DetailUser/DetailUser.jsx";
 import { UserContextProvider } from "./assets/src/contexts/UserContext.jsx";
 import MessagesPage from "./assets/src/pages/messagesPage/MessagesPage.jsx";
-
-
-
-
+import NotFound from "./assets/src/components/NotFound404/NotFound.jsx";
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthContextProvider>
-      <GameContextProvider>
-      <UserContextProvider>
-
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<App />}>
-            <Route index element={<Home />} />
-          </Route>
-          <Route path="/games" element={<GameSearch />} />
-          <Route path="/games/:_id" element={<DetailGame />} />
-          <Route path="/users/:_id" element={<DetailUser />} />
-          <Route path="/search-friends" element={<FriendSearchPage />} />
-          <Route path="/places" element={<PlacesPage />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/messages/:_id" element={<ProtectedRoute><MessagesPage /></ProtectedRoute>} />
-          <Route
-            path="/verifyCode"
-            element={
-              <ProtectedCheckChildren>
-                <CheckCode />
-              </ProtectedCheckChildren>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />{" "}
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route
-            path="/passwordchange"
-            element={
-              <ProtectedRoute>
-                <ChangePassword />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-     
-        </UserContextProvider>
+        <GameContextProvider>
+          <UserContextProvider>
+            <NavBar />
+            <Routes>
+              <Route path="/" element={<App />}>
+                <Route index element={<Home />} />
+              </Route>
+              <Route path="/games" element={<GameSearch />} />
+              <Route path="/games/:_id" element={<DetailGame />} />
+              <Route path="/users/:_id" element={<DetailUser />} />
+              <Route path="/search-friends" element={<FriendSearchPage />} />
+              <Route path="/places" element={<PlacesPage />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route
+                path="/messages/:_id"
+                element={
+                  <ProtectedRoute>
+                    <MessagesPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/verifyCode"
+                element={
+                  <ProtectedCheckChildren>
+                    <CheckCode />
+                  </ProtectedCheckChildren>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />{" "}
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/forgotpassword" element={<ForgotPassword />} />
+              <Route
+                path="/passwordchange"
+                element={
+                  <ProtectedRoute>
+                    <ChangePassword />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="*"
+                element={
+                 <NotFound/>
+                }
+              />
+            </Routes>
+          </UserContextProvider>
         </GameContextProvider>
       </AuthContextProvider>
     </BrowserRouter>

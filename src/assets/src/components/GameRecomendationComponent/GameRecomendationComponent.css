@@ -11,6 +11,8 @@
   overflow-x: hidden;
   overflow-y: hidden;
   padding: 1rem;
+ 
+
 
 
 
@@ -34,7 +36,8 @@
    position: relative;
   transition: 0.2s ease-in-out;
   cursor: pointer;
-  box-shadow: 5px 2px 20px black;
+  box-shadow: 10px 6px 30px black;
+
   scroll-behavior: smooth;
 
 }
@@ -42,7 +45,7 @@
 
 .card-container-recomendation:hover {
  
-
+  box-shadow: 5px 2px 20px black;
 
   transform: scale(1.05);
 
@@ -53,42 +56,41 @@
 .image-recomendation {
   min-width: 20vw;
   max-width: 20vw;
-  height: 27vh;
+  height: 29vh;
   border-radius: 10px;
   overflow: hidden;
 
   object-fit: cover;
-  opacity: 80%;
+  opacity: 70%;
   transition: 0.2s ease-in-out;
   object-position: 100% 20%;
 }
 .image-recomendation:hover{
   opacity: 100%;
-  border: 1px solid beige;
+  border: 5px solid beige;
  
 }
 /* Estilos para el título */
 .title-container-recomendation {
   position: absolute;
-  bottom: -50px;
+  bottom: -65px;
   height: 5vh;
   
   width: 100%;
   padding: 10px;
   font-family: "SF Pro Text", "Helvetica Neue", sans-serif;
-  background-color: beige;
+  background-color: transparent;
   opacity: 90%;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  box-shadow: 5px 2px 20px black;
+
 }
 
 .title-recomendation {
-  font-size: 1.6vh;
+  font-size: 1.7vh;
   text-align: left;
   margin: 0;
   margin-bottom: 2vh;
-  color: #363636; /* Color de texto utilizado por Apple */
+  color: beige; /* Color de texto utilizado por Apple */
 }
 /* Estilos para los botones de agregar y remover */
 .add-button,
