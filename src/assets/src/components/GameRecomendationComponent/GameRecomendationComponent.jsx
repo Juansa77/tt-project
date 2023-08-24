@@ -7,6 +7,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useGameContext } from "../../contexts/GameContext";
 import { gameByMultiQuery } from "../../services/API_USER/game.service";
 import { useAuth } from "../../contexts/authContext";
+import { handleSelectGame } from "../../utils/gameFunctions";
+
 
 const GameRecomendationComponent = () => {
   const [response, setResponse] = useState([]);
@@ -72,15 +74,7 @@ const GameRecomendationComponent = () => {
   }, []);
 
 
-  //** -----LÓGICA PARA NAVIGATE Y LLEVAR A DETAIL
 
-  const handleSelectGame = (game) => {
-
-    setSelectedGame(game);
-    // Redirige a la página de detalles del juego seleccionado
-    navigate(`/games/${game._id}`);
-    window.scrollTo(0, 0);
-  };
 
   return (
     <div className="GameRecomendationWrapper">
@@ -101,7 +95,7 @@ const GameRecomendationComponent = () => {
                 {res.data.map((game, gameIndex) => (
                   <div className="card-container-recomendation" key={gameIndex}>
                     <>
-                      <div onClick={() => handleSelectGame(game)}>
+                      <div onClick={() => handleSelectGame(game, setSelectedGame, navigate)}>
                         <img
                           className="image-recomendation"
                           src={game.image}

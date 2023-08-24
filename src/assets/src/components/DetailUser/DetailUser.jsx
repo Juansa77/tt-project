@@ -5,18 +5,16 @@ import { useContext, useState, useEffect } from "react";
 import { useUserContext } from "../../contexts/UserContext";
 import { useAuth } from "../../contexts/authContext";
 import {
-  deleteFriendInUser,
   getFriendsInUser,
   getGamesInUser,
   getUserById,
-  sendFriendRequest,
-  cancelFriendRequest,
   getFriendRequests,
-  addFriendToUser, rejectFriendRequest
+
 } from "../../services/API_USER/user.service";
 import MiniUserCard from "../MiniUserCard";
 import MiniGameCard from "../MiniGameCard";
 import { useGameContext } from "../../contexts/GameContext";
+import { handleFriendRequest, handleCancelFriendRequest, handleAddUser, handleRejectRequest, handleRemoveUser } from "../../utils/userFunctions";
 
 const DetailUser = () => {
   const navigate = useNavigate();
@@ -56,35 +54,6 @@ const DetailUser = () => {
     (item) => item.user._id == _id
   );
 
-  //* FUNCIÓN PARA ACEPTAR REQUEST FRIEND Y AÑADIR AMIGO-----
-  const handleAddUser = async (friendID) => {
-    console.log(userID);
-    try {
-      const token = user?.token;
-      const responseData = await addFriendToUser(userID, friendID, token);
-      setAddFriendResponse(responseData);
-      console.log("responseData de add friend", responseData);
-      const updatedFriendRequests = user.friendRequests.filter(
-        (friendRequest) => {
-          return friendRequest.isSender && friendRequest.user === friendID;
-        }
-      );
-
-      //* Objeto custom para añadir la id del amigo y almacenar el usuario actualizado en el local
-      const updatedUser = {
-        ...user,
-        friends: [...user.friends, friendID],
-        friendRequests: updatedFriendRequests,
-        // Agrega el nuevo juego al array de juegos
-      };
-      const dataString = JSON.stringify(updatedUser);
-      // Actualiza la variable userLogin en el contexto
-      userLogin(dataString);
-      setTotalRequests(user?.friendRequests?.length);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   //* FUNCIÓN PARA ACCEDER A LA PÁGINA DE DETALLE DEL AMIGO-------------
 
@@ -113,111 +82,8 @@ const DetailUser = () => {
     navigate(`/games/${game._id}`);
   };
 
-  console.log("userlogin en detailuser", user);
 
-  //* -----FUNCIONALIDAD PARA ENVIAR SOLICITUD DE AMISTAD------
-  const handleFriendRequest = async (friendID) => {
-    try {
-      const token = user?.token;
-      const responseData = await sendFriendRequest(userID, friendID, token);
-      setResponse(responseData);
-      console.log("respondata de request friend", responseData);
-      if (responseData?.status == 200) {
-        Swal.fire("Friend request sended!");
-      }
-      //* Objeto custom para añadir la id de la solicitud y almacenar el usuario actualizado en el local
-      const updatedUser = {
-        ...user,
-        friendRequests: [
-          ...user.friendRequests,
-          { user: friendID, isSender: true },
-        ], // Agrega el nuevo juego al array de juegos
-      };
-      const dataString = JSON.stringify(updatedUser);
-      // Actualiza la variable userLogin en el contexto
-      userLogin(dataString);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  //* -----FUNCIONALIDAD PARA QUITAR AMIGO------
-  const handleRemoveUser = async (friendID) => {
-    try {
-      const token = user?.token;
-      const responseData = await deleteFriendInUser(userID, friendID, token);
-      setResponse(responseData);
-      if (responseData?.status == 200) {
-        Swal.fire("Friend deleted!");
-      }
-
-      //* Objeto custom para extraer la id del amigo  y almacenar el usuario actualizado en el local
-      const updatedUser = {
-        ...user,
-        friends: user.friends.filter((friend) => friend !== friendID), // Elimina la ID del amigo del array de amigos
-      };
-      const dataString = JSON.stringify(updatedUser);
-      userLogin(dataString);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  //* -----FUNCIONALIDAD PARA CANCELAR  REQUEST------
-  const handleCancelFriendRequest = async (friendID) => {
-    try {
-      const token = user?.token;
-      const responseData = await cancelFriendRequest(userID, friendID, token);
-      setResponse(responseData);
-      if (responseData?.status == 200) {
-        Swal.fire("Request cancel!");
-      }
-
-      const updatedFriendRequests = user.friendRequests.filter(
-        (friendRequest) => {
-          return !(friendRequest.isSender && friendRequest.user === friendID);
-        }
-      );
-
-      //* Objeto custom para extraer la id del amigo  y almacenar el usuario actualizado en el local
-      const updatedUser = {
-        ...user,
-        friendRequests: updatedFriendRequests, // Elimina la ID del amigo del array de amigos
-      };
-      const dataString = JSON.stringify(updatedUser);
-      userLogin(dataString);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-
-  //* -----FUNCIONALIDAD PARA RECHAZAR SOLICITUD DE AMISTAD------
-  const handleRejectRequest = async (friendID) => {
-    try {
-      const token = user?.token;
-      const responseData = await rejectFriendRequest(userID, friendID, token);
-      setRejectFriendResponse(responseData);
-      console.log("respondata de request friend", responseData);
-      const updatedFriendRequests = user.friendRequests.filter(
-        (friendRequest) => {
-          return friendRequest.isSender && friendRequest.user === friendID;
-        }
-      );
-      //* Objeto custom para extraer la id del amigo  y almacenar el usuario actualizado en el local
-      const updatedUser = {
-        ...user,
-        friendRequests: updatedFriendRequests, // Elimina la ID del amigo del array de amigos
-      };
-      const dataString = JSON.stringify(updatedUser);
-      userLogin(dataString);
-      setTotalRequests(user?.friendRequests?.length)
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-
+ 
 
 
   //* USEEFFECT  1 PARA CONTROLAR QUE SI EL USER DEL CONTEXTO ES NULL, HAGA UN FETCH
@@ -299,7 +165,7 @@ const DetailUser = () => {
                   !friendRequestSended ? (
                     <button
                       className=" btn-user"
-                      onClick={() => handleFriendRequest(selectedUser._id)}
+                      onClick={() => handleFriendRequest(  userID, selectedUser._id, user?.token, setResponse, user, userLogin)}
                     >
                       Send friend request
                     </button>
@@ -307,7 +173,7 @@ const DetailUser = () => {
                     <>
                       <button
                         className=" btn-user"
-                        onClick={() => handleAddUser(selectedUser._id)}
+                        onClick={() => handleAddUser(userID, selectedUser._id, user?.token, setAddFriendResponse, user, userLogin, setTotalRequests)}
                       >
                         Add friend
                       </button>
@@ -315,7 +181,7 @@ const DetailUser = () => {
                       <button
                         className=" btn-user"
                         onClick={() =>
-                          handleRejectRequest(selectedUser._id)
+                          handleRejectRequest(userID, selectedUser._id, user?.token, setRejectFriendResponse, user, userLogin, setTotalRequests)
                         }
                       >
                         Cancel request
@@ -325,7 +191,7 @@ const DetailUser = () => {
                     <button
                       className=" btn-user"
                       onClick={() =>
-                        handleCancelFriendRequest(selectedUser._id)
+                        handleCancelFriendRequest(userID, selectedUser._id, user?.token, setResponse, user, userLogin)
                       }
                     >
                       Cancel request
@@ -334,7 +200,7 @@ const DetailUser = () => {
                 ) : (
                   <button
                     className=" btn-user"
-                    onClick={() => handleRemoveUser(selectedUser._id)}
+                    onClick={() => handleRemoveUser(userID, selectedUser._id, user?.token, setResponse, user, userLogin)}
                   >
                     Quitar amigo
                   </button>

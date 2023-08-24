@@ -5,7 +5,6 @@ import {
   getFriendsInUser,
   getGamesInUser,
   getFriendRequests,
-  addFriendToUser,
   rejectFriendRequest,
 } from "../../services/API_USER/user.service";
 import { useEffect, useState } from "react";
@@ -14,6 +13,8 @@ import "./Profile.css";
 import MiniUserCard from "../../components/MiniUserCard";
 import { useUserContext } from "../../contexts/UserContext";
 import { useGameContext } from "../../contexts/GameContext";
+import { handleAddUser, handleRejectRequest } from "../../utils/userFunctions";
+import { handleSelectGame } from "../../utils/gameFunctions";
 
 const Profile = () => {
   const { user, userLogin } = useAuth();
@@ -29,60 +30,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const { setSelectedUser, totalRequests, setTotalRequests } = useUserContext();
 
-  //* FUNCIÓN PARA ACEPTAR REQUEST FRIEND Y AÑADIR AMIGO
-  const handleAddUser = async (friendID) => {
-    console.log(userID);
-    try {
-      const token = user?.token;
-      const responseData = await addFriendToUser(userID, friendID, token);
-      setAddFriendResponse(responseData);
-      console.log("responseData de add friend", responseData);
-      const updatedFriendRequests = user.friendRequests.filter(
-        (friendRequest) => {
-          return friendRequest.isSender && friendRequest.user === friendID;
-        }
-      );
 
-      //* Objeto custom para añadir la id del amigo y almacenar el usuario actualizado en el local
-      const updatedUser = {
-        ...user,
-        friends: [...user.friends, friendID],
-        friendRequests: updatedFriendRequests,
-         // Agrega el nuevo juego al array de juegos
-      };
-      const dataString = JSON.stringify(updatedUser);
-      // Actualiza la variable userLogin en el contexto
-      userLogin(dataString);
-      setTotalRequests(user?.friendRequests?.length)
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  //* -----FUNCIONALIDAD PARA RECHAZAR SOLICITUD DE AMISTAD------
-  const handleRejectRequest = async (friendID) => {
-    try {
-      const token = user?.token;
-      const responseData = await rejectFriendRequest(userID, friendID, token);
-      setRejectFriendResponse(responseData);
-      console.log("respondata de request friend", responseData);
-      const updatedFriendRequests = user.friendRequests.filter(
-        (friendRequest) => {
-          return friendRequest.isSender && friendRequest.user === friendID;
-        }
-      );
-      //* Objeto custom para extraer la id del amigo  y almacenar el usuario actualizado en el local
-      const updatedUser = {
-        ...user,
-        friendRequests: updatedFriendRequests, // Elimina la ID del amigo del array de amigos
-      };
-      const dataString = JSON.stringify(updatedUser);
-      userLogin(dataString);
-      setTotalRequests(user?.friendRequests?.length)
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
 
 
@@ -125,15 +73,6 @@ const Profile = () => {
   };
 
 
- //* FUNCIÓN PARA ACCEDER A LA PÁGINA DE DETALLE DEL AMIGO
-
- const handleSelectFriendRequestUser = (request) => {
-  console.log("amigo seleccionado>", request);
-  setSelectedUser(request);
-  // Redirige a la página de detalles del juego seleccionado
-  navigate(`/users/${request.user._id}`);
-  window.scrollTo(0, 0);
-};
 
 
   //* FUNCIÓN PARA ALMACENAR LOS DATOS DEL JUEGO SELECCIONADO PARA USARLO EN DETAIL Y NO HACER UNA NUEVA LLAMADA
@@ -141,15 +80,7 @@ const Profile = () => {
   //* SACAMOS DEL CONTEXTO DE GAME PARA ALMACENAR LOS DATOS DEL JUEGO
   const { setSelectedGame } = useGameContext();
 
-  //* Instancia de la historia del enrutador para redirigir a la página de detail
 
-  const handleSelectGame = (game) => {
-  
-    setSelectedGame(game);
-    // Redirige a la página de detalles del juego seleccionado
-    navigate(`/games/${game._id}`);
-    window.scrollTo(0, 0);
-  };
 
   //* USEEFFECT PARA CONTROLAR EL SERVICIO DE LOS JUEGOS DEL USUARIO
   useEffect(() => {
@@ -236,7 +167,7 @@ console.log(userCover)
               )}
               {gamesData?.data?.length > 0 &&
                 gamesData?.data?.map((game, index) => (
-                  <div key={game._id} onClick={() => handleSelectGame(game)}>
+                  <div key={game._id} onClick={() => handleSelectGame(game, setSelectedGame, navigate)}>
                     <MiniGameCard
                       key={index}
                       title={game.title}
@@ -265,14 +196,14 @@ console.log(userCover)
                           <div className="requestBtnWrap">
                             <button
                               className="request-button-add"
-                              onClick={() => handleAddUser(request.user._id)}
+                              onClick={() => handleAddUser(userID, request.user._id,user?.token, setAddFriendResponse, user, userLogin, setTotalRequests)}
                             >
                               Add
                             </button>
                             <button
                               className="request-button-reject"
                               onClick={() =>
-                                handleRejectRequest(request.user._id)
+                                handleRejectRequest(userID, request.user._id, user?.token, setRejectFriendResponse, user, userLogin, setTotalRequests)
                               }
                             >
                               Reject

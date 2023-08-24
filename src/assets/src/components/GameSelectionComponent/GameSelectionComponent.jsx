@@ -5,6 +5,8 @@ import "./GameSelectionComponent.css";
 import { Navigate } from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
 import { useGameContext } from "../../contexts/GameContext";
+import { handleSelectGame } from "../../utils/gameFunctions";
+
 
 const GameSelectionComponent = ({
   category,
@@ -32,6 +34,7 @@ const GameSelectionComponent = ({
     selectedCollection6,
     setSelectedCollection6,
   } = useGameContext();
+
 
   //*-----LÓGICA PARA EL SCROLL HORIZONTAL-----
   const handleScroll = (direction) => {
@@ -170,16 +173,6 @@ const GameSelectionComponent = ({
 
 
 
-  //** -----LÓGICA PARA NAVIGATE Y LLEVAR A DETAIL
-
-  const handleSelectGame = (game) => {
-    console.log(game);
-    setSelectedGame(game);
-    // Redirige a la página de detalles del juego seleccionado
-    navigate(`/games/${game._id}`);
-    window.scrollTo(0, 0);
-  };
-
   return (
     <div className="GameSelectionWrapper">
       <div className="CategoryTextContainer">
@@ -198,7 +191,7 @@ const GameSelectionComponent = ({
           (game, index) =>
             index <=18 && (
               <div className="card-container-selection" key={index}>
-                <div onClick={() => handleSelectGame(game)}>
+                <div onClick={() => handleSelectGame(game, setSelectedGame, navigate)}>
                   <img
                     className="image-selection"
                     src={game.image}

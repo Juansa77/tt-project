@@ -17,6 +17,8 @@ import {
 import MiniUserCard from "./MiniUserCard";
 import { useUserContext } from "../contexts/UserContext";
 import Swal from "sweetalert2";
+import { handleSelectGame } from "../utils/gameFunctions";
+
 
 const DetailGame = () => {
   const { _id } = useParams();
@@ -44,14 +46,6 @@ const DetailGame = () => {
     }
   };
 
-  //* FUNCIÓN PARA ACCEDER A LA PÁGINA DE  DETALLE DE CADA JUEGO
-
-  const handleSelectGame = (game) => {
-    setSelectedGame(game);
-    // Redirige a la página de detalles del juego seleccionado
-    navigate(`/games/${game._id}`);
-    window.scrollTo(0, 0);
-  };
 
   //*--------------FUNCIONALIDAD PARA AGREGAR EL JUEGO AL USUARIO-----
 
@@ -124,10 +118,7 @@ const DetailGame = () => {
   //* ---LÒGICA PARA QUITAR JUEGO AL USUARIO -------------------
   const handleRemoveGame = async (
     gameId,
-    rating,
-    playTime,
-    players,
-    typesList
+ 
   ) => {
     try {
       const token = user?.token;
@@ -343,7 +334,7 @@ const DetailGame = () => {
                     <>
                       <div
                         className="card-detail-recomendation"
-                        onClick={() => handleSelectGame(game)}
+                        onClick={() => handleSelectGame(game, setSelectedGame, navigate)}
                       >
                         <img
                           className="image-detailSimilar"
@@ -390,7 +381,7 @@ const DetailGame = () => {
                     <>
                       <div
                         className="card-detail-recomendation"
-                        onClick={() => handleSelectGame(game)}
+                        onClick={() => handleSelectGame(game, setSelectedGame, navigate)}
                       >
                         <img
                           className="image-detailSimilar"
