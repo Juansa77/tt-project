@@ -5,7 +5,7 @@ import {
   getFriendsInUser,
   getGamesInUser,
   getFriendRequests,
-  rejectFriendRequest,
+
 } from "../../services/API_USER/user.service";
 import { useEffect, useState } from "react";
 import MiniGameCard from "../../components/MiniGameCard";
@@ -33,7 +33,6 @@ const Profile = () => {
 
 
 
-
   //* USEEFFECT PARA CARGAR LAS FRIENDS REQUESTS DEL USUARIO----
   useEffect(() => {
     // Llamada al servicio para obtener los request del usuario
@@ -47,7 +46,7 @@ const Profile = () => {
       });
   }, [userID, addFriendResponse]);
 
-
+console.log("friendrequest en profile",friendRequests)
   //* USEEFFECT PARA CARGAR LAS FRIENDS REQUESTS DEL USUARIO----
   useEffect(() => {
     // Llamada al servicio para obtener los juegos del usuario
@@ -109,8 +108,7 @@ const Profile = () => {
       });
   }, [addFriendResponse]);
 
-console.log(gamesData)
-console.log(userCover)
+
 
   return (
     <div className="profile-main">

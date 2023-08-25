@@ -157,3 +157,16 @@ export const handleFriendRequest = async (
       console.log(error);
     }
   };
+
+  //* FUNCIÓN PARA ACCEDER A PÁGINA DE DETALLE DE USUARIO ----
+
+  export const handleSelectFriend = (friend, setSelectedUser, user, navigate) => {
+    console.log("amigo seleccionado>", friend);
+    setSelectedUser(friend);
+    // Redirige a la página de detalles del juego seleccionado
+    if (friend._id == user.id) {
+      navigate(`/profile`);
+    } else {
+      navigate(`/users/${friend._id}`);
+    }
+  };

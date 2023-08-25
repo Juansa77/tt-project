@@ -14,7 +14,7 @@ import {
 import MiniUserCard from "../MiniUserCard";
 import MiniGameCard from "../MiniGameCard";
 import { useGameContext } from "../../contexts/GameContext";
-import { handleFriendRequest, handleCancelFriendRequest, handleAddUser, handleRejectRequest, handleRemoveUser } from "../../utils/userFunctions";
+import { handleFriendRequest, handleCancelFriendRequest, handleAddUser, handleRejectRequest, handleRemoveUser, handleSelectFriend } from "../../utils/userFunctions";
 
 const DetailUser = () => {
   const navigate = useNavigate();
@@ -33,7 +33,25 @@ const DetailUser = () => {
 
   const [response, setResponse] = useState([]);
 
-  //* USEEFFECT PARA CARGAR LAS FRIENDS REQUESTS DEL USUARIO----
+
+  //* USEEFFECT PARA CARGAR LAS FRIENDS REQUESTS CUANDO ACEPTA----
+  useEffect(() => {
+    // Llamada al servicio para obtener los request del usuario
+    getFriendRequests(userID)
+      .then((data) => {
+        // Almacenar los datos en el estado local
+        setFriendRequests(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching friend requests:", error);
+      });
+  }, [userID, addFriendResponse]);
+
+
+
+  console.log("friendrequest en detail",friendRequests)
+
+  //* USEEFFECT PARA CARGAR LAS FRIENDS REQUESTS DEL USUARIO CUANDO RECHAZA----
   useEffect(() => {
     // Llamada al servicio para obtener los request del usuario
     getFriendRequests(userID)
@@ -46,27 +64,14 @@ const DetailUser = () => {
       .catch((error) => {
         console.error("Error fetching friend requests:", error);
       });
-  }, [_id]);
+  }, [rejectFriendResponse]);
   console.log(friendSendRequest);
   console.log("friendrequest en detail", friendRequests);
 
   const friendSendARequest = friendRequests?.data?.some(
-    (item) => item.user._id == _id
+    (item) => item.user._id == _id && item.isSender == false
   );
 
-
-  //* FUNCIÓN PARA ACCEDER A LA PÁGINA DE DETALLE DEL AMIGO-------------
-
-  const handleSelectFriend = (friend) => {
-    console.log("amigo seleccionado>", friend);
-    setSelectedUser(friend);
-    // Redirige a la página de detalles del juego seleccionado
-    if (friend._id == user.id) {
-      navigate(`/profile`);
-    } else {
-      navigate(`/users/${friend._id}`);
-    }
-  };
 
   //* FUNCIÓN PARA ALMACENAR LOS DATOS DEL JUEGO SELECCIONADO PARA USARLO EN DETAIL Y NO HACER UNA NUEVA LLAMADA
 
@@ -184,7 +189,7 @@ const DetailUser = () => {
                           handleRejectRequest(userID, selectedUser._id, user?.token, setRejectFriendResponse, user, userLogin, setTotalRequests)
                         }
                       >
-                        Cancel request
+                        Reject request
                       </button>
                     </>
                   ) : (
@@ -224,7 +229,7 @@ const DetailUser = () => {
                     friendsData?.data?.map((friend, index) => (
                       <div
                         key={friend._id}
-                        onClick={() => handleSelectFriend(friend)}
+                        onClick={() => handleSelectFriend(friend, setSelectedUser, user, navigate)}
                       >
                         <MiniUserCard
                           key={index}

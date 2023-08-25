@@ -113,9 +113,9 @@ export const gameByPlayingTime = async (time) => {
 //?----------------------------------------------
 //*---GAME BY CITY----------------------
 //?----------------------------------------------
-export const gameByCity = async (game, city) => {
+export const gameByCity = async (id, city) => {
 
-console.log(game, city)
+console.log(id, city)
     //*Creamos un objeto de configuración con los headers de la solicitud
     const config = {
       headers: {
@@ -126,10 +126,10 @@ console.log(game, city)
     //*Creamos unos params para modificar los parámetros de la url
     const params = new URLSearchParams();
   //* Por cada clave y valor en formdata, los metemos en los params de la URL. Convertimos sus propiedades en parámetros
-    Object.entries(game).forEach(([key, value]) => {
+    Object.entries(id).forEach(([key, value]) => {
       params.append(key, value);
     });
-  return APIuser.get(`http://localhost:8095/api/v1/games/${game}/gamebycity/${city}`, params, config)
+  return APIuser.get(`http://localhost:8095/api/v1/games/${id}/gamebycity/${city}`, params, config)
     .then((res) => res)
     .catch((error) => error);
 };

@@ -18,6 +18,8 @@ import MiniUserCard from "./MiniUserCard";
 import { useUserContext } from "../contexts/UserContext";
 import Swal from "sweetalert2";
 import { handleSelectGame } from "../utils/gameFunctions";
+import { handleSelectFriend } from "../utils/userFunctions";
+
 
 
 const DetailGame = () => {
@@ -163,6 +165,7 @@ const DetailGame = () => {
           console.log("el juego en contexto es null y entra en el useeeffect");
           // Realiza una llamada a la API para obtener los detalles del juego con el ID _id
           const response = await gameByID(_id);
+          console.log(response)
           setSelectedGame(response.data);
         }
       } catch (error) {
@@ -206,12 +209,13 @@ const DetailGame = () => {
   useEffect(() => {
     const fetchGameUsers = async () => {
       try {
-        console.log("el juego en contexto es null y entra en el useeeffect");
-        // Realiza una llamada a la API para obtener los detalles del juego con el ID _id
-        const response = await gameByCity(selectedGame?.title, user?.city);
+    
+     
+        const response = await gameByCity(_id, user.city);
+        console.log(response)
         setGameUsers(response.data);
       } catch (error) {
-        console.log(error);
+        console.log("error de users in city", error);
       }
     };
 
@@ -225,15 +229,10 @@ const DetailGame = () => {
   // Instancia de la historia del enrutador para redirigir a la página de detalles
   const navigate = useNavigate();
 
-  const handleSelectFriend = (friend) => {
-    console.log("amigo seleccionado>", friend);
-    setSelectedUser(friend);
-    // Redirige a la página de detalles del juego seleccionado
-    navigate(`/users/${friend._id}`);
-    window.scrollTo(0, 0);
-  };
 
+  console.log(gameUsers)
   console.log(userHasGame);
+  console.log("selected game",selectedGame)
   return (
     <div
       className="game-detail"
@@ -293,19 +292,20 @@ const DetailGame = () => {
           </div>
         </div>
 
-        {gameUsers?.length > 0 && (
+        {selectedGame?.owners?.length > 0 && (
           <div className="detailGame-userWrap">
-            {gameUsers?.length > 0 && (
+            {selectedGame?.owners?.length > 0 && (
               <>
                 <div className="textDetailUserGame">
                   <h1>En tu ciudad lo tienen...</h1>
                 </div>
                 <div className="usersGameDetailWrapper">
-                  {gameUsers?.length > 0 &&
-                    gameUsers?.map((friend, index) => (
+                  {selectedGame?.owners?.length > 0 &&
+                    selectedGame?.owners?.map((friend, index) => (
+                       friend?.city == user?.city &&
                       <div
                         key={index}
-                        onClick={() => handleSelectFriend(friend)}
+                        onClick={() => handleSelectFriend(friend, setSelectedUser, user, navigate)}
                       >
                         <MiniUserCard
                           key={index}
@@ -313,6 +313,8 @@ const DetailGame = () => {
                           image={friend.file}
                         />
                       </div>
+
+                      
                     ))}
                 </div>
               </>

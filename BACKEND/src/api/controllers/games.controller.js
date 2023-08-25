@@ -41,7 +41,7 @@ const gameByID = async (req, res, next) => {
   console.log(req.params);
 
   try {
-    const gameID = await Game.findById(id);
+    const gameID = await Game.findById(id).populate("owners");
 
     gameID
       ? res.status(200).json(gameID)
@@ -180,23 +180,22 @@ const gameByOwners = async (req, res, next) => {
 //!----------------------------------------------------
 const gamesByCities = async (req, res, next) => {
   console.log("entra en game by city")
-  const { title, city } = req.params;
+  const { id, city } = req.params;
   //Utilizamos la función para verificar si la ciudad es válida antes de hacer nada
   const cityIsValid = cityValidation(city);
 
-  const titleToSearch = firstToUpperCase(title);
   if (cityIsValid === false) {
     return res.status(404).json("City is not valid");
   }
   try {
     //*Obtenemos el juego y los usuarios populados, extrayendo los campos de chats
-    const games = await Game.find({ title: titleToSearch }).populate({
+    const games = await Game.findById(id).populate({
       path: "owners",
       select: "-chats -conversations", // Aquí excluimos los campos que no queremos
     });
-    console.log("game", games.length)
 
-    if (games?.length > 0) {
+
+    if (games) {
       console.log("entra en length")
       //Usamos un Promise all para poder usar el await y manejar la asincronía
       const ownersInCity = await Promise.all(
@@ -241,7 +240,7 @@ const byPlayingTime = async (req, res, next) => {
 
   try {
     //PARA ENCONTRAR ELEMENTOS IGUALES O SUPERIORES A LA PUNTUACIÓN ELEGIDA, PONEMOS EL OPERADOR DE MONGO $gte
-    const games = await Game.find({ playTime: playingTime });
+    const games = await Game.find({ playTime: playingTime }).populate("owners");
     if (games.length > 0) {
       return res.status(200).json(games);
     } else {
@@ -293,7 +292,7 @@ const byType = async (req, res, next) => {
       return type.charAt(0).toUpperCase() + type.slice(1);
     });
 
-    const games = await Game.find({ typesList: { $in: typesArray } });
+    const games = await Game.find({ typesList: { $in: typesArray } }).populate("owners");
 
     if (games.length > 0) {
       return res.status(200).json(games);
@@ -430,7 +429,7 @@ const multIFilter = async (req, res, next) => {
       rating: { $gte: rating },
       players: players,
       playTime: playTime,
-    });
+    }).populate("owners");
 
     if (games.length > 0) {
       return res.status(200).json(games);

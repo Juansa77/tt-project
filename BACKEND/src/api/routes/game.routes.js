@@ -39,7 +39,7 @@ GamesRoutes.get('/byrate/:rating', gameByRating);
 GamesRoutes.get('/owners/:title', gameByOwners);
 
 //?-----Ruta GAME OWNED BY CITY-------------
-GamesRoutes.get('/:title/gamebycity/:city', gamesByCities);
+GamesRoutes.get('/:id/gamebycity/:city', gamesByCities);
 
 //?-----Ruta GAME BY RATING-------------
 GamesRoutes.get('/playing-time/:playingTime', byPlayingTime);
