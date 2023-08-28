@@ -856,7 +856,14 @@ const getGamesInUser = async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const user = await User.findById(id).populate("games");
+    const user = await User.findById(id).populate({
+      path: "games",
+      populate: {
+        path: "owners",
+        model: "User" // Asegúrate de utilizar el nombre correcto del modelo User
+      }
+    });
+    
     console.log(user);
     if (user) {
       return res.status(200).json(user.games);

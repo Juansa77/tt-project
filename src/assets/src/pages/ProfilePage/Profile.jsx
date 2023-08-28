@@ -31,7 +31,7 @@ const Profile = () => {
   const { setSelectedUser, totalRequests, setTotalRequests } = useUserContext();
 
 
-
+console.log(gamesData)
 
   //* USEEFFECT PARA CARGAR LAS FRIENDS REQUESTS DEL USUARIO----
   useEffect(() => {
@@ -94,6 +94,8 @@ console.log("friendrequest en profile",friendRequests)
         console.error("Error fetching games:", error);
       });
   }, [userID]);
+
+  console.log(gamesData)
 
   //* USEEFFECT PARA CONTROLAR EL SERVICIO DE LOS AMIGOS DEL USUARIO
   useEffect(() => {

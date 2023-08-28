@@ -62,9 +62,10 @@
   padding: 1rem;
 }
 
-.profile-image {
-  min-height: 19vh;
-  min-width: 9vw;
+.profile-image-detail {
+  max-height: 20vh;
+  border-radius: 100%;
+
 }
 
 .profile-content,
@@ -182,7 +183,7 @@
     font-size: 3vw;
   }
 
-  .profile-image {
+  .profile-image-detail {
     min-height: 15vh;
     max-height: 17vh;
     min-width: 25vw;

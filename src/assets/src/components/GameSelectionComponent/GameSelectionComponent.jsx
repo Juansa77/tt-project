@@ -41,11 +41,12 @@ const GameSelectionComponent = ({
 
   //*-----LÓGICA PARA EL SCROLL HORIZONTAL-----
   const handleScroll = (direction) => {
-    console.log("entra");
+
     const container = document.getElementById("gameSelectionContainer");
-    const containerWidth = container.offsetWidth / 3;
+    const containerWidth = container.offsetWidth/2;
+    console.log(container.offsetWidth )
     //*Aumenta el divisor para aumentar el tamaño del div de scroll con los botones
-    const containerScrollWidth = container.scrollWidth / 2.4;
+    const containerScrollWidth = containerWidth + 500
     console.log(containerWidth);
     console.log(containerScrollWidth);
 
@@ -53,7 +54,8 @@ const GameSelectionComponent = ({
       setScrollPosition(Math.max(0, scrollPosition - 600));
     } else if (direction === "right") {
       console.log(scrollPosition);
-      const maxScrollRight = containerScrollWidth - containerWidth;
+      const maxScrollRight = (containerScrollWidth - containerWidth) * 10
+      console.log(maxScrollRight)
       const newScrollPosition = Math.min(maxScrollRight, scrollPosition + 600);
       if (newScrollPosition !== scrollPosition) {
         setScrollPosition(newScrollPosition);
@@ -189,7 +191,7 @@ const GameSelectionComponent = ({
     }
   }, [search, searchFunction]);
 
-
+console.log("selected7", selectedCollection7)
 
   return (
     <div className="GameSelectionWrapper">

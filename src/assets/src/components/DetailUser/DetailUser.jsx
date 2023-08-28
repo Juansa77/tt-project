@@ -154,7 +154,7 @@ const DetailUser = () => {
         <div className="profile-card-user">
           <div className="profile-header-detail">
             <img
-              className="profile-image"
+              className="profile-image-detail"
               src={selectedUser?.file}
               alt="Profile"
             />

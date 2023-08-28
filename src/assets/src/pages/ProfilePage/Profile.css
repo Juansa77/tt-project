@@ -6,7 +6,8 @@
  min-height: min-content;
  max-height: min-content;
   align-items: flex-start;
-  max-width: 100%;
+  max-width: 70%;
+  min-width: 70%;
   gap: 1vh;
   flex-wrap: wrap;
   padding: 1rem;
@@ -38,7 +39,8 @@ border-radius: 10px 10px 0 0;
   display: flex;
   height: 25vh;
   align-items:center;
-  width: 100%;
+  max-width: 70%;
+  min-width: 70%;
   gap: 2vh;
 
 border: 1px solid rgba(173, 166, 166, 0.404);
@@ -91,9 +93,9 @@ border: 1px solid rgba(173, 166, 166, 0.404);
 }
 
 .profile-image {
-  height: 19vh;
-  min-width: 9vw;
-  border-radius: 50%;
+  min-height: 19vh;
+  
+  border-radius: 100%;
 z-index: 1;
   
 }
@@ -102,6 +104,10 @@ z-index: 1;
 
   width: 100%;
   margin-top:7vh;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
 
   border-radius: 20px;
 
@@ -116,7 +122,7 @@ z-index: 1;
   padding: 2rem;
   height: 25vh;
   position: relative;
-  width: 100%;
+  width: 50%;
   
   align-content: center;
   align-items: center;
@@ -158,7 +164,8 @@ border-radius: 10px;
   border-radius: 10px 10px 0 0;
   background-color: rgba(23, 21, 27, 0.329);
   margin-top: 3vh;
-  width: 100%;
+  max-width: 70%;
+  min-width: 70%;
   min-height: 30vh;
   max-height: min-content;
 }
@@ -314,12 +321,18 @@ border-radius: 10px;
  
   }
 
+.profile-image{
+
+  min-height: 19vh;
+  max-width: 19vh;
+}
+
   .games-list-user {
     display: flex;
    min-height: 35vh;
    max-height: min-content;
-justify-content: center;
-    width: 90vw;
+justify-content: left;
+    min-width: 90%;
     gap: 2vh;
     flex-wrap: wrap;
     padding: 1rem;
@@ -335,10 +348,16 @@ justify-content: center;
   }
 
   .profile-section-friendRequest{
-    width: 100%;
+    min-width: 90%;
   }
 
   .profile-dataUserWrap{
     width: 90%;
   }
+
+.friends-list{
+  min-width: 90%;
+}
+
+
 }
