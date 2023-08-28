@@ -14,7 +14,8 @@ const {
   deleteGameByID,
   multIFilter,
   addGameToDb,
-  byPlayers
+  byPlayers,
+   gamesInCity
 } = require('../controllers/games.controller');
 const { isAuth, isAuthAdmin } = require('../../middlewares/auth.midddleware');
 
@@ -50,6 +51,8 @@ GamesRoutes.get('/bytype', byType);
 //?-----Ruta GAME BY PLAYERS-------------
 GamesRoutes.get('/byplayers', byPlayers);
 
+//?-----Ruta GAMES PLAYED IN CITY-------------
+GamesRoutes.get('/playedincity/:city',[isAuth], gamesInCity);
 
 //?-----Ruta UPDATE GAME--------
 GamesRoutes.patch(

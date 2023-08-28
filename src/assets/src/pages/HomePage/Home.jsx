@@ -9,6 +9,7 @@ import {
   gameByRating,
   gameByType,
   gameByPlayers,
+  gamesPlayedInCity,
 } from "../../services/API_USER/game.service";
 import GameSelectionComponent from "../../components/GameSelectionComponent/GameSelectionComponent";
 import CategorySplitter from "../../components/CategorySplitter";
@@ -86,12 +87,37 @@ const Home = () => {
       <div className="hero">
         <SliderGallery slides={SliderData} />
       </div>
+      {user && (
 
+        <>
+        <CategorySplitter
+        title={`Lo más jugado en ${user.city}`}
+        text={"Descubre los juegos más jugados en tu ciudad"}
+      />
+        <div
+          className={`gameContainer ${
+            verticalScrollPosition >= 0 ? "visible" : ""
+          }`}
+        >
+          <GameSelectionComponent
+            searchFunction={gamesPlayedInCity}
+            searchTerm={user?.city}
+            collectionSetter={"collectionCity"}
+          />
+        </div>
+
+        </>
+      )}
       {user && user?.games?.length > 0 && (
-          <div className="RecomendationsContainer">
+        <div className="RecomendationsContainer">
           <div className="recomendationTextWrapper">
-          <h2 className="recomendationsHeaderText">Recomendaciones personalizadas</h2>
-          <h4 className="recomendationsSubtext">Basado en tus juegos preferidos</h4></div>
+            <h2 className="recomendationsHeaderText">
+              Recomendaciones personalizadas
+            </h2>
+            <h4 className="recomendationsSubtext">
+              Basado en tus juegos preferidos
+            </h4>
+          </div>
           <div
             className={`gameContainerRecomendation ${
               verticalScrollPosition >= 0 ? "visible" : ""
@@ -99,8 +125,8 @@ const Home = () => {
           >
             <GameRecomendationComponent />
           </div>
-          </div>
-        )}
+        </div>
+      )}
 
       <CategorySplitter
         title={"Para partidas rápidas..."}
@@ -216,12 +242,6 @@ const Home = () => {
           collectionSetter={"collection6"}
         />
       </div>
-
-      
-      
-
-     
-      
 
       <Footer />
     </div>

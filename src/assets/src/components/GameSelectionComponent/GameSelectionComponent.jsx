@@ -33,6 +33,9 @@ const GameSelectionComponent = ({
     setSelectedCollection5,
     selectedCollection6,
     setSelectedCollection6,
+    selectedCollection7,
+    setSelectedCollection7,
+    
   } = useGameContext();
 
 
@@ -168,6 +171,21 @@ const GameSelectionComponent = ({
         }
 
         break;
+
+        case "collectionCity":
+          if (selectedCollection7 == null) {
+            const fetchData = async () => {
+              const data = await searchFunction(search);
+              console.log("LLamada hecha");
+              setResponse(data);
+              setSelectedCollection7(data);
+            };
+            fetchData();
+          } else {
+            setResponse(selectedCollection7);
+          }
+  
+          break;
     }
   }, [search, searchFunction]);
 
@@ -189,7 +207,7 @@ const GameSelectionComponent = ({
       >
         {response?.data?.map(
           (game, index) =>
-            index <=18 && (
+          (
               <div className="card-container-selection" key={index}>
                 <div onClick={() => handleSelectGame(game, setSelectedGame, navigate)}>
                   <img

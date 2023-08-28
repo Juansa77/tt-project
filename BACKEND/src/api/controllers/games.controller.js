@@ -63,7 +63,7 @@ const addGameToUser = async (req, res, next) => {
     await Game.syncIndexes();
     const user = await User.findById(userId);
     const game = await Game.findById(gameId);
-    console.log(user)
+    console.log(user);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -157,6 +157,36 @@ const gameByRating = async (req, res, next) => {
 };
 
 //!---------------------------------------
+//?-----------GAMES  IN CITY------------
+//!---------------------------------------
+
+const gamesInCity = async (req, res, next) => {
+  const { city } = req.params;
+
+  try {
+    //* Primero buscamos usuarios que estén en la cidudad
+
+    const usersInCity = await User.find({ city });
+
+    //* Obtenemos las IDs de los usuarios de la ciudad
+
+    const userIDs = usersInCity.map((user) => user._id);
+
+    //*Buscamos en los juegos los usuarios que vivan en esa ciudad
+
+    const games = await Game.find({ owners: { $in: userIDs } }).populate("owners");
+
+    if (games.length > 0) {
+      return res.status(200).json(games);
+    } else {
+      return res.status(404).json("Games not found");
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+//!---------------------------------------
 //?-----------GAME  BY OWNERS------------
 //!---------------------------------------
 const gameByOwners = async (req, res, next) => {
@@ -179,7 +209,7 @@ const gameByOwners = async (req, res, next) => {
 //?-----------GAME TITLE OWNED BY CITY------------
 //!----------------------------------------------------
 const gamesByCities = async (req, res, next) => {
-  console.log("entra en game by city")
+  console.log("entra en game by city");
   const { id, city } = req.params;
   //Utilizamos la función para verificar si la ciudad es válida antes de hacer nada
   const cityIsValid = cityValidation(city);
@@ -194,9 +224,8 @@ const gamesByCities = async (req, res, next) => {
       select: "-chats -conversations", // Aquí excluimos los campos que no queremos
     });
 
-
     if (games) {
-      console.log("entra en length")
+      console.log("entra en length");
       //Usamos un Promise all para poder usar el await y manejar la asincronía
       const ownersInCity = await Promise.all(
         games.flatMap(async (game) => {
@@ -209,7 +238,7 @@ const gamesByCities = async (req, res, next) => {
               }
             })
           );
-        
+
           //retotnamos el array mappeado controlado que no sea undefined
           return mappedOwners.filter((owner) => owner !== undefined);
         })
@@ -217,7 +246,7 @@ const gamesByCities = async (req, res, next) => {
       //aplanamos el array para devolverlo
       const flattenedOwners = ownersInCity.flat();
       //Ternario para manejar si hay propietarios del título y manejar la respuesta
-console.log(flattenedOwners)
+      console.log(flattenedOwners);
       return flattenedOwners.length === 0
         ? res.status(404).json({ message: "Game not found in city" })
         : res.status(200).json(flattenedOwners);
@@ -236,7 +265,7 @@ console.log(flattenedOwners)
 
 const byPlayingTime = async (req, res, next) => {
   const { playingTime } = req.params;
-  console.log(playingTime)
+  console.log(playingTime);
 
   try {
     //PARA ENCONTRAR ELEMENTOS IGUALES O SUPERIORES A LA PUNTUACIÓN ELEGIDA, PONEMOS EL OPERADOR DE MONGO $gte
@@ -251,16 +280,15 @@ const byPlayingTime = async (req, res, next) => {
   }
 };
 
-
 //!----------------------------------------------
 //?-----------GAME  BY PLAYERS------------
 //!----------------------------------------------
 
-const byPlayers= async (req, res, next) => {
+const byPlayers = async (req, res, next) => {
   const { players } = req.query;
-  console.log(req.params)
-  console.log(players)
-  console.log("entra en byplayers")
+  console.log(req.params);
+  console.log(players);
+  console.log("entra en byplayers");
 
   try {
     //PARA ENCONTRAR ELEMENTOS IGUALES O SUPERIORES A LA PUNTUACIÓN ELEGIDA, PONEMOS EL OPERADOR DE MONGO $gte
@@ -275,14 +303,13 @@ const byPlayers= async (req, res, next) => {
   }
 };
 
-
 //!----------------------------------------------
 //?-----------GAME  BY TYPE------------
 //!----------------------------------------------
 
 const byType = async (req, res, next) => {
   const { type } = req.query;
-  console.log(type)
+  console.log(type);
 
   try {
     let typesArray = type.split(","); // Obtener un array de strings separados por comas
@@ -292,7 +319,9 @@ const byType = async (req, res, next) => {
       return type.charAt(0).toUpperCase() + type.slice(1);
     });
 
-    const games = await Game.find({ typesList: { $in: typesArray } }).populate("owners");
+    const games = await Game.find({ typesList: { $in: typesArray } }).populate(
+      "owners"
+    );
 
     if (games.length > 0) {
       return res.status(200).json(games);
@@ -456,4 +485,5 @@ module.exports = {
   multIFilter,
   addGameToDb,
   byPlayers,
+  gamesInCity,
 };

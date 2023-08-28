@@ -34,7 +34,7 @@ const DetailGame = () => {
   const [responseType, setResponseType] = useState();
   const [isLoadingResponse, setIsLoadingResponse] = useState(true);
   const userID = user?.id;
-
+console.log("selectedgame al principio", selectedGame)
   //* --Game by category------
 
   const handleGameByType = async (type) => {
@@ -300,7 +300,7 @@ const DetailGame = () => {
                   <h1>En tu ciudad lo tienen...</h1>
                 </div>
                 <div className="usersGameDetailWrapper">
-                  {selectedGame?.owners?.length > 0 &&
+                  {
                     selectedGame?.owners?.map((friend, index) => (
                        friend?.city == user?.city &&
                       <div
