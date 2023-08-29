@@ -69,7 +69,8 @@ border: 1px solid rgba(173, 166, 166, 0.404);
   justify-items: center;
   align-content: center;
   align-items: center;
-  width: 100%;
+  max-width: 70%;
+  min-width: 70%;
   padding: 1rem;
   
   border-radius: 10px;

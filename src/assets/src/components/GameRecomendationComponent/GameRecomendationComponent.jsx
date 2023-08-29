@@ -34,9 +34,9 @@ const GameRecomendationComponent = () => {
   const handleScroll = (direction) => {
     console.log("entra");
     const container = document.getElementById("gameRecomendationContainer");
-    const containerWidth = container.offsetWidth / 3;
+    const containerWidth = container.offsetWidth ;
     //*Aumenta el divisor para aumentar el tamaño del div de scroll con los botones
-    const containerScrollWidth = container.scrollWidth / 2.4;
+    const containerScrollWidth = containerWidth *1.5;
     console.log(containerWidth);
     console.log(containerScrollWidth);
 

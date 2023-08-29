@@ -3,7 +3,7 @@
   position: relative;
   min-height: 40vh;
   max-height: 40vh;
-  width: 100%;
+  min-width: min-content;
   align-content: center;
   align-items: center;
   scroll-behavior: smooth;
@@ -14,6 +14,12 @@
 
 }
 
+
+.GameSelectionWrapper{
+  
+ 
+width: min-content;
+}
 
 .card-container-selection {
   min-width: 20vw;
